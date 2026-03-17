@@ -1,0 +1,32 @@
+name: Publicar artigo do dia
+
+on:
+  schedule:
+    - cron: '0 11 * * *'
+  workflow_dispatch:
+
+jobs:
+  publicar:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout do repositório
+        uses: actions/checkout@v4
+
+      - name: Configurar Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Publicar artigo do dia
+        run: python3 .github/scripts/publicar_artigo.py
+
+      - name: Commit e push se houver mudança
+        run: |
+          git config user.name "Foco & Rotina Bot"
+          git config user.email "bot@focoerotina.com.br"
+          git add -A
+          git diff --staged --quiet || git commit -m "✅ Artigo do dia publicado automaticamente"
+          git push
