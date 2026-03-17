@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Clube Restrito União Patriota — WhatsApp e Telegram</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --verde:#006400;
+  --verde-btn:#007a00;
+  --verde-hover:#005000;
+  --verde-claro:#e8f5e9;
+  --amarelo:#FFD700;
+  --azul:#002776;
+  --branco:#ffffff;
+  --creme:#fffdf5;
+  --texto:#1a1a1a;
+  --texto2:#333333;
+  --cinza:#f5f5f0;
+  --borda:#ddd;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Poppins',sans-serif;background:var(--creme);color:var(--texto);overflow-x:hidden;font-size:18px;}
+
+/* TOPO */
+.topo-bar{background:var(--verde);text-align:center;padding:14px 20px;font-size:15px;font-weight:800;letter-spacing:1px;text-transform:uppercase;color:var(--amarelo);border-bottom:5px solid var(--amarelo);}
+
+/* HERO */
+.hero{background:var(--verde);padding:60px 24px 56px;text-align:center;position:relative;overflow:hidden;}
+.hero::after{content:'';position:absolute;bottom:0;left:0;right:0;height:6px;background:var(--amarelo);}
+.hero-inner{max-width:860px;margin:0 auto;position:relative;z-index:1;}
+.badge{display:inline-block;background:var(--amarelo);color:var(--azul);font-size:13px;font-weight:800;letter-spacing:2px;text-transform:uppercase;padding:8px 24px;border-radius:3px;margin-bottom:28px;}
+.flags-hero{display:flex;justify-content:center;gap:16px;margin-bottom:20px;}
+.bandeira-br{display:inline-block;width:60px;height:40px;background:#009c3b;border-radius:3px;position:relative;box-shadow:0 2px 8px rgba(0,0,0,0.3);}
+.bandeira-br::before{content:'';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:0;height:0;border-left:28px solid transparent;border-right:28px solid transparent;border-bottom:18px solid #FFDF00;margin-top:-9px;}
+.bandeira-br::after{content:'';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:0;height:0;border-left:28px solid transparent;border-right:28px solid transparent;border-top:18px solid #FFDF00;margin-top:9px;}
+.bandeira-br-circle{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:20px;height:20px;background:#002776;border-radius:50%;z-index:2;}
+h1{font-size:clamp(2rem,5vw,3.4rem);font-weight:900;line-height:1.15;color:var(--branco);margin-bottom:16px;text-transform:uppercase;}
+h1 em{color:var(--amarelo);font-style:normal;display:block;}
+.hero-sub{font-size:clamp(1.1rem,2.5vw,1.35rem);color:rgba(255,255,255,0.9);max-width:680px;margin:0 auto 40px;line-height:1.8;font-weight:500;}
+
+/* BOTÃO */
+.btn-cta{display:inline-block;background:var(--verde-btn);color:var(--branco);font-family:'Poppins',sans-serif;font-size:1.2rem;font-weight:800;text-transform:uppercase;letter-spacing:1.5px;padding:22px 52px;border-radius:6px;text-decoration:none;transition:all 0.2s;border:4px solid var(--amarelo);cursor:pointer;box-shadow:0 4px 20px rgba(0,0,0,0.2);}
+.btn-cta:hover{background:var(--verde-hover);transform:translateY(-3px);box-shadow:0 8px 28px rgba(0,0,0,0.25);}
+.btn-cta.full{display:block;text-align:center;width:100%;}
+.cta-sub{font-size:1rem;color:rgba(255,255,255,0.75);margin-top:14px;font-weight:600;}
+.cta-sub-dark{font-size:1rem;color:#555;margin-top:14px;font-weight:600;text-align:center;}
+.cta-wrapper{text-align:center;margin-top:36px;}
+
+/* FAIXA NÚMEROS */
+.proof-bar{background:var(--azul);padding:28px 24px;border-bottom:5px solid var(--amarelo);}
+.proof-bar-inner{max-width:860px;margin:0 auto;display:flex;justify-content:center;gap:52px;flex-wrap:wrap;}
+.proof-item{text-align:center;}
+.proof-num{font-size:2.6rem;font-weight:900;color:var(--amarelo);display:block;line-height:1;}
+.proof-label{font-size:13px;color:rgba(255,255,255,0.8);letter-spacing:1px;text-transform:uppercase;font-weight:700;margin-top:4px;}
+
+/* SEÇÕES */
+section{padding:72px 24px;}
+.container{max-width:860px;margin:0 auto;}
+.section-label{font-size:13px;letter-spacing:3px;text-transform:uppercase;color:var(--verde);font-weight:800;margin-bottom:10px;}
+h2{font-size:clamp(1.8rem,4vw,2.6rem);font-weight:900;line-height:1.2;margin-bottom:24px;text-transform:uppercase;color:var(--texto);}
+h2 em{color:var(--verde);font-style:normal;}
+
+/* PROBLEMA */
+.problema{background:var(--branco);}
+.problema p,.solucao p{font-size:1.15rem;color:var(--texto2);line-height:1.9;margin-bottom:18px;max-width:740px;}
+.problema-lista{list-style:none;margin-top:28px;}
+.problema-lista li{padding:18px 0 18px 40px;border-bottom:2px solid #eee;font-size:1.1rem;color:var(--texto2);position:relative;font-weight:600;line-height:1.6;}
+.problema-lista li::before{content:'✗';color:#cc0000;font-weight:900;font-size:1.2rem;position:absolute;left:0;top:18px;}
+
+/* SOLUÇÃO */
+.solucao{background:var(--creme);}
+.destaque-verde{background:var(--verde-claro);border-left:6px solid var(--verde);padding:24px 28px;margin:28px 0;border-radius:0 6px 6px 0;}
+.destaque-verde p{color:var(--verde)!important;font-weight:800!important;font-size:1.15rem!important;margin:0!important;line-height:1.7;}
+
+/* O QUE RECEBE */
+.recebe{background:var(--verde);}
+.recebe h2{color:var(--branco);}
+.recebe .section-label{color:var(--amarelo);}
+.recebe-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px;margin-top:36px;}
+.recebe-card{background:rgba(255,255,255,0.1);border:2px solid rgba(255,255,255,0.2);border-top:5px solid var(--amarelo);border-radius:6px;padding:32px 26px;}
+.recebe-icon{font-size:2.8rem;margin-bottom:16px;display:block;}
+.recebe-card h3{font-size:1.1rem;font-weight:800;margin-bottom:12px;color:var(--amarelo);text-transform:uppercase;}
+.recebe-card p{font-size:1rem;color:rgba(255,255,255,0.85);line-height:1.75;}
+
+/* FAIXA PATRIÓTICA */
+.faixa-patria{background:var(--azul);padding:44px 24px;text-align:center;border-top:5px solid var(--amarelo);border-bottom:5px solid var(--amarelo);}
+.faixa-patria .flags-hero{margin-bottom:20px;}
+.faixa-patria h3{font-size:clamp(1.3rem,3vw,2rem);font-weight:900;text-transform:uppercase;letter-spacing:2px;color:var(--amarelo);margin-bottom:10px;}
+.faixa-patria p{color:rgba(255,255,255,0.85);font-size:1.1rem;font-weight:600;max-width:560px;margin:0 auto;}
+
+/* DEPOIMENTOS */
+.depoimentos{background:var(--branco);}
+.dep-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:24px;margin-top:36px;}
+.dep-card{background:var(--creme);border:2px solid #ddd;border-left:6px solid var(--verde);padding:28px;border-radius:0 6px 6px 0;}
+.dep-estrelas{color:#f5a623;font-size:1.3rem;margin-bottom:14px;letter-spacing:2px;}
+.dep-texto{font-size:1.05rem;color:var(--texto2);line-height:1.8;font-style:italic;margin-bottom:18px;}
+.dep-autor{font-size:1rem;font-weight:800;color:var(--verde);}
+.dep-cidade{font-size:0.9rem;color:#777;font-weight:500;}
+
+/* OFERTA */
+.oferta{background:var(--creme);}
+.oferta-box{background:var(--branco);border:4px solid var(--verde);border-radius:10px;padding:56px 44px;text-align:center;max-width:580px;margin:0 auto;box-shadow:0 8px 40px rgba(0,0,0,0.12);}
+.oferta-tag{background:var(--verde);color:var(--branco);font-size:13px;font-weight:800;letter-spacing:2px;text-transform:uppercase;padding:8px 22px;border-radius:3px;display:inline-block;margin-bottom:24px;}
+.oferta-box h2{font-size:clamp(1.6rem,3vw,2.2rem);margin-bottom:10px;color:var(--texto);}
+.preco-antigo{font-size:1.1rem;color:#aaa;text-decoration:line-through;margin-bottom:6px;font-weight:600;}
+.preco-atual{font-size:4.5rem;font-weight:900;color:var(--verde);line-height:1;margin-bottom:6px;}
+.preco-periodo{font-size:1rem;color:#777;margin-bottom:36px;font-weight:600;}
+.garantia-txt{font-size:0.95rem;color:#888;margin-top:16px;}
+.seguro-icons{display:flex;justify-content:center;gap:20px;margin-top:20px;flex-wrap:wrap;}
+.seguro-item{font-size:0.95rem;color:#666;font-weight:700;display:flex;align-items:center;gap:6px;}
+
+/* GARANTIA */
+.garantia{background:var(--verde-claro);}
+.garantia-box{display:flex;gap:32px;align-items:flex-start;max-width:700px;background:var(--branco);border:3px solid var(--verde);border-radius:8px;padding:40px;}
+.garantia-num{font-size:6rem;font-weight:900;color:var(--verde);line-height:1;flex-shrink:0;}
+.garantia-texto h3{font-size:1.4rem;font-weight:800;margin-bottom:14px;text-transform:uppercase;color:var(--verde);}
+.garantia-texto p{font-size:1.05rem;color:var(--texto2);line-height:1.8;}
+
+/* FAQ */
+.faq{background:var(--branco);}
+.faq-item{border-bottom:2px solid #eee;padding:22px 0;cursor:pointer;}
+.faq-pergunta{font-size:1.05rem;font-weight:800;color:var(--texto);display:flex;justify-content:space-between;align-items:center;gap:16px;text-transform:uppercase;}
+.faq-pergunta::after{content:'+';font-size:1.8rem;color:var(--verde);flex-shrink:0;font-weight:900;transition:transform 0.2s;}
+.faq-item.open .faq-pergunta::after{transform:rotate(45deg);}
+.faq-resposta{font-size:1.05rem;color:var(--texto2);line-height:1.8;max-height:0;overflow:hidden;transition:max-height 0.3s ease,padding 0.3s;}
+.faq-item.open .faq-resposta{max-height:300px;padding-top:16px;}
+
+/* FOOTER CTA */
+.footer-cta{background:var(--verde);padding:72px 24px;text-align:center;border-top:6px solid var(--amarelo);}
+.footer-cta h2{font-size:clamp(1.8rem,4vw,2.8rem);margin-bottom:16px;color:var(--branco);}
+.footer-cta p{color:rgba(255,255,255,0.85);margin-bottom:36px;font-size:1.15rem;font-weight:500;}
+
+/* RODAPÉ */
+footer{background:#111;padding:32px 24px;text-align:center;}
+footer p{font-size:0.95rem;color:rgba(255,255,255,0.4);line-height:1.8;}
+footer a{color:rgba(255,255,255,0.5);text-decoration:underline;}
+
+/* STICKY */
+.sticky-bar{position:fixed;bottom:0;left:0;right:0;background:var(--verde);border-top:4px solid var(--amarelo);padding:16px 24px;display:flex;align-items:center;justify-content:center;gap:20px;z-index:100;transform:translateY(100%);transition:transform 0.35s;flex-wrap:wrap;}
+.sticky-bar.visible{transform:translateY(0);}
+.sticky-bar span{color:var(--branco);font-weight:800;font-size:1rem;text-transform:uppercase;letter-spacing:1px;}
+.sticky-bar .btn-sticky{background:var(--amarelo);color:var(--azul);padding:14px 32px;border-radius:4px;font-weight:900;font-size:1rem;text-decoration:none;letter-spacing:1px;text-transform:uppercase;white-space:nowrap;font-family:'Poppins',sans-serif;border:none;}
+
+@media(max-width:600px){
+  body{font-size:17px;}
+  .oferta-box{padding:36px 20px;}
+  .garantia-box{flex-direction:column;gap:16px;padding:28px 20px;}
+  .garantia-num{font-size:4rem;}
+  .proof-bar-inner{gap:28px;}
+  .btn-cta{font-size:1.1rem;padding:20px 32px;}
+}
+</style>
+</head>
+<body>
+
+<div class="topo-bar">
+  VAGAS LIMITADAS — Clube Restrito União Patriota — Acesso Imediato
+</div>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-inner">
+    <span class="badge">WhatsApp e Telegram — Acesso Exclusivo</span>
+    <div class="flags-hero">
+      <span class="bandeira-br"><span class="bandeira-br-circle"></span></span>
+      <span style="font-size:2.8rem;">🦅</span>
+      <span class="bandeira-br"><span class="bandeira-br-circle"></span></span>
+    </div>
+    <h1>A verdade que a mídia<br>esconde chega<br><em>direto no seu celular</em></h1>
+    <p class="hero-sub">Todo dia: 1 análise em vídeo + 5 notícias importantes que os grandes jornais não publicam. No WhatsApp e no Telegram. Só para membros do Clube Restrito União Patriota.</p>
+    <div class="cta-wrapper">
+      <a href="https://pay.kirvano.com/d6d88067-666a-4499-b28f-bcc941ff3b10" class="btn-cta">ASSINAR AGORA — R$ 22,22/mês</a>
+      <p class="cta-sub">✓ Acesso imediato &nbsp;·&nbsp; ✓ Cancele quando quiser &nbsp;·&nbsp; ✓ 7 dias de garantia</p>
+    </div>
+  </div>
+</section>
+
+<!-- NÚMEROS -->
+<div class="proof-bar">
+  <div class="proof-bar-inner">
+    <div class="proof-item"><span class="proof-num">1 milhão</span><span class="proof-label">Leitores por mês</span></div>
+    <div class="proof-item"><span class="proof-num">4 anos</span><span class="proof-label">Informando o Brasil</span></div>
+    <div class="proof-item"><span class="proof-num">100%</span><span class="proof-label">Independente</span></div>
+  </div>
+</div>
+
+<!-- PROBLEMA -->
+<section class="problema">
+  <div class="container">
+    <div class="section-label">O problema</div>
+    <h2>A mídia está te <em>enganando</em></h2>
+    <p>A Globo, o UOL, a Folha — eles escolhem o que você vai ver. Quando não podem esconder, distorcem. Quando não podem distorcer, ridicularizam.</p>
+    <p>E enquanto isso acontece, decisões que afetam você, sua família e seus filhos são tomadas longe dos olhos do povo — do jeito que o sistema quer.</p>
+    <ul class="problema-lista">
+      <li>Escândalos do governo são enterrados antes de chegar ao noticiário</li>
+      <li>Votações no Congresso que mudam sua vida passam sem nenhuma cobertura</li>
+      <li>Quem pensa como você é tratado como marginal pela grande imprensa</li>
+      <li>As notícias importantes chegam tarde demais — quando não dá mais para fazer nada</li>
+      <li>É cada vez mais difícil encontrar informação honesta e sem viés</li>
+    </ul>
+  </div>
+</section>
+
+<!-- SOLUÇÃO -->
+<section class="solucao">
+  <div class="container">
+    <div class="section-label">A solução</div>
+    <h2>O Clube Restrito foi criado <em>para você</em></h2>
+    <p>Há 4 anos a União Patriota publica o que a mídia grande não tem coragem de mostrar. Mais de 1 milhão de brasileiros leem nosso portal todo mês.</p>
+    <p>Agora criamos o Clube Restrito: um grupo fechado no WhatsApp e um canal privado no Telegram onde você recebe todo dia o conteúdo mais importante — com análise honesta, sem filtro e sem censura.</p>
+    <p>Simples de usar. Funciona no celular. Não precisa saber usar computador.</p>
+    <div class="destaque-verde">
+      <p>Todo dia de manhã você acorda com a informação que realmente importa — antes de qualquer jornal, antes de qualquer rede social.</p>
+    </div>
+    <div class="cta-wrapper">
+      <a href="https://pay.kirvano.com/d6d88067-666a-4499-b28f-bcc941ff3b10" class="btn-cta">ASSINAR AGORA — R$ 22,22/mês</a>
+      <p class="cta-sub-dark">✓ Acesso imediato &nbsp;·&nbsp; ✓ Cancele quando quiser &nbsp;·&nbsp; ✓ 7 dias de garantia</p>
+    </div>
+  </div>
+</section>
+
+<!-- O QUE RECEBE -->
+<section class="recebe">
+  <div class="container">
+    <div class="section-label">O que está incluído</div>
+    <h2>O que você recebe <em>todo dia</em></h2>
+    <div class="recebe-grid">
+      <div class="recebe-card">
+        <span class="recebe-icon">🎥</span>
+        <h3>Vídeo de análise diária</h3>
+        <p>Um vídeo todo dia com análise direta sobre o fato mais importante do momento. Sem enrolação, sem politicamente correto.</p>
+      </div>
+      <div class="recebe-card">
+        <span class="recebe-icon">📰</span>
+        <h3>5 notícias que importam</h3>
+        <p>As 5 notícias do dia selecionadas pela nossa equipe — as que os grandes jornais ignoram ou distorcem.</p>
+      </div>
+      <div class="recebe-card">
+        <span class="recebe-icon">🔍</span>
+        <h3>Informações exclusivas</h3>
+        <p>Bastidores, fontes e apurações que não publicamos no site. Só para quem é membro do Clube Restrito.</p>
+      </div>
+      <div class="recebe-card">
+        <span class="recebe-icon">⚡</span>
+        <h3>Alertas em tempo real</h3>
+        <p>Quando algo importante acontece no Brasil, você é o primeiro a saber — diretamente no seu WhatsApp ou Telegram.</p>
+      </div>
+      <div class="recebe-card">
+        <span class="recebe-icon">🗳️</span>
+        <h3>Cobertura das eleições 2026</h3>
+        <p>Análise completa de cada candidato, cada votação e cada aliança. Para você chegar nas urnas bem informado.</p>
+      </div>
+      <div class="recebe-card">
+        <span class="recebe-icon">🤝</span>
+        <h3>Comunidade de patriotas</h3>
+        <p>Faça parte de um grupo de brasileiros que pensam como você. Troque informações e fortaleça o campo conservador.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAIXA PATRIÓTICA -->
+<div class="faixa-patria">
+  <div class="flags-hero">
+    <span class="bandeira-br"><span class="bandeira-br-circle"></span></span>
+    <span style="font-size:2.5rem;">🦅</span>
+    <span class="bandeira-br"><span class="bandeira-br-circle"></span></span>
+  </div>
+  <h3>Deus, Pátria, Família e Liberdade</h3>
+  <p>O Brasil que amamos merece brasileiros informados e vigilantes. Junte-se ao Clube Restrito União Patriota.</p>
+</div>
+
+<!-- DEPOIMENTOS -->
+<section class="depoimentos">
+  <div class="container">
+    <div class="section-label">O que dizem nossos leitores</div>
+    <h2>Quem já assinou <em>não abre mão</em></h2>
+    <div class="dep-grid">
+      <div class="dep-card">
+        <div class="dep-estrelas">★★★★★</div>
+        <p class="dep-texto">"Finalmente um lugar que fala o que a gente pensa sem medo. Recebo as notícias todo dia no WhatsApp e compartilho com minha família. Não abro mão mais."</p>
+        <div class="dep-autor">Carlos R., 58 anos</div>
+        <div class="dep-cidade">São Paulo, SP</div>
+      </div>
+      <div class="dep-card">
+        <div class="dep-estrelas">★★★★★</div>
+        <p class="dep-texto">"A União Patriota publicou coisas que nenhum outro veículo tinha coragem de mostrar. Quando vi o Clube Restrito, assinei na hora. Vale muito mais do que R$ 22,22."</p>
+        <div class="dep-autor">Mariana F., 62 anos</div>
+        <div class="dep-cidade">Belo Horizonte, MG</div>
+      </div>
+      <div class="dep-card">
+        <div class="dep-estrelas">★★★★★</div>
+        <p class="dep-texto">"Chego de manhã, abro o WhatsApp e já tenho tudo o que precisa saber sobre o Brasil. Simples assim. Não preciso mais ficar procurando notícia em vários lugares."</p>
+        <div class="dep-autor">Roberto S., 55 anos</div>
+        <div class="dep-cidade">Curitiba, PR</div>
+      </div>
+    </div>
+    <div class="cta-wrapper">
+      <a href="https://pay.kirvano.com/d6d88067-666a-4499-b28f-bcc941ff3b10" class="btn-cta">ASSINAR AGORA — R$ 22,22/mês</a>
+      <p class="cta-sub-dark">✓ Acesso imediato &nbsp;·&nbsp; ✓ Cancele quando quiser &nbsp;·&nbsp; ✓ 7 dias de garantia</p>
+    </div>
+  </div>
+</section>
+
+<!-- OFERTA -->
+<section class="oferta" id="assinar">
+  <div class="container">
+    <div class="section-label">Oferta especial</div>
+    <div class="oferta-box">
+      <span class="oferta-tag">Acesso Imediato — WhatsApp e Telegram</span>
+      <h2>Clube Restrito<br>União Patriota</h2>
+      <p class="preco-antigo">De R$ 59,90/mês</p>
+      <div class="preco-atual">R$22,22</div>
+      <p class="preco-periodo">por mês · cancele quando quiser</p>
+      <a href="https://pay.kirvano.com/d6d88067-666a-4499-b28f-bcc941ff3b10" class="btn-cta full">ASSINAR AGORA</a>
+      <p class="garantia-txt">🔒 Pagamento 100% seguro · PIX, cartão ou boleto</p>
+      <div class="seguro-icons">
+        <span class="seguro-item">✓ Acesso imediato</span>
+        <span class="seguro-item">✓ Sem fidelidade</span>
+        <span class="seguro-item">✓ 7 dias de garantia</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GARANTIA -->
+<section class="garantia">
+  <div class="container">
+    <div class="section-label">Sem risco nenhum</div>
+    <h2>Garantia total de <em>7 dias</em></h2>
+    <div class="garantia-box">
+      <div class="garantia-num">7</div>
+      <div class="garantia-texto">
+        <h3>Se não gostar, devolvemos tudo</h3>
+        <p>Assine hoje e use o Clube Restrito por 7 dias completos. Se por qualquer motivo você não ficar satisfeito, é só nos mandar uma mensagem e devolvemos 100% do valor pago. Sem perguntas, sem burocracia. Palavra da União Patriota.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="faq">
+  <div class="container">
+    <div class="section-label">Dúvidas</div>
+    <h2>Perguntas <em>frequentes</em></h2>
+    <div style="margin-top:32px;">
+      <div class="faq-item">
+        <div class="faq-pergunta">Como recebo o acesso após assinar?</div>
+        <div class="faq-resposta">Assim que o pagamento for confirmado, você recebe automaticamente o link para entrar no grupo do WhatsApp e no canal do Telegram. É rápido e simples — funciona direto no celular.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-pergunta">Preciso saber usar computador?</div>
+        <div class="faq-resposta">Não. Tudo funciona no celular, pelo WhatsApp e Telegram que você já usa no dia a dia. Se você sabe abrir uma mensagem no WhatsApp, já sabe usar o Clube Restrito.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-pergunta">Posso cancelar quando quiser?</div>
+        <div class="faq-resposta">Sim, sem complicação nenhuma. Você pode cancelar a qualquer momento mandando uma mensagem para a gente. Sem multa, sem carência, sem burocracia.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-pergunta">Quais as formas de pagamento?</div>
+        <div class="faq-resposta">Aceitamos PIX, cartão de crédito e boleto bancário. O pagamento é processado pela Kirvano, plataforma segura e certificada.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-pergunta">O conteúdo é diferente do site?</div>
+        <div class="faq-resposta">Sim, completamente diferente. O Clube Restrito tem conteúdo exclusivo que não publicamos no site: vídeos diários, bastidores, alertas imediatos e análises que só os membros recebem.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER CTA -->
+<div class="footer-cta">
+  <div class="flags-hero" style="margin-bottom:20px;">
+    <span class="bandeira-br"><span class="bandeira-br-circle"></span></span>
+    <span style="font-size:2.5rem;">🦅</span>
+    <span class="bandeira-br"><span class="bandeira-br-circle"></span></span>
+  </div>
+  <h2>O Brasil precisa de você informado</h2>
+  <p>Junte-se a mais de 1 milhão de brasileiros que escolheram a verdade. Por apenas R$ 22,22 por mês.</p>
+  <a href="https://pay.kirvano.com/d6d88067-666a-4499-b28f-bcc941ff3b10" class="btn-cta">ASSINAR O CLUBE RESTRITO AGORA</a>
+  <p style="font-size:1rem;color:rgba(255,255,255,0.6);margin-top:16px;">7 dias de garantia · Cancele quando quiser · Acesso imediato</p>
+</div>
+
+<footer>
+  <p>© 2026 União Patriota · uniaopatriota.com.br</p>
+  <p style="margin-top:8px;"><a href="#">Política de Privacidade</a> · <a href="#">Termos de Uso</a> · <a href="#">Contato</a></p>
+  <p style="margin-top:12px;">Este produto é comercializado pela União Patriota. Ao assinar, você concorda com os Termos de Uso. A garantia de 7 dias é válida para o primeiro mês de assinatura.</p>
+</footer>
+
+<div class="sticky-bar" id="stickyBar">
+  <span>Clube Restrito União Patriota — R$ 22,22/mês</span>
+  <a href="https://pay.kirvano.com/d6d88067-666a-4499-b28f-bcc941ff3b10" class="btn-sticky">ASSINAR AGORA</a>
+</div>
+
+<script>
+document.querySelectorAll('.faq-item').forEach(item=>{
+  item.addEventListener('click',()=>{
+    const isOpen=item.classList.contains('open');
+    document.querySelectorAll('.faq-item').forEach(i=>i.classList.remove('open'));
+    if(!isOpen)item.classList.add('open');
+  });
+});
+const stickyBar=document.getElementById('stickyBar');
+window.addEventListener('scroll',()=>{stickyBar.classList.toggle('visible',window.scrollY>500);});
+</script>
+</body>
+</html>
