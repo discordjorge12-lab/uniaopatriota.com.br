@@ -1,5 +1,4 @@
 import json
-import os
 import shutil
 from datetime import date
 from pathlib import Path
@@ -37,11 +36,11 @@ if not src.exists():
     print(f"Arquivo fonte nao encontrado: {src}")
     exit(1)
 
-if dst.exists():
-    print(f"Artigo ja publicado: {artigo_slug}")
-else:
+if not dst.exists():
     shutil.copy2(src, dst)
     print(f"Artigo publicado: {artigo_slug}.html")
+else:
+    print(f"Artigo ja publicado: {artigo_slug}")
 
 index_path = Path("index.html")
 with open(index_path, "r", encoding="utf-8") as f:
@@ -63,10 +62,10 @@ titulo = titulo_match.group(1) if titulo_match else artigo_slug
 categoria = cat_match.group(1) if cat_match else "Produtividade"
 img_url = img_match.group(1) if img_match else "https://picsum.photos/id/1/600/400"
 lead = lead_match.group(1) if lead_match else ""
-lead_short = lead[:120] + "..." if len(lead) > 120 else lead
+lead_short = lead[:150] + "..." if len(lead) > 150 else lead
 
-novo_card = f"""
-      <article class="card">
+# Novo artigo entra como featured
+novo_featured = f"""      <article class="card featured">
         <div class="card-thumb"><img src="{img_url}" alt="{titulo}" style="width:100%;height:100%;object-fit:cover;display:block;"></div>
         <div class="card-body">
           <span class="card-cat">{categoria}</span>
@@ -76,11 +75,20 @@ novo_card = f"""
         </div>
       </article>"""
 
-marker = '<article class="card featured">'
+# Artigo featured atual vira card normal
+content = re.sub(
+    r'<article class="card featured">',
+    '<article class="card">',
+    content,
+    count=1
+)
+
+# Insere novo featured no topo da grade
+marker = '<div class="articles-grid">'
 if marker in content:
-    content = content.replace(marker, novo_card + "\n\n      " + marker, 1)
+    content = content.replace(marker, marker + "\n\n" + novo_featured + "\n", 1)
     with open(index_path, "w", encoding="utf-8") as f:
         f.write(content)
-    print(f"index.html atualizado com card: {titulo}")
+    print(f"index.html atualizado: {titulo} entrou como destaque")
 else:
-    print("Marcador nao encontrado.")
+    print("Marcador articles-grid nao encontrado.")
