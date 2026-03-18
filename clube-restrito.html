@@ -162,6 +162,19 @@ footer a{color:rgba(255,255,255,0.5);text-decoration:underline;}
   .proof-bar-inner{gap:28px;}
   .btn-cta{font-size:1.1rem;padding:20px 32px;}
 }
+
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(10, 15, 30, 0.82);
+  backdrop-filter: blur(3px);
+  -webkit-backdrop-filter: blur(3px);
+  z-index: 0;
+}
+.hero .hero-inner {
+  position: relative;
+  z-index: 1;
+}
 </style>
 </head>
 <body>
@@ -171,14 +184,9 @@ footer a{color:rgba(255,255,255,0.5);text-decoration:underline;}
 </div>
 
 <!-- HERO -->
-
-<div style="width:100%;overflow:hidden;max-height:420px;border-bottom:5px solid #FFD700;">
-  <img src="https://p2.trrsf.com/image/fget/cf/1548/0/images.terra.com/2021/01/28/2021-01-28T235721Z_1_LYNXMPEH0R1WX_RTROPTP_4_BRAZIL-POLITICS.JPG" 
-       alt="Clube Restrito União Patriota" 
-       style="width:100%;object-fit:cover;object-position:center top;display:block;">
-</div>
-<section class="hero">
-  <div class="hero-inner">
+<section class="hero" style="background-image:url('https://p2.trrsf.com/image/fget/cf/1548/0/images.terra.com/2021/01/28/2021-01-28T235721Z_1_LYNXMPEH0R1WX_RTROPTP_4_BRAZIL-POLITICS.JPG');background-size:cover;background-position:center top;position:relative;">
+  <div class="hero-overlay"></div>
+<div class="hero-inner">
     <span class="badge">WhatsApp e Telegram — Acesso Exclusivo</span>
     <div class="flags-hero">
       <span class="bandeira-br"><span class="bandeira-br-circle"></span></span>
