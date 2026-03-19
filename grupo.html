@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- ═══ SEO & META PREVIEW ═══ -->
+  <title>ENTRAR NO GRUPO UNIDOS POR BOLSONARO</title>
+  <meta name="description" content="O Grupo Unidos por Bolsonaro é para todos os patriotas receberem notícias secretas.">
+
+  <!-- Open Graph (Facebook, Instagram, WhatsApp) -->
+  <meta property="og:type"        content="website">
+  <meta property="og:title"       content="ENTRAR NO GRUPO UNIDOS POR BOLSONARO">
+  <meta property="og:description" content="O Grupo Unidos por Bolsonaro é para todos os patriotas receberem notícias secretas.">
+  <meta property="og:image"       content="https://i.imgur.com/fQYItbx.jpeg">
+  <meta property="og:image:width"  content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:url"         content="">
+  <meta property="og:locale"      content="pt_BR">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card"        content="summary_large_image">
+  <meta name="twitter:title"       content="ENTRAR NO GRUPO UNIDOS POR BOLSONARO">
+  <meta name="twitter:description" content="O Grupo Unidos por Bolsonaro é para todos os patriotas receberem notícias secretas.">
+  <meta name="twitter:image"       content="https://i.imgur.com/fQYItbx.jpeg">
+
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --green:  #00a651;
+      --green2: #007d3c;
+      --yellow: #f5c518;
+      --blue:   #003087;
+      --white:  #ffffff;
+      --bg:     #011a0d;
+    }
+
+    html, body {
+      height: 100%;
+      background: var(--bg);
+      font-family: 'Inter', sans-serif;
+      overflow: hidden;
+    }
+
+    /* ── CONFETTI CANVAS ── */
+    #confetti-canvas {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* ── CARD CENTRAL ── */
+    .card {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      padding: 32px 24px;
+      text-align: center;
+    }
+
+    /* Flag strip top */
+    .flag-strip {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      height: 6px;
+      background: linear-gradient(90deg,
+        #003087 0%, #003087 33%,
+        #00a651 33%, #00a651 66%,
+        #f5c518 66%, #f5c518 100%
+      );
+      z-index: 10;
+    }
+
+    /* Logo / icone WhatsApp */
+    .wpp-icon {
+      width: 88px;
+      height: 88px;
+      background: #25D366;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 28px;
+      box-shadow: 0 0 0 0 rgba(37,211,102,0.5);
+      animation: pulse 1.6s ease-in-out infinite;
+    }
+    .wpp-icon svg { width: 50px; height: 50px; }
+
+    @keyframes pulse {
+      0%   { box-shadow: 0 0 0 0   rgba(37,211,102,0.55); }
+      70%  { box-shadow: 0 0 0 22px rgba(37,211,102,0);   }
+      100% { box-shadow: 0 0 0 0   rgba(37,211,102,0);    }
+    }
+
+    /* Badge "GRUPO EXCLUSIVO" */
+    .badge {
+      display: inline-block;
+      background: var(--yellow);
+      color: #111;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      padding: 5px 16px;
+      border-radius: 2px;
+      margin-bottom: 20px;
+    }
+
+    /* Título */
+    h1 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(28px, 7vw, 52px);
+      color: var(--white);
+      line-height: 1.1;
+      letter-spacing: .03em;
+      margin-bottom: 16px;
+      text-shadow: 0 2px 20px rgba(0,0,0,.6);
+    }
+    h1 span { color: var(--yellow); }
+
+    /* Subtítulo */
+    .subtitle {
+      font-size: 15px;
+      color: rgba(255,255,255,.7);
+      max-width: 340px;
+      line-height: 1.6;
+      margin-bottom: 36px;
+    }
+
+    /* ── LOADING BAR ── */
+    .loading-wrap {
+      width: 100%;
+      max-width: 320px;
+      margin-bottom: 20px;
+    }
+    .loading-label {
+      font-size: 13px;
+      font-weight: 600;
+      color: rgba(255,255,255,.5);
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+    .bar-track {
+      width: 100%;
+      height: 8px;
+      background: rgba(255,255,255,.1);
+      border-radius: 99px;
+      overflow: hidden;
+    }
+    .bar-fill {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, var(--green), #25D366);
+      border-radius: 99px;
+      transition: width .25s ease;
+    }
+
+    /* Porcentagem */
+    .pct {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 42px;
+      color: var(--green);
+      letter-spacing: .05em;
+      margin-top: 8px;
+      line-height: 1;
+    }
+
+    /* Status text */
+    .status {
+      font-size: 13px;
+      color: rgba(255,255,255,.45);
+      margin-top: 6px;
+      min-height: 20px;
+      transition: opacity .3s;
+    }
+
+    /* Checkmarks */
+    .checks {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-top: 32px;
+      width: 100%;
+      max-width: 300px;
+    }
+    .check-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      opacity: 0;
+      transform: translateX(-12px);
+      transition: opacity .4s ease, transform .4s ease;
+    }
+    .check-item.show {
+      opacity: 1;
+      transform: translateX(0);
+    }
+    .check-dot {
+      width: 22px; height: 22px; flex-shrink: 0;
+      border-radius: 50%;
+      background: rgba(0,166,81,.15);
+      border: 1.5px solid var(--green);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 12px;
+    }
+    .check-dot.done {
+      background: var(--green);
+      border-color: var(--green);
+    }
+    .check-label {
+      font-size: 14px;
+      color: rgba(255,255,255,.6);
+      text-align: left;
+    }
+    .check-item.show .check-label { color: rgba(255,255,255,.9); }
+
+    /* Rodapé discreta */
+    .footer-note {
+      position: fixed;
+      bottom: 16px;
+      font-size: 11px;
+      color: rgba(255,255,255,.2);
+      letter-spacing: .05em;
+    }
+
+    /* Glow de fundo */
+    .glow {
+      position: fixed;
+      bottom: -200px; left: 50%;
+      transform: translateX(-50%);
+      width: 600px; height: 600px;
+      background: radial-gradient(circle, rgba(0,166,81,.18) 0%, transparent 70%);
+      pointer-events: none;
+      z-index: 0;
+    }
+  </style>
+</head>
+<body>
+
+<div class="flag-strip"></div>
+<canvas id="confetti-canvas"></canvas>
+<div class="glow"></div>
+
+<div class="card">
+  <div class="wpp-icon">
+    <svg viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg">
+      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
+      <path d="M12 0C5.373 0 0 5.373 0 12c0 2.124.558 4.115 1.532 5.836L.057 23.5l5.83-1.528A11.94 11.94 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 01-5.013-1.376l-.36-.213-3.724.977.995-3.625-.234-.372A9.818 9.818 0 1112 21.818z"/>
+    </svg>
+  </div>
+
+  <span class="badge">🇧🇷 Grupo Exclusivo</span>
+
+  <h1>AGUARDE<br>SÓ UM <span>INSTANTE</span></h1>
+
+  <p class="subtitle">Já estamos levando você para o grupo do WhatsApp <strong style="color:#fff">Unidos por Bolsonaro</strong>.</p>
+
+  <div class="loading-wrap">
+    <div class="loading-label">Conectando...</div>
+    <div class="bar-track">
+      <div class="bar-fill" id="bar"></div>
+    </div>
+  </div>
+  <div class="pct" id="pct">0%</div>
+  <div class="status" id="status">Verificando sua conexão...</div>
+
+  <div class="checks" id="checks">
+    <div class="check-item" id="c1">
+      <div class="check-dot" id="d1">🔒</div>
+      <span class="check-label">Verificando acesso seguro</span>
+    </div>
+    <div class="check-item" id="c2">
+      <div class="check-dot" id="d2">📡</div>
+      <span class="check-label">Conectando ao grupo</span>
+    </div>
+    <div class="check-item" id="c3">
+      <div class="check-dot" id="d3">✅</div>
+      <span class="check-label">Liberando sua entrada!</span>
+    </div>
+  </div>
+</div>
+
+<div class="footer-note">Unidos por Bolsonaro — Grupo Patriota</div>
+
+<script>
+(function () {
+  var REDIRECT = 'https://devzapp.com.br/#/dev-zap-grupos/69a73041d3f0d8000182ed4c';
+
+  var bar    = document.getElementById('bar');
+  var pct    = document.getElementById('pct');
+  var status = document.getElementById('status');
+  var progress = 0;
+
+  var steps = [
+    { at: 15,  status: 'Verificando sua conexão...',      check: 'c1', dot: 'd1' },
+    { at: 45,  status: 'Encontrando o grupo...',           check: 'c2', dot: 'd2' },
+    { at: 80,  status: 'Quase lá! Preparando entrada...', check: 'c3', dot: 'd3' },
+    { at: 100, status: '🎉 Pronto! Redirecionando...' },
+  ];
+
+  var triggered = [false, false, false, false];
+
+  function tick() {
+    if (progress >= 100) {
+      bar.style.width = '100%';
+      pct.textContent = '100%';
+      launchConfetti();
+      setTimeout(function () {
+        window.location.href = REDIRECT;
+      }, 1200);
+      return;
+    }
+
+    var speed = progress < 60 ? 1.4 : progress < 85 ? 0.9 : 0.5;
+    progress = Math.min(100, progress + speed);
+
+    bar.style.width = Math.floor(progress) + '%';
+    pct.textContent  = Math.floor(progress) + '%';
+
+    steps.forEach(function (s, i) {
+      if (!triggered[i] && progress >= s.at) {
+        triggered[i] = true;
+        status.textContent = s.status;
+        if (s.check) {
+          var el = document.getElementById(s.check);
+          var dot = document.getElementById(s.dot);
+          if (el) el.classList.add('show');
+          if (dot) { dot.classList.add('done'); dot.textContent = '✓'; }
+        }
+      }
+    });
+
+    requestAnimationFrame(tick);
+  }
+
+  setTimeout(tick, 400);
+
+  /* ── CONFETTI ── */
+  function launchConfetti() {
+    var canvas = document.getElementById('confetti-canvas');
+    var ctx    = canvas.getContext('2d');
+    canvas.width  = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    var pieces = [];
+    var colors = ['#00a651','#f5c518','#003087','#ffffff','#25D366','#ffdd57'];
+
+    for (var i = 0; i < 160; i++) {
+      pieces.push({
+        x:  Math.random() * canvas.width,
+        y:  Math.random() * canvas.height - canvas.height,
+        w:  Math.random() * 10 + 5,
+        h:  Math.random() * 5  + 3,
+        r:  Math.random() * Math.PI * 2,
+        dr: (Math.random() - .5) * .15,
+        dx: (Math.random() - .5) * 2,
+        dy: Math.random() * 3 + 2,
+        color: colors[Math.floor(Math.random() * colors.length)],
+        alpha: 1
+      });
+    }
+
+    var frame = 0;
+    function draw() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      pieces.forEach(function (p) {
+        p.x  += p.dx;
+        p.y  += p.dy;
+        p.r  += p.dr;
+        if (frame > 80) p.alpha = Math.max(0, p.alpha - .012);
+        ctx.save();
+        ctx.globalAlpha = p.alpha;
+        ctx.translate(p.x + p.w / 2, p.y + p.h / 2);
+        ctx.rotate(p.r);
+        ctx.fillStyle = p.color;
+        ctx.fillRect(-p.w / 2, -p.h / 2, p.w, p.h);
+        ctx.restore();
+      });
+      frame++;
+      if (frame < 140) requestAnimationFrame(draw);
+      else ctx.clearRect(0, 0, canvas.width, canvas.height);
+    }
+    draw();
+  }
+})();
+</script>
+
+</body>
+</html>
