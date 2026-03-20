@@ -6,6 +6,44 @@
   <meta name="description" content="Foco & Rotina — dicas práticas de produtividade, organização pessoal e hábitos para você viver melhor e render mais no dia a dia.">
   <title>Foco & Rotina — Produtividade e Organização Pessoal</title>
   <link rel="stylesheet" href="css/style.css">
+  <style>
+    /* FILTRO */
+    .filter-bar{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:28px;align-items:center;}
+    .filter-label{font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-right:4px;white-space:nowrap;}
+    .cat-btn{background:transparent;border:1.5px solid #ddd;border-radius:3px;padding:7px 14px;font-size:12px;font-weight:600;color:#888;cursor:pointer;transition:all .15s;display:inline-flex;align-items:center;gap:5px;font-family:inherit;}
+    .cat-btn:hover{border-color:var(--gold,#c9a227);color:#222;}
+    .cat-btn.active{background:#1a1a1a;border-color:#1a1a1a;color:#fff;}
+    .cnt{background:rgba(0,0,0,.1);border-radius:20px;padding:1px 6px;font-size:10px;}
+    .cat-btn.active .cnt{background:rgba(255,255,255,.2);}
+    /* SEÇÕES */
+    .cat-block{margin-bottom:52px;padding-bottom:48px;border-bottom:1px solid #eee;}
+    .cat-block:last-child{border-bottom:none;}
+    .cat-block-hd{display:flex;align-items:center;gap:10px;margin-bottom:18px;}
+    .cat-block-hd span{font-size:1.4rem;}
+    .cat-block-hd h2{font-size:1.1rem;font-weight:800;text-transform:uppercase;letter-spacing:1px;margin:0;flex:1;}
+    .ver-todos{background:none;border:none;font-size:12px;font-weight:700;color:var(--gold,#c9a227);cursor:pointer;font-family:inherit;padding:0;}
+    .ver-todos:hover{text-decoration:underline;}
+    .mini-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:14px;}
+    .mini-card{display:flex;flex-direction:column;text-decoration:none;border:1px solid #eee;border-radius:3px;overflow:hidden;transition:transform .15s,box-shadow .15s;}
+    .mini-card:hover{transform:translateY(-3px);box-shadow:0 6px 18px rgba(0,0,0,.08);}
+    .mini-card img{width:100%;height:130px;object-fit:cover;display:block;}
+    .mini-body{padding:12px;}
+    .mini-body strong{display:block;font-size:.85rem;font-weight:700;line-height:1.4;margin-bottom:5px;color:#1a1a1a;}
+    .mini-body p{font-size:.78rem;color:#888;line-height:1.5;margin:0;}
+    /* PAGINAÇÃO */
+    .pagination{display:flex;justify-content:center;align-items:center;gap:6px;margin:44px 0 16px;flex-wrap:wrap;}
+    .pg-btn{min-width:36px;height:36px;padding:0 10px;border:1.5px solid #ddd;background:transparent;border-radius:3px;font-size:13px;font-weight:700;color:#888;cursor:pointer;transition:all .15s;font-family:inherit;}
+    .pg-btn:hover:not(:disabled){border-color:var(--gold,#c9a227);color:#222;}
+    .pg-btn.active{background:#1a1a1a;border-color:#1a1a1a;color:#fff;}
+    .pg-btn:disabled{opacity:.3;cursor:default;}
+    .pg-info{text-align:center;font-size:12px;color:#aaa;margin-top:6px;}
+    /* DIVIDER */
+    .section-divider{border:none;border-top:2px solid #eee;margin:52px 0 40px;}
+    @media(max-width:600px){
+      .mini-grid{grid-template-columns:1fr 1fr;}
+      .cat-btn{padding:5px 9px;font-size:11px;}
+    }
+  </style>
 </head>
 <body>
 
@@ -17,9 +55,7 @@
       <a href="sobre.html">Sobre</a>
       <a href="contato.html">Contato</a>
     </nav>
-    <button class="hamburger" aria-label="Menu">
-      <span></span><span></span><span></span>
-    </button>
+    <button class="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
   </div>
 </header>
 
@@ -33,364 +69,212 @@
 
 <div class="page-wrapper">
   <main>
-    <div class="section-label">Artigos recentes</div>
 
-    <div class="articles-grid">
+    <!-- SEÇÕES POR CATEGORIA -->
+    <div class="section-label" style="margin-bottom:24px;">Explorar por categoria</div>
+    <div id="cat-sections">
+    <section class="cat-block">
+      <div class="cat-block-hd">
+        <span>⚡</span>
+        <h2>Produtividade</h2>
+        <button class="ver-todos" data-cat="Produtividade">Ver todos →</button>
+      </div>
+      <div class="mini-grid">
+        <a href="artigos/rotina-matinal.html" class="mini-card">
+          <img src="https://picsum.photos/id/1080/300/180" alt="Como criar uma rotina matinal produtiva em 7 passos" loading="lazy">
+          <div class="mini-body">
+            <strong>Como criar uma rotina matinal produtiva em 7 passos</strong>
+            <p>A manhã é o momento mais poderoso do dia. Aprenda como estruturar os primeiros minutos apó...</p>
+          </div>
+        </a>
+        <a href="artigos/metodo-pomodoro.html" class="mini-card">
+          <img src="https://picsum.photos/id/3/300/180" alt="Método Pomodoro: o que é e como usar" loading="lazy">
+          <div class="mini-body">
+            <strong>Método Pomodoro: o que é e como usar</strong>
+            <p>Uma das técnicas mais testadas do mundo para concentração. Simples, gratuita e eficaz....</p>
+          </div>
+        </a>
+        <a href="artigos/parar-procrastinar.html" class="mini-card">
+          <img src="https://picsum.photos/id/160/300/180" alt="Como parar de procrastinar de vez" loading="lazy">
+          <div class="mini-body">
+            <strong>Como parar de procrastinar de vez</strong>
+            <p>Procrastinar não é preguiça. Entenda a causa real e aplique as soluções certas....</p>
+          </div>
+        </a>
+      </div>
+    </section>
+    <section class="cat-block">
+      <div class="cat-block-hd">
+        <span>🏠</span>
+        <h2>Organização</h2>
+        <button class="ver-todos" data-cat="Organização">Ver todos →</button>
+      </div>
+      <div class="mini-grid">
+        <a href="artigos/financas-pessoais.html" class="mini-card">
+          <img src="https://picsum.photos/id/210/300/180" alt="Como organizar as finanças pessoais do zero" loading="lazy">
+          <div class="mini-body">
+            <strong>Como organizar as finanças pessoais do zero</strong>
+            <p>Não importa quanto você ganha — sem organização, o dinheiro nunca é suficiente....</p>
+          </div>
+        </a>
+        <a href="artigos/habitos-organizadas.html" class="mini-card">
+          <img src="https://picsum.photos/id/583/300/180" alt="10 hábitos de pessoas altamente organizadas" loading="lazy">
+          <div class="mini-body">
+            <strong>10 hábitos de pessoas altamente organizadas</strong>
+            <p>Organização não é dom natural — é um conjunto de comportamentos praticados com consistênci...</p>
+          </div>
+        </a>
+        <a href="artigos/organizar-casa.html" class="mini-card">
+          <img src="https://picsum.photos/id/225/300/180" alt="Organize a casa inteira em um fim de semana" loading="lazy">
+          <div class="mini-body">
+            <strong>Organize a casa inteira em um fim de semana</strong>
+            <p>Com planejamento e método, é possível transformar qualquer ambiente em dois dias....</p>
+          </div>
+        </a>
+      </div>
+    </section>
+    <section class="cat-block">
+      <div class="cat-block-hd">
+        <span>🛠️</span>
+        <h2>Ferramentas</h2>
+        <button class="ver-todos" data-cat="Ferramentas">Ver todos →</button>
+      </div>
+      <div class="mini-grid">
+        <a href="artigos/melhores-aplicativos.html" class="mini-card">
+          <img src="https://picsum.photos/id/366/300/180" alt="Os melhores aplicativos de organização pessoal" loading="lazy">
+          <div class="mini-body">
+            <strong>Os melhores aplicativos de organização pessoal</strong>
+            <p>Testei dezenas de apps e selecionei os que realmente fazem diferença. Do simples ao comple...</p>
+          </div>
+        </a>
+        <a href="artigos/notion-iniciantes.html" class="mini-card">
+          <img src="https://picsum.photos/id/20/300/180" alt="Notion para iniciantes: comece do zero" loading="lazy">
+          <div class="mini-body">
+            <strong>Notion para iniciantes: comece do zero</strong>
+            <p>O app parece complicado, mas em poucos passos você já consegue se beneficiar dele....</p>
+          </div>
+        </a>
+        <a href="artigos/sistema-gtd-simplificado.html" class="mini-card">
+          <img src="https://picsum.photos/id/323/300/180" alt="GTD simplificado: como capturar e organizar tudo que está na sua cabeça" loading="lazy">
+          <div class="mini-body">
+            <strong>GTD simplificado: como capturar e organizar tudo que está na sua cabeça</strong>
+            <p>O método mais eficaz para esvaziar a mente e parar de esquecer o que importa....</p>
+          </div>
+        </a>
+      </div>
+    </section>
+    <section class="cat-block">
+      <div class="cat-block-hd">
+        <span>📚</span>
+        <h2>Livros</h2>
+        <button class="ver-todos" data-cat="Livros">Ver todos →</button>
+      </div>
+      <div class="mini-grid">
+        <a href="artigos/livros-produtividade.html" class="mini-card">
+          <img src="https://picsum.photos/id/2/300/180" alt="5 livros de produtividade que mudaram minha rotina" loading="lazy">
+          <div class="mini-body">
+            <strong>5 livros de produtividade que mudaram minha rotina</strong>
+            <p>Estes cinco realmente entregam ideias que mudam como você trabalha e vive....</p>
+          </div>
+        </a>
+        <a href="artigos/deep-work-cal-newport-resumo.html" class="mini-card">
+          <img src="https://picsum.photos/id/256/300/180" alt="Deep Work de Cal Newport: o guia para trabalhar com profundidade" loading="lazy">
+          <div class="mini-body">
+            <strong>Deep Work de Cal Newport: o guia para trabalhar com profundidade</strong>
+            <p>A capacidade de foco profundo é a habilidade mais valiosa da economia atual....</p>
+          </div>
+        </a>
+        <a href="artigos/habitos-atomicos-resumo.html" class="mini-card">
+          <img src="https://picsum.photos/id/941/300/180" alt="Hábitos Atômicos de James Clear: por que pequenas mudanças criam resultados extraordinários" loading="lazy">
+          <div class="mini-body">
+            <strong>Hábitos Atômicos de James Clear: por que pequenas mudanças criam resultados extraordinários</strong>
+            <p>O livro mais vendido de gestão pessoal da última década....</p>
+          </div>
+        </a>
+      </div>
+    </section>
+    <section class="cat-block">
+      <div class="cat-block-hd">
+        <span>🌱</span>
+        <h2>Desenvolvimento Pessoal</h2>
+        <button class="ver-todos" data-cat="Desenvolvimento Pessoal">Ver todos →</button>
+      </div>
+      <div class="mini-grid">
+        <a href="artigos/como-dizer-nao-sem-culpa.html" class="mini-card">
+          <img src="https://picsum.photos/id/1024/300/180" alt="Como dizer não sem culpa e sem estragar relacionamentos" loading="lazy">
+          <div class="mini-body">
+            <strong>Como dizer não sem culpa e sem estragar relacionamentos</strong>
+            <p>Dizer não é uma habilidade — e como toda habilidade, pode ser desenvolvida....</p>
+          </div>
+        </a>
+        <a href="artigos/habitos-que-funcionam.html" class="mini-card">
+          <img src="https://picsum.photos/id/941/300/180" alt="Por que seus hábitos novos não duram — e o que fazer diferente" loading="lazy">
+          <div class="mini-body">
+            <strong>Por que seus hábitos novos não duram — e o que fazer diferente</strong>
+            <p>A solução não é mais força de vontade — é um sistema melhor....</p>
+          </div>
+        </a>
+        <a href="artigos/como-ler-mais-reter-melhor.html" class="mini-card">
+          <img src="https://picsum.photos/id/256/300/180" alt="Como ler mais livros e realmente lembrar do que leu" loading="lazy">
+          <div class="mini-body">
+            <strong>Como ler mais livros e realmente lembrar do que leu</strong>
+            <p>A maioria das pessoas lê e esquece. O problema não é a memória....</p>
+          </div>
+        </a>
+      </div>
+    </section>
+    <section class="cat-block">
+      <div class="cat-block-hd">
+        <span>🧠</span>
+        <h2>Saúde Mental</h2>
+        <button class="ver-todos" data-cat="Saúde Mental">Ver todos →</button>
+      </div>
+      <div class="mini-grid">
+        <a href="artigos/sono-e-produtividade.html" class="mini-card">
+          <img src="https://picsum.photos/id/96/300/180" alt="Como o sono afeta sua produtividade (e o que fazer para dormir melhor)" loading="lazy">
+          <div class="mini-body">
+            <strong>Como o sono afeta sua produtividade (e o que fazer para dormir melhor)</strong>
+            <p>Nenhuma técnica de produtividade compensa uma noite mal dormida....</p>
+          </div>
+        </a>
+        <a href="artigos/como-acordar-bem-disposto.html" class="mini-card">
+          <img src="https://picsum.photos/id/1080/300/180" alt="Como acordar bem disposto mesmo sem ser uma pessoa matutina" loading="lazy">
+          <div class="mini-body">
+            <strong>Como acordar bem disposto mesmo sem ser uma pessoa matutina</strong>
+            <p>Acordar bem não é privilégio de quem nasceu matutino....</p>
+          </div>
+        </a>
+        <a href="artigos/ansiedade-produtividade.html" class="mini-card">
+          <img src="https://picsum.photos/id/160/300/180" alt="Ansiedade e produtividade: como trabalhar bem mesmo nos dias difíceis" loading="lazy">
+          <div class="mini-body">
+            <strong>Ansiedade e produtividade: como trabalhar bem mesmo nos dias difíceis</strong>
+            <p>Existem estratégias que permitem trabalhar com qualidade mesmo quando a cabeça não colabor...</p>
+          </div>
+        </a>
+      </div>
+    </section>
+    </div>
 
-      <!-- FEATURED -->
-      <article class="card featured">
-        <div class="card-thumb"><img src="https://picsum.photos/id/1080/600/400" alt="Pessoa acordando de manhã" style="width:100%;height:100%;object-fit:cover;display:block;"></div>
-        <div class="card-body">
-          <span class="card-cat">Produtividade</span>
-          <h2><a href="artigos/rotina-matinal.html">Como criar uma rotina matinal produtiva em 7 passos</a></h2>
-          <p>A manhã é o momento mais poderoso do dia. Aprenda como estruturar os primeiros minutos após acordar para definir o tom de tudo o que vem depois.</p>
-          <a href="artigos/rotina-matinal.html" class="card-link">Ler artigo →</a>
-        </div>
-      </article>
+    <hr class="section-divider">
 
-      <!-- CARDS -->
-      <article class="card">
-        <div class="card-thumb"><img src="https://picsum.photos/id/366/600/400" alt="Smartphone com aplicativos" style="width:100%;height:100%;object-fit:cover;display:block;"></div>
-        <div class="card-body">
-          <span class="card-cat">Ferramentas</span>
-          <h2><a href="artigos/melhores-aplicativos.html">Os melhores aplicativos de organização pessoal</a></h2>
-          <p>Testei dezenas de apps e selecionei os que realmente fazem diferença. Do simples ao completo.</p>
-          <a href="artigos/melhores-aplicativos.html" class="card-link">Ler artigo →</a>
-        </div>
-      </article>
+    <!-- TODOS OS ARTIGOS -->
+    <div class="section-label" id="all-section" style="margin-bottom:20px;">Todos os artigos</div>
 
-      <article class="card">
-        <div class="card-thumb"><img src="https://picsum.photos/id/3/600/400" alt="Mesa de trabalho organizada" style="width:100%;height:100%;object-fit:cover;display:block;"></div>
-        <div class="card-body">
-          <span class="card-cat">Produtividade</span>
-          <h2><a href="artigos/metodo-pomodoro.html">Método Pomodoro: o que é e como usar</a></h2>
-          <p>Uma das técnicas mais testadas do mundo para concentração. Simples, gratuita e eficaz.</p>
-          <a href="artigos/metodo-pomodoro.html" class="card-link">Ler artigo →</a>
-        </div>
-      </article>
+    <div class="filter-bar">
+      <span class="filter-label">Filtrar:</span>
+        <button class="cat-btn active" data-cat="Todos">🗂️ Todos <span class="cnt">52</span></button>
+        <button class="cat-btn" data-cat="Produtividade">⚡ Produtividade <span class="cnt">16</span></button>
+        <button class="cat-btn" data-cat="Organização">🏠 Organização <span class="cnt">10</span></button>
+        <button class="cat-btn" data-cat="Ferramentas">🛠️ Ferramentas <span class="cnt">9</span></button>
+        <button class="cat-btn" data-cat="Livros">📚 Livros <span class="cnt">6</span></button>
+        <button class="cat-btn" data-cat="Desenvolvimento Pessoal">🌱 Desenvolvimento Pessoal <span class="cnt">4</span></button>
+        <button class="cat-btn" data-cat="Saúde Mental">🧠 Saúde Mental <span class="cnt">7</span></button>
+    </div>
 
-      <article class="card">
-        <div class="card-thumb"><img src="https://picsum.photos/id/210/600/400" alt="Planejamento financeiro" style="width:100%;height:100%;object-fit:cover;display:block;"></div>
-        <div class="card-body">
-          <span class="card-cat">Organização</span>
-          <h2><a href="artigos/financas-pessoais.html">Como organizar as finanças pessoais do zero</a></h2>
-          <p>Não importa quanto você ganha — sem organização, o dinheiro nunca é suficiente. Veja por onde começar.</p>
-          <a href="artigos/financas-pessoais.html" class="card-link">Ler artigo →</a>
-        </div>
-      </article>
+    <div class="articles-grid" id="grid"></div>
+    <div class="pagination" id="pagination"></div>
+    <p class="pg-info" id="pg-info"></p>
 
-      <article class="card">
-        <div class="card-thumb"><img src="https://picsum.photos/id/583/600/400" alt="Agenda e planner organizados" style="width:100%;height:100%;object-fit:cover;display:block;"></div>
-        <div class="card-body">
-          <span class="card-cat">Organização</span>
-          <h2><a href="artigos/habitos-organizadas.html">10 hábitos de pessoas altamente organizadas</a></h2>
-          <p>Organização não é dom natural — é um conjunto de comportamentos praticados com consistência.</p>
-          <a href="artigos/habitos-organizadas.html" class="card-link">Ler artigo →</a>
-        </div>
-      </article>
-
-      <article class="card">
-        <div class="card-thumb"><img src="https://picsum.photos/id/160/600/400" alt="Pessoa concentrada trabalhando" style="width:100%;height:100%;object-fit:cover;display:block;"></div>
-        <div class="card-body">
-          <span class="card-cat">Produtividade</span>
-          <h2><a href="artigos/parar-procrastinar.html">Como parar de procrastinar de vez</a></h2>
-          <p>Procrastinar não é preguiça. Entenda a causa real e aplique as soluções certas.</p>
-          <a href="artigos/parar-procrastinar.html" class="card-link">Ler artigo →</a>
-        </div>
-      </article>
-
-      <article class="card">
-        <div class="card-thumb"><img src="https://picsum.photos/id/225/600/400" alt="Ambiente doméstico organizado" style="width:100%;height:100%;object-fit:cover;display:block;"></div>
-        <div class="card-body">
-          <span class="card-cat">Organização</span>
-          <h2><a href="artigos/organizar-casa.html">Organize a casa inteira em um fim de semana</a></h2>
-          <p>Com planejamento e método, é possível transformar qualquer ambiente em dois dias.</p>
-          <a href="artigos/organizar-casa.html" class="card-link">Ler artigo →</a>
-        </div>
-      </article>
-
-      <article class="card">
-        <div class="card-thumb"><img src="https://picsum.photos/id/392/600/400" alt="Calendário e planejamento" style="width:100%;height:100%;object-fit:cover;display:block;"></div>
-        <div class="card-body">
-          <span class="card-cat">Produtividade</span>
-          <h2><a href="artigos/planejamento-semanal.html">Planejamento semanal que você realmente segue</a></h2>
-          <p>Chega de planejar na segunda e abandonar na quarta. Veja como montar um sistema que funciona.</p>
-          <a href="artigos/planejamento-semanal.html" class="card-link">Ler artigo →</a>
-        </div>
-      </article>
-
-      <article class="card">
-        <div class="card-thumb"><img src="https://picsum.photos/id/20/600/400" alt="Notebook com anotações" style="width:100%;height:100%;object-fit:cover;display:block;"></div>
-        <div class="card-body">
-          <span class="card-cat">Ferramentas</span>
-          <h2><a href="artigos/notion-iniciantes.html">Notion para iniciantes: comece do zero</a></h2>
-          <p>O app parece complicado, mas em poucos passos você já consegue se beneficiar dele.</p>
-          <a href="artigos/notion-iniciantes.html" class="card-link">Ler artigo →</a>
-        </div>
-      </article>
-
-      <article class="card">
-        <div class="card-thumb"><img src="https://picsum.photos/id/60/600/400" alt="Home office organizado" style="width:100%;height:100%;object-fit:cover;display:block;"></div>
-        <div class="card-body">
-          <span class="card-cat">Produtividade</span>
-          <h2><a href="artigos/concentracao-home-office.html">Como se concentrar melhor no home office</a></h2>
-          <p>Geladeira, sofá e Netflix ao lado — saiba como criar condições reais de foco em casa.</p>
-          <a href="artigos/concentracao-home-office.html" class="card-link">Ler artigo →</a>
-        </div>
-      </article>
-
-      <article class="card">
-        <div class="card-thumb"><img src="https://picsum.photos/id/380/600/400" alt="Ambiente minimalista" style="width:100%;height:100%;object-fit:cover;display:block;"></div>
-        <div class="card-body">
-          <span class="card-cat">Organização</span>
-          <h2><a href="artigos/minimalismo.html">O que é minimalismo e como ele transforma sua vida</a></h2>
-          <p>Menos não é privação — é liberdade. Entenda o conceito e como aplicá-lo de forma realista.</p>
-          <a href="artigos/minimalismo.html" class="card-link">Ler artigo →</a>
-        </div>
-      </article>
-
-      <article class="card">
-        <div class="card-thumb"><img src="https://picsum.photos/id/24/600/400" alt="Lista de tarefas escrita" style="width:100%;height:100%;object-fit:cover;display:block;"></div>
-        <div class="card-body">
-          <span class="card-cat">Produtividade</span>
-          <h2><a href="artigos/lista-tarefas.html">Como montar uma lista de tarefas que funciona</a></h2>
-          <p>O problema não é a ferramenta — é como você usa. Veja o método certo para criar listas eficazes.</p>
-          <a href="artigos/lista-tarefas.html" class="card-link">Ler artigo →</a>
-        </div>
-      </article>
-
-      <article class="card">
-        <div class="card-thumb"><img src="https://picsum.photos/id/2/600/400" alt="Pilha de livros" style="width:100%;height:100%;object-fit:cover;display:block;"></div>
-        <div class="card-body">
-          <span class="card-cat">Livros</span>
-          <h2><a href="artigos/livros-produtividade.html">5 livros de produtividade que mudaram minha rotina</a></h2>
-          <p>Não são todos iguais. Estes cinco realmente entregam ideias que mudam como você trabalha e vive.</p>
-          <a href="artigos/livros-produtividade.html" class="card-link">Ler artigo →</a>
-        </div>
-      </article>
-
-      <article class="card">
-        <div class="card-thumb"><img src="https://picsum.photos/id/0/600/400" alt="Computador com e-mails" style="width:100%;height:100%;object-fit:cover;display:block;"></div>
-        <div class="card-body">
-          <span class="card-cat">Organização</span>
-          <h2><a href="artigos/organizar-emails.html">Como organizar e-mails e parar de perder tempo</a></h2>
-          <p>Inbox com milhares de mensagens não lidas? O método Inbox Zero resolve isso de uma vez.</p>
-          <a href="artigos/organizar-emails.html" class="card-link">Ler artigo →</a>
-        </div>
-      </article>
-
-      <article class="card">
-        <div class="card-thumb"><img src="https://picsum.photos/id/142/600/400" alt="Pessoa escrevendo metas" style="width:100%;height:100%;object-fit:cover;display:block;"></div>
-        <div class="card-body">
-          <span class="card-cat">Produtividade</span>
-          <h2><a href="artigos/metas-smart.html">Como definir metas que você vai realmente alcançar</a></h2>
-          <p>A diferença entre intenção e meta está no método SMART. Aprenda a usá-lo com exemplos práticos.</p>
-          <a href="artigos/metas-smart.html" class="card-link">Ler artigo →</a>
-        </div>
-      </article>
-
-
-      <article class="card">
-        <div class="card-thumb"><img src="https://picsum.photos/id/374/600/400" alt="Como parar de adiar tarefas" style="width:100%;height:100%;object-fit:cover;display:block;"></div>
-        <div class="card-body">
-          <span class="card-cat">Produtividade</span>
-          <h2><a href="artigos/como-parar-de-adiar-tarefas.html">Como parar de adiar tarefas quando você já sabe o que precisa fazer</a></h2>
-          <p>Você sabe o que precisa fazer. Mas não faz. Entenda por que isso acontece e como sair desse ciclo de uma vez por todas.</p>
-          <a href="artigos/como-parar-de-adiar-tarefas.html" class="card-link">Ler artigo →</a>
-        </div>
-      </article>
-
-      <article class="card">
-        <div class="card-thumb"><img src="https://picsum.photos/id/392/600/400" alt="Rotina que funciona" style="width:100%;height:100%;object-fit:cover;display:block;"></div>
-        <div class="card-body">
-          <span class="card-cat">Organização</span>
-          <h2><a href="artigos/rotina-que-funciona-dia-caótico.html">Como criar uma rotina que sobrevive aos dias caóticos</a></h2>
-          <p>Toda rotina quebra quando o dia foge do controle. O problema não é a rotina — é como ela foi construída.</p>
-          <a href="artigos/rotina-que-funciona-dia-caótico.html" class="card-link">Ler artigo →</a>
-        </div>
-      </article>
-
-      <article class="card">
-        <div class="card-thumb"><img src="https://picsum.photos/id/355/600/400" alt="Foco sem celular" style="width:100%;height:100%;object-fit:cover;display:block;"></div>
-        <div class="card-body">
-          <span class="card-cat">Produtividade</span>
-          <h2><a href="artigos/foco-sem-culpa-celular.html">Como ter foco de verdade sem precisar largar o celular para sempre</a></h2>
-          <p>O problema não é o celular. É a forma como você o usa. Veja como criar uma relação saudável com a tecnologia.</p>
-          <a href="artigos/foco-sem-culpa-celular.html" class="card-link">Ler artigo →</a>
-        </div>
-      </article>
-
-      <article class="card">
-        <div class="card-thumb"><img src="https://picsum.photos/id/357/600/400" alt="Finanças pessoais" style="width:100%;height:100%;object-fit:cover;display:block;"></div>
-        <div class="card-body">
-          <span class="card-cat">Organização</span>
-          <h2><a href="artigos/organizar-financas-pessoais-simples.html">Organização financeira pessoal sem planilha complicada</a></h2>
-          <p>A maioria das pessoas desiste do controle financeiro porque começa pelo método errado. Existe uma forma mais simples.</p>
-          <a href="artigos/organizar-financas-pessoais-simples.html" class="card-link">Ler artigo →</a>
-        </div>
-      </article>
-
-      <article class="card">
-        <div class="card-thumb"><img src="https://picsum.photos/id/590/600/400" alt="Como estudar" style="width:100%;height:100%;object-fit:cover;display:block;"></div>
-        <div class="card-body">
-          <span class="card-cat">Produtividade</span>
-          <h2><a href="artigos/como-estudar-sem-cansar.html">Como estudar por mais tempo sem ficar mentalmente exausto</a></h2>
-          <p>O cansaço mental durante o estudo raramente vem do esforço intelectual. Vem de como você estrutura as sessões.</p>
-          <a href="artigos/como-estudar-sem-cansar.html" class="card-link">Ler artigo →</a>
-        </div>
-      </article>
-
-      <article class="card">
-        <div class="card-thumb"><img src="https://picsum.photos/id/97/600/400" alt="Inbox zero" style="width:100%;height:100%;object-fit:cover;display:block;"></div>
-        <div class="card-body">
-          <span class="card-cat">Produtividade</span>
-          <h2><a href="artigos/inbox-zero-de-verdade.html">Inbox zero de verdade: como parar de se afogar em e-mails</a></h2>
-          <p>Uma caixa de entrada com mil e-mails não lidos é uma lista de decisões adiadas que consome sua energia mental.</p>
-          <a href="artigos/inbox-zero-de-verdade.html" class="card-link">Ler artigo →</a>
-        </div>
-      </article>
-
-      <article class="card">
-        <div class="card-thumb"><img src="https://picsum.photos/id/403/600/400" alt="Minimalismo prático" style="width:100%;height:100%;object-fit:cover;display:block;"></div>
-        <div class="card-body">
-          <span class="card-cat">Organização</span>
-          <h2><a href="artigos/minimalismo-pratico-casa.html">Minimalismo prático: como ter uma casa mais organizada sem sofrer</a></h2>
-          <p>Minimalismo não é sobre ter pouco — é sobre ter só o que tem valor real para você.</p>
-          <a href="artigos/minimalismo-pratico-casa.html" class="card-link">Ler artigo →</a>
-        </div>
-      </article>
-
-      <article class="card">
-        <div class="card-thumb"><img src="https://picsum.photos/id/1024/600/400" alt="Como dizer não" style="width:100%;height:100%;object-fit:cover;display:block;"></div>
-        <div class="card-body">
-          <span class="card-cat">Desenvolvimento Pessoal</span>
-          <h2><a href="artigos/como-dizer-nao-sem-culpa.html">Como dizer não sem culpa e sem estragar relacionamentos</a></h2>
-          <p>Dizer não é uma habilidade — e como toda habilidade, pode ser desenvolvida.</p>
-          <a href="artigos/como-dizer-nao-sem-culpa.html" class="card-link">Ler artigo →</a>
-        </div>
-      </article>
-
-      <article class="card">
-        <div class="card-thumb"><img src="https://picsum.photos/id/392/600/400" alt="Planejamento semanal" style="width:100%;height:100%;object-fit:cover;display:block;"></div>
-        <div class="card-body">
-          <span class="card-cat">Produtividade</span>
-          <h2><a href="artigos/planejamento-semanal-15-minutos.html">Como fazer um planejamento semanal eficiente em 15 minutos</a></h2>
-          <p>Quinze minutos no domingo mudam completamente como você vive os próximos sete dias.</p>
-          <a href="artigos/planejamento-semanal-15-minutos.html" class="card-link">Ler artigo →</a>
-        </div>
-      </article>
-
-      <article class="card">
-        <div class="card-thumb"><img src="https://picsum.photos/id/1080/600/400" alt="Acordar bem disposto" style="width:100%;height:100%;object-fit:cover;display:block;"></div>
-        <div class="card-body">
-          <span class="card-cat">Saúde e Bem-estar</span>
-          <h2><a href="artigos/como-acordar-bem-disposto.html">Como acordar bem disposto mesmo sem ser uma pessoa matutina</a></h2>
-          <p>Acordar bem não é privilégio de quem nasceu matutino. É resultado de hábitos noturnos e matinais específicos.</p>
-          <a href="artigos/como-acordar-bem-disposto.html" class="card-link">Ler artigo →</a>
-        </div>
-      </article>
-
-      <article class="card">
-        <div class="card-thumb"><img src="https://picsum.photos/id/1060/600/400" alt="Casa organizada" style="width:100%;height:100%;object-fit:cover;display:block;"></div>
-        <div class="card-body">
-          <span class="card-cat">Organização</span>
-          <h2><a href="artigos/como-manter-casa-organizada.html">Como manter a casa organizada no dia a dia sem gastar horas limpando</a></h2>
-          <p>Casa organizada é resultado de pequenos hábitos diários que levam minutos, não horas.</p>
-          <a href="artigos/como-manter-casa-organizada.html" class="card-link">Ler artigo →</a>
-        </div>
-      </article>
-
-      <article class="card">
-        <div class="card-thumb"><img src="https://picsum.photos/id/941/600/400" alt="Hábitos que funcionam" style="width:100%;height:100%;object-fit:cover;display:block;"></div>
-        <div class="card-body">
-          <span class="card-cat">Desenvolvimento Pessoal</span>
-          <h2><a href="artigos/habitos-que-funcionam.html">Por que seus hábitos novos não duram — e o que fazer diferente</a></h2>
-          <p>A solução não é mais força de vontade — é um sistema melhor.</p>
-          <a href="artigos/habitos-que-funcionam.html" class="card-link">Ler artigo →</a>
-        </div>
-      </article>
-
-      <article class="card">
-        <div class="card-thumb"><img src="https://picsum.photos/id/1031/600/400" alt="Concentração home office" style="width:100%;height:100%;object-fit:cover;display:block;"></div>
-        <div class="card-body">
-          <span class="card-cat">Produtividade</span>
-          <h2><a href="artigos/concentracao-trabalho-remoto.html">Como manter concentração trabalhando de casa quando tudo distrai</a></h2>
-          <p>O home office tirou o escritório e não deu substituto para a estrutura que ele criava. Veja como criar essa estrutura você mesmo.</p>
-          <a href="artigos/concentracao-trabalho-remoto.html" class="card-link">Ler artigo →</a>
-        </div>
-      </article>
-
-      <article class="card">
-        <div class="card-thumb"><img src="https://picsum.photos/id/1005/600/400" alt="Gestão de energia" style="width:100%;height:100%;object-fit:cover;display:block;"></div>
-        <div class="card-body">
-          <span class="card-cat">Produtividade</span>
-          <h2><a href="artigos/gestao-de-energia-nao-tempo.html">Gerencie energia, não tempo: por que você pode ter horas livres e ainda assim não render</a></h2>
-          <p>Tempo não é o recurso escasso — energia é. Entenda como gerenciar os quatro tipos de energia.</p>
-          <a href="artigos/gestao-de-energia-nao-tempo.html" class="card-link">Ler artigo →</a>
-        </div>
-      </article>
-
-      <article class="card">
-        <div class="card-thumb"><img src="https://picsum.photos/id/256/600/400" alt="Como ler mais" style="width:100%;height:100%;object-fit:cover;display:block;"></div>
-        <div class="card-body">
-          <span class="card-cat">Desenvolvimento Pessoal</span>
-          <h2><a href="artigos/como-ler-mais-reter-melhor.html">Como ler mais livros e realmente lembrar do que leu</a></h2>
-          <p>A maioria das pessoas lê e esquece. O problema não é a memória — é a forma como lê.</p>
-          <a href="artigos/como-ler-mais-reter-melhor.html" class="card-link">Ler artigo →</a>
-        </div>
-      </article>
-
-      <article class="card">
-        <div class="card-thumb"><img src="https://picsum.photos/id/323/600/400" alt="GTD simplificado" style="width:100%;height:100%;object-fit:cover;display:block;"></div>
-        <div class="card-body">
-          <span class="card-cat">Ferramentas</span>
-          <h2><a href="artigos/sistema-gtd-simplificado.html">GTD simplificado: como capturar e organizar tudo que está na sua cabeça</a></h2>
-          <p>O método mais eficaz para esvaziar a mente e parar de esquecer o que importa.</p>
-          <a href="artigos/sistema-gtd-simplificado.html" class="card-link">Ler artigo →</a>
-        </div>
-      </article>
-
-      <article class="card">
-        <div class="card-thumb"><img src="https://picsum.photos/id/1080/600/400" alt="Rotina matinal realista" style="width:100%;height:100%;object-fit:cover;display:block;"></div>
-        <div class="card-body">
-          <span class="card-cat">Produtividade</span>
-          <h2><a href="artigos/rotina-matinal-realista.html">Rotina matinal realista para quem não tem uma hora de sobra</a></h2>
-          <p>Você não precisa acordar às 5h da manhã. Precisa de 15 minutos usados da forma certa.</p>
-          <a href="artigos/rotina-matinal-realista.html" class="card-link">Ler artigo →</a>
-        </div>
-      </article>
-
-      <article class="card">
-        <div class="card-thumb"><img src="https://picsum.photos/id/1060/600/400" alt="Home office produtivo" style="width:100%;height:100%;object-fit:cover;display:block;"></div>
-        <div class="card-body">
-          <span class="card-cat">Organização</span>
-          <h2><a href="artigos/como-montar-home-office-produtivo.html">Como montar um home office produtivo sem gastar muito</a></h2>
-          <p>Um bom espaço de trabalho em casa não exige investimento alto. Exige as escolhas certas.</p>
-          <a href="artigos/como-montar-home-office-produtivo.html" class="card-link">Ler artigo →</a>
-        </div>
-      </article>
-
-      <article class="card">
-        <div class="card-thumb"><img src="https://picsum.photos/id/1080/600/400" alt="Tomar decisões" style="width:100%;height:100%;object-fit:cover;display:block;"></div>
-        <div class="card-body">
-          <span class="card-cat">Desenvolvimento Pessoal</span>
-          <h2><a href="artigos/tomar-decisoes-com-clareza.html">Como tomar decisões com clareza quando tudo parece urgente</a></h2>
-          <p>A sobrecarga de decisões tem custo cognitivo real. Aprenda a decidir melhor gastando menos energia.</p>
-          <a href="artigos/tomar-decisoes-com-clareza.html" class="card-link">Ler artigo →</a>
-        </div>
-      </article>
-
-      <article class="card">
-        <div class="card-thumb"><img src="https://picsum.photos/id/20/600/400" alt="Notion de verdade" style="width:100%;height:100%;object-fit:cover;display:block;"></div>
-        <div class="card-body">
-          <span class="card-cat">Ferramentas</span>
-          <h2><a href="artigos/como-usar-notion-de-verdade.html">Como usar o Notion de verdade sem se perder nas possibilidades</a></h2>
-          <p>O Notion é uma das ferramentas mais poderosas de organização — e uma das mais abandonadas.</p>
-          <a href="artigos/como-usar-notion-de-verdade.html" class="card-link">Ler artigo →</a>
-        </div>
-      </article>
-
-    </div><!-- /articles-grid -->
   </main>
 
   <aside class="sidebar">
@@ -402,60 +286,27 @@
       </div>
       <div id="search-results"></div>
     </div>
-
     <div class="adsense-box">
       <p>Anúncio</p>
       <!-- Cole aqui o código do Google AdSense -->
     </div>
-
     <div class="sidebar-widget">
       <div class="widget-title">Categorias</div>
       <ul class="cat-list">
-        <li><a href="#">Produtividade <span>20</span></a></li>
-        <li><a href="#">Organização <span>10</span></a></li>
-        <li><a href="#">Ferramentas <span>4</span></a></li>
-        <li><a href="#">Livros <span>1</span></a></li>
+        <li><button class="cat-list-btn" data-cat="Produtividade">⚡ Produtividade <span>16</span></button></li>
+        <li><button class="cat-list-btn" data-cat="Organização">🏠 Organização <span>10</span></button></li>
+        <li><button class="cat-list-btn" data-cat="Ferramentas">🛠️ Ferramentas <span>9</span></button></li>
+        <li><button class="cat-list-btn" data-cat="Livros">📚 Livros <span>6</span></button></li>
+        <li><button class="cat-list-btn" data-cat="Desenvolvimento Pessoal">🌱 Desenv. Pessoal <span>4</span></button></li>
+        <li><button class="cat-list-btn" data-cat="Saúde Mental">🧠 Saúde Mental <span>7</span></button></li>
       </ul>
     </div>
-
     <div class="sidebar-widget">
-      <div class="widget-title">Artigos recentes</div>
+      <div class="widget-title">Mais lidos</div>
       <ul class="recent-list">
-        <li>
-          <div class="recent-thumb">🌅</div>
-          <div class="recent-info">
-            <a href="artigos/rotina-matinal.html">Rotina matinal produtiva em 7 passos</a>
-            <span>Produtividade</span>
-          </div>
-        </li>
-        <li>
-          <div class="recent-thumb">🍅</div>
-          <div class="recent-info">
-            <a href="artigos/metodo-pomodoro.html">Método Pomodoro explicado</a>
-            <span>Produtividade</span>
-          </div>
-        </li>
-        <li>
-          <div class="recent-thumb">🎯</div>
-          <div class="recent-info">
-            <a href="artigos/metas-smart.html">Metas SMART na prática</a>
-            <span>Produtividade</span>
-          </div>
-        </li>
-        <li>
-          <div class="recent-thumb">💰</div>
-          <div class="recent-info">
-            <a href="artigos/financas-pessoais.html">Finanças pessoais do zero</a>
-            <span>Organização</span>
-          </div>
-        </li>
-        <li>
-          <div class="recent-thumb">📚</div>
-          <div class="recent-info">
-            <a href="artigos/livros-produtividade.html">5 livros de produtividade</a>
-            <span>Livros</span>
-          </div>
-        </li>
+        <li><div class="recent-thumb"><img src="https://picsum.photos/id/1080/60/60" style="width:52px;height:52px;object-fit:cover;border-radius:3px;" alt="rotina"></div><div class="recent-info"><a href="artigos/rotina-matinal.html">Rotina matinal em 7 passos</a><span>Produtividade</span></div></li>
+        <li><div class="recent-thumb"><img src="https://picsum.photos/id/941/60/60" style="width:52px;height:52px;object-fit:cover;border-radius:3px;" alt="habitos"></div><div class="recent-info"><a href="artigos/habitos-que-funcionam.html">Por que seus hábitos não duram</a><span>Desenvolvimento Pessoal</span></div></li>
+        <li><div class="recent-thumb"><img src="https://picsum.photos/id/941/60/60" style="width:52px;height:52px;object-fit:cover;border-radius:3px;" alt="atomicos"></div><div class="recent-info"><a href="artigos/habitos-atomicos-resumo.html">Hábitos Atômicos resumo</a><span>Livros</span></div></li>
       </ul>
     </div>
   </aside>
@@ -467,15 +318,6 @@
       <div class="footer-brand">
         <div class="site-logo">Foco <span style="color:var(--gold)">&</span> Rotina</div>
         <p>Dicas práticas de produtividade e organização pessoal para você viver melhor e render mais.</p>
-      </div>
-      <div class="footer-col">
-        <h4>Categorias</h4>
-        <ul>
-          <li><a href="#">Produtividade</a></li>
-          <li><a href="#">Organização</a></li>
-          <li><a href="#">Ferramentas</a></li>
-          <li><a href="#">Livros</a></li>
-        </ul>
       </div>
       <div class="footer-col">
         <h4>O Blog</h4>
@@ -490,16 +332,147 @@
     </div>
     <div class="footer-bottom">
       <p>© 2026 Foco & Rotina. Todos os direitos reservados.</p>
-      <p>Feito com dedicação para quem quer uma vida mais organizada.</p>
     </div>
   </div>
 </footer>
 
 <div class="cookie-banner" id="cookie-banner">
-  <p>Usamos cookies para melhorar sua experiência e exibir anúncios relevantes. Ao continuar, você concorda com nossa <a href="cookies.html">Política de Cookies</a>.</p>
+  <p>Usamos cookies. Ao continuar, você concorda com nossa <a href="cookies.html">Política de Cookies</a>.</p>
   <button class="cookie-accept" id="cookie-accept">Aceitar</button>
 </div>
 
 <script src="js/main.js"></script>
+<script>
+const ARTIGOS = [
+  {slug:"rotina-matinal",titulo:`Como criar uma rotina matinal produtiva em 7 passos`,cat:"Produtividade",img:"1080",desc:`A manhã é o momento mais poderoso do dia. Aprenda como estruturar os primeiros minutos após acordar.`,featured:true},
+  {slug:"melhores-aplicativos",titulo:`Os melhores aplicativos de organização pessoal`,cat:"Ferramentas",img:"366",desc:`Testei dezenas de apps e selecionei os que realmente fazem diferença. Do simples ao completo.`,featured:false},
+  {slug:"metodo-pomodoro",titulo:`Método Pomodoro: o que é e como usar`,cat:"Produtividade",img:"3",desc:`Uma das técnicas mais testadas do mundo para concentração. Simples, gratuita e eficaz.`,featured:false},
+  {slug:"financas-pessoais",titulo:`Como organizar as finanças pessoais do zero`,cat:"Organização",img:"210",desc:`Não importa quanto você ganha — sem organização, o dinheiro nunca é suficiente.`,featured:false},
+  {slug:"habitos-organizadas",titulo:`10 hábitos de pessoas altamente organizadas`,cat:"Organização",img:"583",desc:`Organização não é dom natural — é um conjunto de comportamentos praticados com consistência.`,featured:false},
+  {slug:"parar-procrastinar",titulo:`Como parar de procrastinar de vez`,cat:"Produtividade",img:"160",desc:`Procrastinar não é preguiça. Entenda a causa real e aplique as soluções certas.`,featured:false},
+  {slug:"organizar-casa",titulo:`Organize a casa inteira em um fim de semana`,cat:"Organização",img:"225",desc:`Com planejamento e método, é possível transformar qualquer ambiente em dois dias.`,featured:false},
+  {slug:"planejamento-semanal",titulo:`Planejamento semanal que você realmente segue`,cat:"Produtividade",img:"392",desc:`Chega de planejar na segunda e abandonar na quarta. Veja como montar um sistema que funciona.`,featured:false},
+  {slug:"notion-iniciantes",titulo:`Notion para iniciantes: comece do zero`,cat:"Ferramentas",img:"20",desc:`O app parece complicado, mas em poucos passos você já consegue se beneficiar dele.`,featured:false},
+  {slug:"concentracao-home-office",titulo:`Como se concentrar melhor no home office`,cat:"Produtividade",img:"60",desc:`Geladeira, sofá e Netflix ao lado — saiba como criar condições reais de foco em casa.`,featured:false},
+  {slug:"minimalismo",titulo:`O que é minimalismo e como ele transforma sua vida`,cat:"Organização",img:"380",desc:`Menos não é privação — é liberdade. Entenda o conceito e como aplicá-lo de forma realista.`,featured:false},
+  {slug:"lista-tarefas",titulo:`Como montar uma lista de tarefas que funciona`,cat:"Produtividade",img:"24",desc:`O problema não é a ferramenta — é como você usa. Veja o método certo para criar listas eficazes.`,featured:false},
+  {slug:"livros-produtividade",titulo:`5 livros de produtividade que mudaram minha rotina`,cat:"Livros",img:"2",desc:`Estes cinco realmente entregam ideias que mudam como você trabalha e vive.`,featured:false},
+  {slug:"organizar-emails",titulo:`Como organizar e-mails e parar de perder tempo`,cat:"Organização",img:"0",desc:`Inbox com milhares de mensagens não lidas? O método Inbox Zero resolve isso de uma vez.`,featured:false},
+  {slug:"metas-smart",titulo:`Como definir metas que você vai realmente alcançar`,cat:"Produtividade",img:"142",desc:`A diferença entre intenção e meta está no método SMART.`,featured:false},
+  {slug:"sono-e-produtividade",titulo:`Como o sono afeta sua produtividade (e o que fazer para dormir melhor)`,cat:"Saúde Mental",img:"96",desc:`Nenhuma técnica de produtividade compensa uma noite mal dormida.`,featured:false},
+  {slug:"tecnica-time-blocking",titulo:`Time Blocking: como dividir seu dia em blocos e ser mais produtivo`,cat:"Produtividade",img:"1031",desc:`Parar de apagar incêndios e começar a planejar de verdade.`,featured:false},
+  {slug:"como-parar-de-adiar-tarefas",titulo:`Como parar de adiar tarefas quando você já sabe o que precisa fazer`,cat:"Produtividade",img:"374",desc:`Você sabe o que precisa fazer. Mas não faz. Entenda por que isso acontece.`,featured:false},
+  {slug:"rotina-que-funciona-dia-caótico",titulo:`Como criar uma rotina que sobrevive aos dias caóticos`,cat:"Organização",img:"392",desc:`Toda rotina quebra quando o dia foge do controle. O problema não é a rotina.`,featured:false},
+  {slug:"foco-sem-culpa-celular",titulo:`Como ter foco de verdade sem precisar largar o celular para sempre`,cat:"Produtividade",img:"355",desc:`O problema não é o celular. É a forma como você o usa.`,featured:false},
+  {slug:"organizar-financas-pessoais-simples",titulo:`Organização financeira pessoal sem planilha complicada`,cat:"Organização",img:"357",desc:`A maioria das pessoas desiste do controle financeiro porque começa pelo método errado.`,featured:false},
+  {slug:"como-estudar-sem-cansar",titulo:`Como estudar por mais tempo sem ficar mentalmente exausto`,cat:"Produtividade",img:"590",desc:`O cansaço mental raramente vem do esforço intelectual. Vem de como você estrutura as sessões.`,featured:false},
+  {slug:"inbox-zero-de-verdade",titulo:`Inbox zero de verdade: como parar de se afogar em e-mails`,cat:"Produtividade",img:"97",desc:`Uma caixa de entrada lotada é uma lista de decisões adiadas.`,featured:false},
+  {slug:"minimalismo-pratico-casa",titulo:`Minimalismo prático: como ter uma casa mais organizada sem sofrer`,cat:"Organização",img:"403",desc:`Minimalismo não é sobre ter pouco — é sobre ter só o que tem valor real para você.`,featured:false},
+  {slug:"como-dizer-nao-sem-culpa",titulo:`Como dizer não sem culpa e sem estragar relacionamentos`,cat:"Desenvolvimento Pessoal",img:"1024",desc:`Dizer não é uma habilidade — e como toda habilidade, pode ser desenvolvida.`,featured:false},
+  {slug:"planejamento-semanal-15-minutos",titulo:`Como fazer um planejamento semanal eficiente em 15 minutos`,cat:"Produtividade",img:"392",desc:`Quinze minutos no domingo mudam completamente como você vive os próximos sete dias.`,featured:false},
+  {slug:"como-acordar-bem-disposto",titulo:`Como acordar bem disposto mesmo sem ser uma pessoa matutina`,cat:"Saúde Mental",img:"1080",desc:`Acordar bem não é privilégio de quem nasceu matutino.`,featured:false},
+  {slug:"como-manter-casa-organizada",titulo:`Como manter a casa organizada no dia a dia sem gastar horas limpando`,cat:"Organização",img:"1060",desc:`Casa organizada é resultado de pequenos hábitos diários que levam minutos, não horas.`,featured:false},
+  {slug:"habitos-que-funcionam",titulo:`Por que seus hábitos novos não duram — e o que fazer diferente`,cat:"Desenvolvimento Pessoal",img:"941",desc:`A solução não é mais força de vontade — é um sistema melhor.`,featured:false},
+  {slug:"concentracao-trabalho-remoto",titulo:`Como manter concentração trabalhando de casa quando tudo distrai`,cat:"Produtividade",img:"1031",desc:`O home office tirou o escritório e não deu substituto para a estrutura que ele criava.`,featured:false},
+  {slug:"gestao-de-energia-nao-tempo",titulo:`Gerencie energia, não tempo: por que você pode ter horas livres e não render`,cat:"Produtividade",img:"1005",desc:`Tempo não é o recurso escasso — energia é.`,featured:false},
+  {slug:"como-ler-mais-reter-melhor",titulo:`Como ler mais livros e realmente lembrar do que leu`,cat:"Desenvolvimento Pessoal",img:"256",desc:`A maioria das pessoas lê e esquece. O problema não é a memória.`,featured:false},
+  {slug:"sistema-gtd-simplificado",titulo:`GTD simplificado: como capturar e organizar tudo que está na sua cabeça`,cat:"Ferramentas",img:"323",desc:`O método mais eficaz para esvaziar a mente e parar de esquecer o que importa.`,featured:false},
+  {slug:"rotina-matinal-realista",titulo:`Rotina matinal realista para quem não tem uma hora de sobra`,cat:"Produtividade",img:"1080",desc:`Você não precisa acordar às 5h da manhã. Precisa de 15 minutos usados da forma certa.`,featured:false},
+  {slug:"como-montar-home-office-produtivo",titulo:`Como montar um home office produtivo sem gastar muito`,cat:"Organização",img:"1060",desc:`Um bom espaço de trabalho em casa não exige investimento alto.`,featured:false},
+  {slug:"tomar-decisoes-com-clareza",titulo:`Como tomar decisões com clareza quando tudo parece urgente`,cat:"Desenvolvimento Pessoal",img:"1080",desc:`A sobrecarga de decisões tem custo cognitivo real.`,featured:false},
+  {slug:"como-usar-notion-de-verdade",titulo:`Como usar o Notion de verdade sem se perder nas possibilidades`,cat:"Ferramentas",img:"20",desc:`O Notion é uma das ferramentas mais poderosas — e uma das mais abandonadas.`,featured:false},
+  {slug:"trello-para-iniciantes",titulo:`Trello para iniciantes: como organizar projetos com cartões e listas`,cat:"Ferramentas",img:"180",desc:`O Trello é visual, intuitivo e gratuito. Aprenda a usá-lo do zero.`,featured:false},
+  {slug:"google-calendar-produtividade",titulo:`Como usar o Google Agenda para controlar seu tempo de verdade`,cat:"Ferramentas",img:"393",desc:`O Google Agenda vai muito além de guardar compromissos.`,featured:false},
+  {slug:"obsidian-para-anotacoes",titulo:`Obsidian: o aplicativo de anotações que pensa como você`,cat:"Ferramentas",img:"212",desc:`O Obsidian cria conexões entre suas ideias e transforma anotações numa rede de conhecimento.`,featured:false},
+  {slug:"todoist-gerenciar-tarefas",titulo:`Todoist: o gerenciador de tarefas que se adapta a qualquer sistema`,cat:"Ferramentas",img:"256",desc:`Simples o suficiente para começar hoje e poderoso o suficiente para nunca precisar trocar.`,featured:false},
+  {slug:"pomodoro-apps-melhores",titulo:`Os melhores apps de Pomodoro e como escolher o certo para você`,cat:"Ferramentas",img:"3",desc:`Nem todo app de Pomodoro é igual. Alguns têm recursos que mudam completamente a experiência.`,featured:false},
+  {slug:"deep-work-cal-newport-resumo",titulo:`Deep Work de Cal Newport: o guia para trabalhar com profundidade`,cat:"Livros",img:"256",desc:`A capacidade de foco profundo é a habilidade mais valiosa da economia atual.`,featured:false},
+  {slug:"habitos-atomicos-resumo",titulo:`Hábitos Atômicos de James Clear: por que pequenas mudanças criam resultados extraordinários`,cat:"Livros",img:"941",desc:`O livro mais vendido de gestão pessoal da última década.`,featured:false},
+  {slug:"a-semana-de-4-horas-resumo",titulo:`A Semana de 4 Horas de Tim Ferriss: o que é real e o que é mito`,cat:"Livros",img:"323",desc:`Separando as ideias genuinamente transformadoras das promessas exageradas.`,featured:false},
+  {slug:"o-poder-do-habito-resumo",titulo:`O Poder do Hábito de Charles Duhigg: a ciência por trás de como mudamos`,cat:"Livros",img:"1005",desc:`Como os hábitos funcionam no cérebro — e como podemos mudá-los.`,featured:false},
+  {slug:"esencialismo-greg-mckeown-resumo",titulo:`Esencialismo de Greg McKeown: a arte disciplinada de fazer menos e melhor`,cat:"Livros",img:"1029",desc:`O maior inimigo da produtividade não é a falta de esforço — é a falta de foco.`,featured:false},
+  {slug:"ansiedade-produtividade",titulo:`Ansiedade e produtividade: como trabalhar bem mesmo nos dias difíceis`,cat:"Saúde Mental",img:"160",desc:`Existem estratégias que permitem trabalhar com qualidade mesmo quando a cabeça não colabora.`,featured:false},
+  {slug:"limites-saudaveis-trabalho",titulo:`Como estabelecer limites saudáveis no trabalho sem prejudicar a carreira`,cat:"Saúde Mental",img:"96",desc:`Limites não são egoísmo — são sustentabilidade.`,featured:false},
+  {slug:"burnout-sinais-prevencao",titulo:`Burnout: como identificar os sinais antes que seja tarde`,cat:"Saúde Mental",img:"160",desc:`O burnout não aparece do nada — ele se constrói ao longo de meses.`,featured:false},
+  {slug:"meditacao-para-produtividade",titulo:`Meditação para produtividade: o que a ciência diz e como começar`,cat:"Saúde Mental",img:"1025",desc:`Meditação não é esoterismo — é treinamento de atenção.`,featured:false},
+  {slug:"descanso-real-importancia",titulo:`Por que você precisa aprender a descansar de verdade`,cat:"Saúde Mental",img:"96",desc:`Descanso não é a ausência de trabalho. É uma habilidade ativa.`,featured:false},
+];
+const PER_PAGE = 12;
+let currentCat = "Todos";
+let currentPage = 1;
+
+function filtered() {
+  return currentCat === "Todos" ? ARTIGOS : ARTIGOS.filter(a => a.cat === currentCat);
+}
+
+function cardHTML(a) {
+  const cls = a.featured && currentCat === "Todos" ? "card featured" : "card";
+  return `<article class="${cls}">
+    <div class="card-thumb"><img src="https://picsum.photos/id/${a.img}/600/400" alt="${a.titulo}" style="width:100%;height:100%;object-fit:cover;display:block;" loading="lazy"></div>
+    <div class="card-body">
+      <span class="card-cat">${a.cat}</span>
+      <h2><a href="artigos/${a.slug}.html">${a.titulo}</a></h2>
+      <p>${a.desc}</p>
+      <a href="artigos/${a.slug}.html" class="card-link">Ler artigo →</a>
+    </div>
+  </article>`;
+}
+
+function render() {
+  const list = filtered();
+  const total = list.length;
+  const pages = Math.ceil(total / PER_PAGE);
+  currentPage = Math.min(currentPage, pages || 1);
+  const start = (currentPage - 1) * PER_PAGE;
+  const slice = list.slice(start, start + PER_PAGE);
+
+  document.getElementById("grid").innerHTML = slice.map(cardHTML).join("\n");
+
+  // Pagination
+  const pg = document.getElementById("pagination");
+  if (pages <= 1) { pg.innerHTML = ""; document.getElementById("pg-info").textContent = ""; return; }
+
+  let btns = `<button class="pg-btn prev-next" onclick="goPage(${currentPage-1})" ${currentPage===1?"disabled":""}>← Anterior</button>`;
+  for (let i = 1; i <= pages; i++) {
+    btns += `<button class="pg-btn ${i===currentPage?"active":""}" onclick="goPage(${i})">${i}</button>`;
+  }
+  btns += `<button class="pg-btn prev-next" onclick="goPage(${currentPage+1})" ${currentPage===pages?"disabled":""}>Próxima →</button>`;
+  pg.innerHTML = btns;
+  document.getElementById("pg-info").textContent = `Mostrando ${start+1}–${Math.min(start+PER_PAGE,total)} de ${total} artigos`;
+}
+
+function goPage(p) {
+  currentPage = p;
+  render();
+  document.getElementById("all-section").scrollIntoView({behavior:"smooth",block:"start"});
+}
+
+function setFilter(cat) {
+  currentCat = cat;
+  currentPage = 1;
+  document.querySelectorAll(".cat-btn").forEach(b => b.classList.toggle("active", b.dataset.cat === cat));
+  document.querySelectorAll(".cat-list-btn").forEach(b => b.classList.toggle("active", b.dataset.cat === cat));
+
+  // hide/show category sections
+  const sections = document.getElementById("cat-sections");
+  sections.style.display = cat === "Todos" ? "" : "none";
+  document.querySelector(".section-divider").style.display = cat === "Todos" ? "" : "none";
+
+  render();
+  if (cat !== "Todos") document.getElementById("all-section").scrollIntoView({behavior:"smooth",block:"start"});
+}
+
+// Cat filter buttons
+document.querySelectorAll(".cat-btn").forEach(b => b.addEventListener("click", () => setFilter(b.dataset.cat)));
+document.querySelectorAll(".cat-list-btn").forEach(b => {
+  b.style.cssText = "background:none;border:none;cursor:pointer;font-family:inherit;font-size:inherit;text-align:left;width:100%;padding:4px 0;display:flex;justify-content:space-between;align-items:center;";
+  b.addEventListener("click", () => setFilter(b.dataset.cat));
+});
+
+// Ver todos buttons inside sections
+document.querySelectorAll(".ver-todos").forEach(b => b.addEventListener("click", () => setFilter(b.dataset.cat)));
+
+render();
+</script>
 </body>
 </html>
