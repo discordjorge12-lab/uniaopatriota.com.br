@@ -76,5 +76,18 @@
     "image": "https://images.unsplash.com/photo-1504711434969-e33886168f5c?w=800&h=450&fit=crop&auto=format",
     "summary": "A administração municipal divulgou o cronograma de pavimentação asfáltica que vai beneficiar moradores de quatro bairros do município ainda no primeiro semestre de 2025.",
     "featured": false
-  }
+  },
+  {
+  "id": "1775259487569",
+  "slug": "vale-a-pena-conhecer-a-estacao-cafe-em-sao-jose-do-cedro",
+  "title": "Vale a pena conhecer a Estação Café, em São José do Cedro?",
+  "category": "gastronomia",
+  "categoryName": "Gastronomia",
+  "author": "Jorge",
+  "date": "2026-04-03",
+  "dateFormatted": "3 de abril de 2026",
+  "image": "https://preview.redd.it/s%C3%A3o-jos%C3%A9-do-cedro-sc-v0-syb6v2fy0mo11.jpg?width=640&crop=smart&auto=webp&s=0a63a26f66b47f0a34606520d9ffb66743bc80aa",
+  "summary": "A cafeteria é uma das mais tradicional do município e recebe centenas de visitantes todos os meses",
+  "featured": true
+}
 ]
