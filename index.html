@@ -324,13 +324,13 @@ footer{background:var(--dark);color:rgba(255,255,255,.7);padding:52px 20px 0}
     </div>
   </div>
   <div class="fbot">
-    <span>&#169; 2025 Lumiere Beaute. Todos os direitos reservados. CNPJ: 00.000.000/0001-00</span>
+    <span>&#169; 2025 Lumiere Beauty Ltda &nbsp;|&nbsp; Rua Getulio Vargas, 31 – Centro – Rio Azul/PR &nbsp;|&nbsp; (42) 9866-3550</span>
     <span>Visa | Mastercard | Amex | Pix | Boleto</span>
   </div>
 </footer>
 
 <!-- OVERLAY -->
-<div class="overlay" id="overlay" onclick="closeAll()"></div>
+<div class="overlay" id="overlay"></div>
 
 <!-- CARRINHO -->
 <div class="cart-side" id="cart-side">
@@ -349,64 +349,140 @@ footer{background:var(--dark);color:rgba(255,255,255,.7);padding:52px 20px 0}
 
 <!-- MODAL CHECKOUT -->
 <div class="modal-bg" id="modal-checkout">
-  <div class="modal">
+  <div class="modal" style="max-width:560px">
     <button class="modal-x" onclick="checkoutClose()">&#10005;</button>
     <h2>Finalizar Pedido</h2>
-    <div class="steps"><div class="step on">1. Dados</div><div class="step">2. Entrega</div><div class="step">3. Pagamento</div></div>
-    <div class="sub-t">Dados Pessoais</div>
-    <div class="frow">
-      <div class="fg"><label>Nome</label><input type="text" placeholder="Seu nome"></div>
-      <div class="fg"><label>Sobrenome</label><input type="text" placeholder="Sobrenome"></div>
+    <div class="steps">
+      <div class="step ck-step on" id="ck-step-1">1. Dados</div>
+      <div class="step ck-step" id="ck-step-2">2. Entrega</div>
+      <div class="step ck-step" id="ck-step-3">3. Pagamento</div>
     </div>
-    <div class="fg"><label>E-mail</label><input type="email" placeholder="seu@email.com"></div>
-    <div class="fg"><label>Telefone</label><input type="tel" placeholder="(00) 00000-0000"></div>
-    <div class="sub-t">Endereco</div>
-    <div class="frow">
-      <div class="fg"><label>CEP</label><input type="text" placeholder="00000-000"></div>
-      <div class="fg"><label>Numero</label><input type="text" placeholder="Nr"></div>
-    </div>
-    <div class="fg"><label>Rua</label><input type="text" placeholder="Nome da rua"></div>
-    <div class="frow">
-      <div class="fg"><label>Cidade</label><input type="text" placeholder="Cidade"></div>
-      <div class="fg"><label>Estado</label>
-        <select><option>Estado</option><option>AC</option><option>AL</option><option>AM</option><option>AP</option><option>BA</option><option>CE</option><option>DF</option><option>ES</option><option>GO</option><option>MA</option><option>MG</option><option>MS</option><option>MT</option><option>PA</option><option>PB</option><option>PE</option><option>PI</option><option>PR</option><option>RJ</option><option>RN</option><option>RO</option><option>RR</option><option>RS</option><option>SC</option><option>SE</option><option>SP</option><option>TO</option></select>
+
+    <!-- STEP 1 -->
+    <div id="ck-page-1">
+      <div class="sub-t">Dados Pessoais</div>
+      <div class="frow">
+        <div class="fg"><label>Nome *</label><input type="text" required placeholder="Seu nome"></div>
+        <div class="fg"><label>Sobrenome *</label><input type="text" required placeholder="Sobrenome"></div>
+      </div>
+      <div class="fg"><label>E-mail *</label><input type="email" required placeholder="seu@email.com"></div>
+      <div class="fg"><label>CPF *</label><input type="text" required placeholder="000.000.000-00"></div>
+      <div class="fg"><label>Telefone / WhatsApp *</label><input type="tel" required placeholder="(00) 00000-0000"></div>
+      <div style="display:flex;gap:10px;margin-top:8px">
+        <button class="bsend" onclick="nextStep()">Continuar &#8250;</button>
       </div>
     </div>
-    <div class="sub-t">Pagamento</div>
-    <div class="fg"><label>Numero do Cartao</label><input type="text" placeholder="0000 0000 0000 0000"></div>
-    <div class="frow">
-      <div class="fg"><label>Validade</label><input type="text" placeholder="MM/AA"></div>
-      <div class="fg"><label>CVV</label><input type="text" placeholder="000"></div>
+
+    <!-- STEP 2 -->
+    <div id="ck-page-2" style="display:none">
+      <div class="sub-t">Endereco de Entrega</div>
+      <div class="frow">
+        <div class="fg"><label>CEP *</label><input type="text" required placeholder="00000-000"></div>
+        <div class="fg"><label>Numero *</label><input type="text" required placeholder="Nr"></div>
+      </div>
+      <div class="fg"><label>Rua *</label><input type="text" required placeholder="Nome da rua"></div>
+      <div class="fg"><label>Complemento</label><input type="text" placeholder="Apto, sala, bloco..."></div>
+      <div class="frow">
+        <div class="fg"><label>Bairro *</label><input type="text" required placeholder="Bairro"></div>
+        <div class="fg"><label>Cidade *</label><input type="text" required placeholder="Cidade"></div>
+      </div>
+      <div class="fg"><label>Estado *</label>
+        <select required><option value="">Estado</option><option>AC</option><option>AL</option><option>AM</option><option>AP</option><option>BA</option><option>CE</option><option>DF</option><option>ES</option><option>GO</option><option>MA</option><option>MG</option><option>MS</option><option>MT</option><option>PA</option><option>PB</option><option>PE</option><option>PI</option><option>PR</option><option>RJ</option><option>RN</option><option>RO</option><option>RR</option><option>RS</option><option>SC</option><option>SE</option><option>SP</option><option>TO</option></select>
+      </div>
+      <div class="sub-t">Frete</div>
+      <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:18px">
+        <label style="display:flex;align-items:center;gap:10px;background:var(--cream);padding:12px;border-radius:10px;cursor:pointer;font-size:13px;border:2px solid var(--rose)">
+          <input type="radio" name="frete" value="pac" checked> <span><strong>PAC - Economico</strong> &nbsp; R$ 19,90 &nbsp; <span style="color:var(--gray)">5 a 10 dias uteis</span></span>
+        </label>
+        <label style="display:flex;align-items:center;gap:10px;background:var(--cream);padding:12px;border-radius:10px;cursor:pointer;font-size:13px;border:2px solid var(--rose-l)">
+          <input type="radio" name="frete" value="sedex"> <span><strong>SEDEX - Rapido</strong> &nbsp; R$ 34,90 &nbsp; <span style="color:var(--gray)">2 a 3 dias uteis</span></span>
+        </label>
+      </div>
+      <div style="display:flex;gap:10px;margin-top:8px">
+        <button class="bsend" style="background:var(--gray)" onclick="prevStep()">&#8249; Voltar</button>
+        <button class="bsend" onclick="nextStep()">Continuar &#8250;</button>
+      </div>
     </div>
-    <div class="fg"><label>Nome no Cartao</label><input type="text" placeholder="Como esta no cartao"></div>
-    <button class="bsend" onclick="pedidoOK()">&#128274; Confirmar Pedido</button>
+
+    <!-- STEP 3 -->
+    <div id="ck-page-3" style="display:none">
+      <div class="sub-t">Forma de Pagamento</div>
+      <div style="display:flex;gap:8px;margin-bottom:18px;flex-wrap:wrap">
+        <button onclick="setPagamento(this,'cartao')" class="pay-btn active" style="flex:1;padding:10px;border-radius:10px;border:2px solid var(--rose);background:var(--rose-l);font-weight:700;cursor:pointer;font-size:12px;font-family:Nunito,sans-serif">&#128179; Cartao</button>
+        <button onclick="setPagamento(this,'pix')" class="pay-btn" style="flex:1;padding:10px;border-radius:10px;border:2px solid var(--rose-l);background:#fff;font-weight:700;cursor:pointer;font-size:12px;font-family:Nunito,sans-serif">Pix</button>
+        <button onclick="setPagamento(this,'boleto')" class="pay-btn" style="flex:1;padding:10px;border-radius:10px;border:2px solid var(--rose-l);background:#fff;font-weight:700;cursor:pointer;font-size:12px;font-family:Nunito,sans-serif">Boleto</button>
+      </div>
+      <div id="pay-cartao">
+        <div class="fg"><label>Numero do Cartao *</label><input type="text" id="card-num" placeholder="0000 0000 0000 0000" maxlength="19" oninput="maskCard(this)"></div>
+        <div class="frow">
+          <div class="fg"><label>Validade *</label><input type="text" placeholder="MM/AA" maxlength="5" oninput="maskDate(this)"></div>
+          <div class="fg"><label>CVV *</label><input type="text" placeholder="000" maxlength="4"></div>
+        </div>
+        <div class="fg"><label>Nome no Cartao *</label><input type="text" placeholder="Como esta impresso"></div>
+        <div class="fg"><label>Parcelas</label>
+          <select id="parcelas"></select>
+        </div>
+      </div>
+      <div id="pay-pix" style="display:none;text-align:center;padding:20px 0">
+        <div style="font-size:48px;margin-bottom:10px">&#128247;</div>
+        <p style="font-weight:700;color:var(--dark);margin-bottom:6px">Pague com Pix</p>
+        <p style="font-size:13px;color:var(--gray);margin-bottom:16px">Ao confirmar, o QR Code sera gerado para pagamento.</p>
+        <div style="background:var(--lgray);border-radius:12px;padding:16px;font-size:12px;color:var(--gray)">Aprovacao imediata apos o pagamento</div>
+      </div>
+      <div id="pay-boleto" style="display:none;text-align:center;padding:20px 0">
+        <div style="font-size:48px;margin-bottom:10px">&#128196;</div>
+        <p style="font-weight:700;color:var(--dark);margin-bottom:6px">Boleto Bancario</p>
+        <p style="font-size:13px;color:var(--gray);margin-bottom:16px">Prazo de vencimento: 3 dias uteis. Aprovado em ate 2 dias apos o pagamento.</p>
+        <div style="background:var(--lgray);border-radius:12px;padding:16px;font-size:12px;color:var(--gray)">Boleto enviado por e-mail apos confirmacao</div>
+      </div>
+      <div style="display:flex;gap:10px;margin-top:16px">
+        <button class="bsend" style="background:var(--gray)" onclick="prevStep()">&#8249; Voltar</button>
+        <button class="bsend" id="btn-confirmar" onclick="finalizarPedido()">&#128274; Confirmar Pedido</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL CONFIRMACAO -->
+<div class="modal-bg" id="modal-confirm">
+  <div class="modal" style="text-align:center;max-width:480px">
+    <div style="width:80px;height:80px;background:linear-gradient(135deg,#27ae60,#2ecc71);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 20px;font-size:36px">&#10003;</div>
+    <h2 style="color:#27ae60;font-size:28px;margin-bottom:10px">Pedido Realizado!</h2>
+    <p style="font-size:15px;color:var(--gray);margin-bottom:24px;line-height:1.7">Obrigada pela sua compra! Voce receberá um e-mail de confirmacao em breve com todos os detalhes.</p>
+    <div style="background:var(--cream);border-radius:14px;padding:20px;margin-bottom:24px;text-align:left">
+      <div style="display:flex;justify-content:space-between;font-size:13px;margin-bottom:8px"><span style="color:var(--gray)">Numero do Pedido</span><span style="font-weight:700" id="pedido-num">#000000</span></div>
+      <div style="display:flex;justify-content:space-between;font-size:13px;margin-bottom:8px"><span style="color:var(--gray)">Data</span><span style="font-weight:700" id="pedido-data"></span></div>
+      <div style="display:flex;justify-content:space-between;font-size:13px;margin-bottom:8px"><span style="color:var(--gray)">Status</span><span style="font-weight:700;color:#27ae60">Confirmado &#10003;</span></div>
+      <div style="display:flex;justify-content:space-between;font-size:13px"><span style="color:var(--gray)">Previsao de Entrega</span><span style="font-weight:700">5 a 10 dias uteis</span></div>
+    </div>
+    <button class="btn" style="width:100%" onclick="closeConfirm()">Continuar Comprando</button>
   </div>
 </div>
 
 <!-- MODAL MINHA CONTA -->
 <div class="modal-bg" id="modal-conta">
-  <div class="modal modal-conta">
+  <div class="modal" style="max-width:440px">
     <button class="modal-x" onclick="closeConta()">&#10005;</button>
     <h2>Minha Conta</h2>
-    <div class="tabs">
-      <div class="tab active" onclick="switchTab('login')">Entrar</div>
-      <div class="tab" onclick="switchTab('cadastro')">Cadastrar</div>
+    <div style="display:flex;border-bottom:2px solid var(--rose-l);margin-bottom:20px">
+      <button id="tab-btn-login" class="tab-btn active" onclick="switchTab('login')" style="flex:1;text-align:center;padding:11px;font-size:13px;font-weight:700;cursor:pointer;border:none;background:none;color:var(--rose);border-bottom:3px solid var(--rose);font-family:Nunito,sans-serif">Entrar</button>
+      <button id="tab-btn-cadastro" class="tab-btn" onclick="switchTab('cadastro')" style="flex:1;text-align:center;padding:11px;font-size:13px;font-weight:700;cursor:pointer;border:none;background:none;color:var(--gray);border-bottom:3px solid transparent;font-family:Nunito,sans-serif">Cadastrar</button>
     </div>
-    <div class="tab-content active" id="tab-login">
+    <div id="tab-pg-login">
       <div class="fg"><label>E-mail</label><input type="email" placeholder="seu@email.com"></div>
       <div class="fg"><label>Senha</label><input type="password" placeholder="Sua senha"></div>
-      <button class="bsend" onclick="toast('Login realizado com sucesso!')">Entrar</button>
+      <button class="bsend" onclick="showToast('Login realizado com sucesso!')">Entrar</button>
       <p style="text-align:center;margin-top:14px;font-size:13px;color:var(--gray)">Esqueceu a senha? <a href="contato.html" style="color:var(--rose)">Clique aqui</a></p>
     </div>
-    <div class="tab-content" id="tab-cadastro">
+    <div id="tab-pg-cadastro" style="display:none">
       <div class="frow">
         <div class="fg"><label>Nome</label><input type="text" placeholder="Seu nome"></div>
         <div class="fg"><label>Sobrenome</label><input type="text" placeholder="Sobrenome"></div>
       </div>
       <div class="fg"><label>E-mail</label><input type="email" placeholder="seu@email.com"></div>
       <div class="fg"><label>Telefone</label><input type="tel" placeholder="(00) 00000-0000"></div>
-      <div class="fg"><label>Senha</label><input type="password" placeholder="Crie uma senha"></div>
-      <button class="bsend" onclick="toast('Cadastro realizado! Bem-vinda!')">Criar Conta</button>
+      <div class="fg"><label>Senha</label><input type="password" placeholder="Crie uma senha forte"></div>
+      <button class="bsend" onclick="showToast('Cadastro realizado! Bem-vinda!')">Criar Conta</button>
     </div>
   </div>
 </div>
@@ -423,6 +499,11 @@ footer{background:var(--dark);color:rgba(255,255,255,.7);padding:52px 20px 0}
 <div class="toast" id="toast"></div>
 
 <script>
+var cart=[];
+var activeCat="all";
+var favs={};
+var checkStep=1;
+
 var CATS=[
   {id:"perfumes",name:"Perfumes",count:10,img:"https://images.unsplash.com/photo-1541643600914-78b084683702?w=300&h=130&fit=crop&auto=format"},
   {id:"maquiagem",name:"Maquiagem",count:10,img:"https://images.unsplash.com/photo-1512496015851-a90fb38ba796?w=300&h=130&fit=crop&auto=format"},
@@ -452,30 +533,30 @@ var PRODS=[
   {id:18,cat:"maquiagem",brand:"LineArt",name:"Delineador Preto Permanente 12h",price:29.90,old:0,badge:"NOVO",bt:"novo",img:"https://images.unsplash.com/photo-1583241800698-e8ab01830a24?w=400&h=300&fit=crop&auto=format",stars:5,rev:891,desc:"Ponta ultrafina para tracado preciso. 12h de duracao.",slug:"delineador-preto-permanente"},
   {id:19,cat:"maquiagem",brand:"GlossGirl",name:"Gloss Labial Hidratante Brilhoso",price:34.90,old:44.90,badge:"PROMO",bt:"promo",img:"https://images.unsplash.com/photo-1631214524020-3c69888976a5?w=400&h=300&fit=crop&auto=format",stars:4,rev:267,desc:"Labios carnudos com brilho intenso e acido hialuronico.",slug:"gloss-labial-hidratante"},
   {id:20,cat:"maquiagem",brand:"ProBrush",name:"Kit Pinceis Profissionais 12 pcs",price:89.90,old:129.90,badge:"PROMO",bt:"promo",img:"https://images.unsplash.com/photo-1598440947619-2c35fc9aa908?w=400&h=300&fit=crop&auto=format",stars:5,rev:443,desc:"12 pinceis sinteticos profissionais com estojo.",slug:"kit-pinceis-profissionais-12"},
-  {id:21,cat:"skincare",brand:"VitaGlow",name:"Serum Vitamina C 30ml Clareador",price:149.90,old:199.90,badge:"PROMO",bt:"promo",img:"https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?w=400&h=300&fit=crop&auto=format",stars:5,rev:632,desc:"20% vitamina C estabilizada. Resultados em 2 semanas.",slug:"serum-vitamina-c-clareador"},
+  {id:21,cat:"skincare",brand:"VitaGlow",name:"Serum Vitamina C 30ml Clareador",price:149.90,old:199.90,badge:"PROMO",bt:"promo",img:"https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?w=400&h=300&fit=crop&auto=format",stars:5,rev:632,desc:"20 porcento vitamina C estabilizada. Resultados em 2 semanas.",slug:"serum-vitamina-c-clareador"},
   {id:22,cat:"skincare",brand:"SunShield",name:"Hidratante Facial FPS50 Diario",price:99.90,old:129.90,badge:"PROMO",bt:"promo",img:"https://images.unsplash.com/photo-1556228453-efd6c1ff04f6?w=400&h=300&fit=crop&auto=format",stars:5,rev:481,desc:"Protecao solar e hidratacao em um so passo.",slug:"hidratante-facial-fps50"},
   {id:23,cat:"skincare",brand:"Eclat",name:"Esfoliante Corporal Acucar e Rosa",price:59.90,old:79.90,badge:"PROMO",bt:"promo",img:"https://images.unsplash.com/photo-1608248597279-f99d160bfcbc?w=400&h=300&fit=crop&auto=format",stars:4,rev:215,desc:"Esfoliacao suave com acucar e rosa mosqueta.",slug:"esfoliante-corporal-acucar-rosa"},
   {id:24,cat:"skincare",brand:"Detox Pure",name:"Mascara Facial Detox Argila Negra",price:79.90,old:0,badge:"NOVO",bt:"novo",img:"https://images.unsplash.com/photo-1526758097130-bab247274f58?w=400&h=300&fit=crop&auto=format",stars:4,rev:174,desc:"Argila negra para absorver impurezas e controlar brilho.",slug:"mascara-facial-argila-negra"},
-  {id:25,cat:"skincare",brand:"RosaWild",name:"Oleo Facial Rosa Mosqueta Puro 30ml",price:89.90,old:119.90,badge:"PROMO",bt:"promo",img:"https://images.unsplash.com/photo-1617897903246-719242758050?w=400&h=300&fit=crop&auto=format",stars:5,rev:328,desc:"100% puro e frio-prensado. Regenera e combate envelhecimento.",slug:"oleo-facial-rosa-mosqueta"},
+  {id:25,cat:"skincare",brand:"RosaWild",name:"Oleo Facial Rosa Mosqueta Puro 30ml",price:89.90,old:119.90,badge:"PROMO",bt:"promo",img:"https://images.unsplash.com/photo-1617897903246-719242758050?w=400&h=300&fit=crop&auto=format",stars:5,rev:328,desc:"100 porcento puro e frio-prensado. Regenera e combate envelhecimento.",slug:"oleo-facial-rosa-mosqueta"},
   {id:26,cat:"skincare",brand:"MicelaClean",name:"Agua Micelar Bifasica 500ml",price:49.90,old:64.90,badge:"PROMO",bt:"promo",img:"https://images.unsplash.com/photo-1598452963314-b09f397a5c48?w=400&h=300&fit=crop&auto=format",stars:4,rev:391,desc:"Remove maquiagem resistente com aloe vera e camomila.",slug:"agua-micelar-bifasica"},
   {id:27,cat:"skincare",brand:"EyeFocus",name:"Contorno dos Olhos Anti-Idade 15ml",price:119.90,old:159.90,badge:"PROMO",bt:"promo",img:"https://images.unsplash.com/photo-1571781926291-c477ebfd024b?w=400&h=300&fit=crop&auto=format",stars:5,rev:143,desc:"Reduz bolsas, olheiras e linhas finas. Com retinol.",slug:"contorno-olhos-anti-idade"},
   {id:28,cat:"skincare",brand:"SunShield",name:"Protetor Solar Corporal FPS60 200ml",price:69.90,old:89.90,badge:"PROMO",bt:"promo",img:"https://images.unsplash.com/photo-1593560708920-61dd98c46a4e?w=400&h=300&fit=crop&auto=format",stars:4,rev:267,desc:"FPS60 resistente a agua por 80 minutos.",slug:"protetor-solar-corporal-fps60"},
-  {id:29,cat:"skincare",brand:"VitaGlow",name:"Tonico Facial Revitalizante 200ml",price:59.90,old:0,badge:"NOVO",bt:"novo",img:"https://images.unsplash.com/photo-1556228578-8c89e6adf883?w=400&h=300&fit=crop&auto=format",stars:4,rev:119,desc:"Equilibra pH e hidrata. Com niacinamida 5% e zinco.",slug:"tonico-facial-revitalizante"},
-  {id:30,cat:"skincare",brand:"Eclat",name:"Kit Skincare Completo 5 Produtos",price:249.90,old:369.90,badge:"PROMO",bt:"promo",img:"https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?w=400&h=300&fit=crop&auto=format",stars:5,rev:524,desc:"Rotina completa AM+PM. Economize 32%.",slug:"kit-skincare-completo-5-produtos"},
+  {id:29,cat:"skincare",brand:"VitaGlow",name:"Tonico Facial Revitalizante 200ml",price:59.90,old:0,badge:"NOVO",bt:"novo",img:"https://images.unsplash.com/photo-1556228578-8c89e6adf883?w=400&h=300&fit=crop&auto=format",stars:4,rev:119,desc:"Equilibra pH e hidrata. Com niacinamida 5 porcento e zinco.",slug:"tonico-facial-revitalizante"},
+  {id:30,cat:"skincare",brand:"Eclat",name:"Kit Skincare Completo 5 Produtos",price:249.90,old:369.90,badge:"PROMO",bt:"promo",img:"https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?w=400&h=300&fit=crop&auto=format",stars:5,rev:524,desc:"Rotina completa AM e PM. Economize 32 porcento.",slug:"kit-skincare-completo-5-produtos"},
   {id:31,cat:"cabelos",brand:"HairLux",name:"Shampoo Hidratante Intenso 500ml",price:49.90,old:64.90,badge:"PROMO",bt:"promo",img:"https://images.unsplash.com/photo-1519699047748-de8e457a634e?w=400&h=300&fit=crop&auto=format",stars:4,rev:378,desc:"Queratina e proteinas da seda. Reduz frizz desde a 1a lavagem.",slug:"shampoo-hidratante-intenso"},
   {id:32,cat:"cabelos",brand:"NutriHair",name:"Mascara Capilar Nutricao Profunda",price:69.90,old:89.90,badge:"PROMO",bt:"promo",img:"https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?w=400&h=300&fit=crop&auto=format",stars:5,rev:512,desc:"Restaura fios danificados com karite e abissinio.",slug:"mascara-capilar-nutricao-profunda"},
-  {id:33,cat:"cabelos",brand:"ArganLux",name:"Oleo Capilar de Argan Marroquino",price:89.90,old:119.90,badge:"PROMO",bt:"promo",img:"https://images.unsplash.com/photo-1570870673582-6813b6c59e43?w=400&h=300&fit=crop&auto=format",stars:5,rev:289,desc:"100% puro. Nutricao, brilho e protecao termica ate 230 graus.",slug:"oleo-capilar-argan-marroquino"},
+  {id:33,cat:"cabelos",brand:"ArganLux",name:"Oleo Capilar de Argan Marroquino",price:89.90,old:119.90,badge:"PROMO",bt:"promo",img:"https://images.unsplash.com/photo-1570870673582-6813b6c59e43?w=400&h=300&fit=crop&auto=format",stars:5,rev:289,desc:"100 porcento puro. Nutricao, brilho e protecao termica ate 230 graus.",slug:"oleo-capilar-argan-marroquino"},
   {id:34,cat:"cabelos",brand:"HairLux",name:"Condicionador Reconstrutivo 400ml",price:44.90,old:59.90,badge:"PROMO",bt:"promo",img:"https://images.unsplash.com/photo-1527799820374-87591a16f5e4?w=400&h=300&fit=crop&auto=format",stars:4,rev:231,desc:"Reconstroi a fibra capilar. Desemaranha sem pesar.",slug:"condicionador-reconstrutivo"},
   {id:35,cat:"cabelos",brand:"ThermoShield",name:"Leave-in Protetor Termico 200ml",price:59.90,old:0,badge:"NOVO",bt:"novo",img:"https://images.unsplash.com/photo-1585747860715-2ba37e788b70?w=400&h=300&fit=crop&auto=format",stars:5,rev:167,desc:"Protecao ate 230 graus. Anti-frizz e brilho intenso.",slug:"leave-in-protetor-termico"},
   {id:36,cat:"cabelos",brand:"DryFresh",name:"Shampoo Seco Refrescante 150ml",price:39.90,old:54.90,badge:"PROMO",bt:"promo",img:"https://images.unsplash.com/photo-1556228720-195a672e8a03?w=400&h=300&fit=crop&auto=format",stars:4,rev:143,desc:"Remove oleosidade entre lavagens. Amido de arroz e bambu.",slug:"shampoo-seco-refrescante"},
-  {id:37,cat:"cabelos",brand:"NutriHair",name:"Kit Reconstrucao Capilar Completo",price:189.90,old:249.90,badge:"PROMO",bt:"promo",img:"https://images.unsplash.com/photo-1503951914875-452162b0f3f1?w=400&h=300&fit=crop&auto=format",stars:5,rev:394,desc:"Shampoo + mascara + ampola. Protocolo de 4 semanas.",slug:"kit-reconstrucao-capilar-completo"},
+  {id:37,cat:"cabelos",brand:"NutriHair",name:"Kit Reconstrucao Capilar Completo",price:189.90,old:249.90,badge:"PROMO",bt:"promo",img:"https://images.unsplash.com/photo-1503951914875-452162b0f3f1?w=400&h=300&fit=crop&auto=format",stars:5,rev:394,desc:"Shampoo mais mascara mais ampola. Protocolo de 4 semanas.",slug:"kit-reconstrucao-capilar-completo"},
   {id:38,cat:"cabelos",brand:"AmpoleX",name:"Ampola Hidratacao Intensa 10ml",price:29.90,old:0,badge:"NOVO",bt:"novo",img:"https://images.unsplash.com/photo-1519699047748-de8e457a634e?w=400&h=300&fit=crop&auto=format",stars:4,rev:88,desc:"Dose concentrada de hidratacao imediata com acido hialuronico.",slug:"ampola-hidratacao-intensa"},
   {id:39,cat:"cabelos",brand:"ArganLux",name:"Serum Capilar Brilho Espelhado",price:79.90,old:99.90,badge:"PROMO",bt:"promo",img:"https://images.unsplash.com/photo-1560869713-7d0a29430803?w=400&h=300&fit=crop&auto=format",stars:4,rev:176,desc:"Brilho espelhado intenso sem pesar os fios.",slug:"serum-capilar-brilho-espelhado"},
   {id:40,cat:"cabelos",brand:"SmootHair",name:"Escova Progressiva Natural 1000ml",price:149.90,old:199.90,badge:"PROMO",bt:"promo",img:"https://images.unsplash.com/photo-1560869713-7d0a29430803?w=400&h=300&fit=crop&auto=format",stars:5,rev:621,desc:"Alisa e elimina frizz por ate 90 dias. Sem formol.",slug:"escova-progressiva-natural"},
   {id:41,cat:"moda",brand:"ChicBelle",name:"Vestido Floral Midi Romantico",price:189.90,old:249.90,badge:"PROMO",bt:"promo",img:"https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=400&h=300&fit=crop&auto=format",stars:5,rev:203,desc:"Vestido midi floral em chiffon leve. P ao GG.",slug:"vestido-floral-midi-romantico"},
   {id:42,cat:"moda",brand:"SilkLine",name:"Blusa de Seda Elegante Manga Longa",price:129.90,old:179.90,badge:"PROMO",bt:"promo",img:"https://images.unsplash.com/photo-1551488831-00ddcb6c6bd3?w=400&h=300&fit=crop&auto=format",stars:4,rev:118,desc:"Seda natural com caimento impecavel. 6 cores.",slug:"blusa-seda-elegante-manga-longa"},
   {id:43,cat:"moda",brand:"TailorFit",name:"Calca Alfaiataria Pantalona",price:219.90,old:299.90,badge:"PROMO",bt:"promo",img:"https://images.unsplash.com/photo-1506629082955-511b1aa562c8?w=400&h=300&fit=crop&auto=format",stars:5,rev:174,desc:"Alfaiataria premium que nao amassa. Cinto incluso.",slug:"calca-alfaiataria-pantalona"},
-  {id:44,cat:"moda",brand:"ActiveFem",name:"Conjunto Fitness Legging e Top",price:159.90,old:219.90,badge:"PROMO",bt:"promo",img:"https://images.unsplash.com/photo-1518611012118-696072aa579a?w=400&h=300&fit=crop&auto=format",stars:4,rev:312,desc:"Legging sculpting + top. Compressao alta e UV50.",slug:"conjunto-fitness-legging-top"},
+  {id:44,cat:"moda",brand:"ActiveFem",name:"Conjunto Fitness Legging e Top",price:159.90,old:219.90,badge:"PROMO",bt:"promo",img:"https://images.unsplash.com/photo-1518611012118-696072aa579a?w=400&h=300&fit=crop&auto=format",stars:4,rev:312,desc:"Legging sculpting mais top. Compressao alta e UV50.",slug:"conjunto-fitness-legging-top"},
   {id:45,cat:"moda",brand:"ChicBelle",name:"Saia Plissada Midi Rodada",price:139.90,old:0,badge:"NOVO",bt:"novo",img:"https://images.unsplash.com/photo-1583496661160-fb5886a0aaaa?w=400&h=300&fit=crop&auto=format",stars:4,rev:89,desc:"Chiffon acetinado. 8 cores disponiveis.",slug:"saia-plissada-midi-rodada"},
   {id:46,cat:"moda",brand:"TailorFit",name:"Blazer Feminino Slim Elegante",price:249.90,old:329.90,badge:"PROMO",bt:"promo",img:"https://images.unsplash.com/photo-1594938298603-c8148c4dae35?w=400&h=300&fit=crop&auto=format",stars:5,rev:156,desc:"Corte slim com lapela entalhada. Versatil e sofisticado.",slug:"blazer-feminino-slim-elegante"},
   {id:47,cat:"moda",brand:"UrbanChic",name:"Macacao Casual Chic Pantacourt",price:179.90,old:229.90,badge:"PROMO",bt:"promo",img:"https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&h=300&fit=crop&auto=format",stars:4,rev:134,desc:"Viscose leve com abertura nas costas e cinto.",slug:"macacao-casual-chic-pantacourt"},
@@ -484,136 +565,147 @@ var PRODS=[
   {id:50,cat:"moda",brand:"UrbanChic",name:"Conjunto Loungewear Veludo Rose",price:149.90,old:199.90,badge:"PROMO",bt:"promo",img:"https://images.unsplash.com/photo-1434389677669-e08b4cac3105?w=400&h=300&fit=crop&auto=format",stars:5,rev:198,desc:"Veludo coteele. Confortavel para casa ou look casual.",slug:"conjunto-loungewear-veludo-rose"}
 ];
 
-var cart=[];
-var activeCat="all";
-var favs={};
+// ── utils ─────────────────────────────────────────────
+function fmt(v){return 'R$ '+v.toFixed(2).replace('.',',');}
+function starsH(n){var s='';for(var i=0;i<5;i++){s+=i<n?'&#9733;':'&#9734;';}return s;}
 
-function fmt(v){return"R$ "+v.toFixed(2).replace(".",",");}
-function starsH(n){var s="";for(var i=0;i<5;i++){s+=i<n?"&#9733;":"&#9734;";}return s;}
+// ── overlay click = close all ─────────────────────────
+window.addEventListener('DOMContentLoaded',function(){
+  document.getElementById('overlay').addEventListener('click',function(){closeAll();});
+  ['cart-side','modal-checkout','modal-conta','modal-fav','modal-confirm'].forEach(function(id){
+    var el=document.getElementById(id);
+    if(el) el.addEventListener('click',function(e){e.stopPropagation();});
+  });
+});
 
+// ── CATEGORIES ───────────────────────────────────────
 function renderCats(){
-  var h="";
+  var h='';
   for(var i=0;i<CATS.length;i++){
     var c=CATS[i];
-    h+="<div class=\"cat"+(activeCat===c.id?" active":"")+"\" onclick=\"filt('"+c.id+"',null)\">";
-    h+="<div class=\"cat-img\"><img src=\""+c.img+"\" alt=\""+c.name+"\" loading=\"lazy\"></div>";
-    h+="<div class=\"cat-info\"><h3>"+c.name+"</h3><span>"+c.count+" produtos</span></div></div>";
+    var active=activeCat===c.id?' active':'';
+    h+='<div class="cat'+active+'" onclick="filt(\''+c.id+'\',null)">';
+    h+='<div class="cat-img"><img src="'+c.img+'" alt="'+c.name+'" loading="lazy"></div>';
+    h+='<div class="cat-info"><h3>'+c.name+'</h3><span>'+c.count+' produtos</span></div></div>';
   }
-  document.getElementById("cats").innerHTML=h;
+  document.getElementById('cats').innerHTML=h;
 }
 
-function renderProds(list, searchTerm){
-  var info=document.getElementById("search-info");
-  if(searchTerm){
-    info.style.display="block";
+// ── PRODUCTS ─────────────────────────────────────────
+function renderProds(list,term){
+  var info=document.getElementById('search-info');
+  if(term){
+    info.style.display='block';
     info.innerHTML=list.length>0
-      ? "Mostrando <strong>"+list.length+" resultado(s)</strong> para <strong>\""+searchTerm+"\"</strong>"
-      : "";
+      ?'Mostrando <strong>'+list.length+' resultado(s)</strong> para <strong>"'+term+'"</strong>'
+      :'Nenhum resultado para "'+term+'"';
   } else {
-    info.style.display="none";
+    info.style.display='none';
   }
-
   if(list.length===0){
-    document.getElementById("prods").innerHTML="<div class=\"no-results\"><div class=\"icon\">&#128269;</div><h3>Nenhum produto encontrado</h3><p>Tente buscar por outro termo ou categoria.</p></div>";
+    document.getElementById('prods').innerHTML='<div class="no-results"><div class="icon">&#128269;</div><h3>Nenhum produto encontrado</h3><p>Tente outro termo ou categoria.</p></div>';
     return;
   }
-
-  var h="";
+  var h='';
   for(var i=0;i<list.length;i++){
     var p=list[i];
-    var inst=(p.price/10).toFixed(2).replace(".",",");
-    var wishClass=favs[p.id]?" active":"";
-    h+="<div class=\"pcard\">";
-    if(p.badge) h+="<span class=\"pbadge "+p.bt+"\">"+p.badge+"</span>";
-    h+="<button class=\"pwish"+wishClass+"\" onclick=\"toggleFav("+p.id+",this)\">&#10084;</button>";
-    h+="<a href=\"produtos/"+p.slug+".html\" class=\"pimg\"><img src=\""+p.img+"\" alt=\""+p.name+"\" loading=\"lazy\"></a>";
-    h+="<div class=\"pbody\">";
-    h+="<div class=\"pbrand\">"+p.brand+"</div>";
-    h+="<a href=\"produtos/"+p.slug+".html\"><div class=\"pname\">"+p.name+"</div></a>";
-    h+="<div class=\"pstars\"><span class=\"s\">"+starsH(p.stars)+"</span><span class=\"rc\">("+p.rev+")</span></div>";
-    h+="<div class=\"pdesc\">"+p.desc+"</div>";
-    if(p.old) h+="<div class=\"pold\">"+fmt(p.old)+"</div>";
-    h+="<div class=\"pnew\">"+fmt(p.price)+"</div>";
-    h+="<div class=\"pinst\">ou 10x de R$ "+inst+" sem juros</div>";
-    h+="<div class=\"pbtns\">";
-    h+="<button class=\"bcart\" onclick=\"addCart("+p.id+")\">&#128722; Carrinho</button>";
-    h+="<a class=\"bver\" href=\"produtos/"+p.slug+".html\">Ver Produto</a>";
-    h+="</div></div></div>";
+    var inst=(p.price/10).toFixed(2).replace('.',',');
+    var wc=favs[p.id]?' active':'';
+    h+='<div class="pcard">';
+    if(p.badge) h+='<span class="pbadge '+p.bt+'">'+p.badge+'</span>';
+    h+='<button class="pwish'+wc+'" onclick="toggleFav('+p.id+',this)">&#10084;</button>';
+    h+='<a href="produtos/'+p.slug+'.html" class="pimg"><img src="'+p.img+'" alt="'+p.name+'" loading="lazy"></a>';
+    h+='<div class="pbody">';
+    h+='<div class="pbrand">'+p.brand+'</div>';
+    h+='<a href="produtos/'+p.slug+'.html" style="color:inherit"><div class="pname">'+p.name+'</div></a>';
+    h+='<div class="pstars"><span class="s">'+starsH(p.stars)+'</span><span class="rc">('+p.rev+')</span></div>';
+    h+='<div class="pdesc">'+p.desc+'</div>';
+    if(p.old&&p.old>0) h+='<div class="pold">'+fmt(p.old)+'</div>';
+    h+='<div class="pnew">'+fmt(p.price)+'</div>';
+    h+='<div class="pinst">ou 10x de R$ '+inst+' sem juros</div>';
+    h+='<div class="pbtns">';
+    h+='<button class="bcart" onclick="addCart('+p.id+')">&#128722; Carrinho</button>';
+    h+='<a class="bver" href="produtos/'+p.slug+'.html">Ver Produto</a>';
+    h+='</div></div></div>';
   }
-  document.getElementById("prods").innerHTML=h;
+  document.getElementById('prods').innerHTML=h;
 }
 
 function filt(cat,el){
   activeCat=cat;
   renderCats();
   var list;
-  if(cat==="all") list=PRODS;
-  else if(cat==="promo") list=PRODS.filter(function(p){return p.bt==="promo";});
+  if(cat==='all') list=PRODS;
+  else if(cat==='promo') list=PRODS.filter(function(p){return p.bt==='promo';});
   else list=PRODS.filter(function(p){return p.cat===cat;});
-  var titles={all:"Todos os Produtos",perfumes:"Perfumes e Fragancias",maquiagem:"Maquiagem",skincare:"Skincare",cabelos:"Cabelos",moda:"Moda Feminina",promo:"Promocoes"};
-  document.getElementById("sec-title").textContent=titles[cat]||"Produtos";
-  document.getElementById("search-input").value="";
+  var titles={all:'Todos os Produtos',perfumes:'Perfumes e Fragancias',maquiagem:'Maquiagem',skincare:'Skincare',cabelos:'Cabelos',moda:'Moda Feminina',promo:'Promocoes'};
+  document.getElementById('sec-title').textContent=titles[cat]||'Produtos';
+  document.getElementById('search-input').value='';
   renderProds(list,null);
   if(el){
-    var links=document.querySelectorAll(".nav a");
-    for(var i=0;i<links.length;i++) links[i].classList.remove("active");
-    el.classList.add("active");
+    document.querySelectorAll('.nav a').forEach(function(a){a.classList.remove('active');});
+    el.classList.add('active');
   }
   scrollProdos();
 }
 
 function doSearch(){
-  var term=document.getElementById("search-input").value.trim().toLowerCase();
-  if(!term){filt("all",null);return;}
+  var term=document.getElementById('search-input').value.trim().toLowerCase();
+  if(!term){filt('all',null);return;}
   var list=PRODS.filter(function(p){
-    return p.name.toLowerCase().indexOf(term)>-1||p.brand.toLowerCase().indexOf(term)>-1||p.desc.toLowerCase().indexOf(term)>-1||p.cat.toLowerCase().indexOf(term)>-1;
+    return p.name.toLowerCase().indexOf(term)>-1
+      ||p.brand.toLowerCase().indexOf(term)>-1
+      ||p.desc.toLowerCase().indexOf(term)>-1
+      ||p.cat.toLowerCase().indexOf(term)>-1;
   });
-  activeCat="all";
+  activeCat='all';
   renderCats();
-  document.getElementById("sec-title").textContent="Resultados da Busca";
+  document.getElementById('sec-title').textContent='Resultados da Busca';
   renderProds(list,term);
   scrollProdos();
 }
 
 function onSearch(e){
-  if(e.key==="Enter") doSearch();
-  if(document.getElementById("search-input").value.trim()==="") filt("all",null);
+  if(e.key==='Enter') doSearch();
+  if(document.getElementById('search-input').value.trim()==='') filt('all',null);
 }
 
 function scrollProdos(){
-  var el=document.getElementById("sec-produtos");
-  if(el) el.scrollIntoView({behavior:"smooth"});
+  var el=document.getElementById('sec-produtos');
+  if(el) el.scrollIntoView({behavior:'smooth'});
 }
 
+// ── WISHLIST ─────────────────────────────────────────
 function toggleFav(id,btn){
   favs[id]=!favs[id];
-  btn.classList.toggle("active");
-  toast(favs[id]?"Adicionado aos favoritos!":"Removido dos favoritos");
+  btn.classList.toggle('active');
+  showToast(favs[id]?'Adicionado aos favoritos!':'Removido dos favoritos');
 }
 
 function openFavoritos(){
   var list=PRODS.filter(function(p){return favs[p.id];});
-  var body=document.getElementById("fav-body");
+  var body=document.getElementById('fav-body');
   if(list.length===0){
-    body.innerHTML="<p style='text-align:center;color:var(--gray);padding:40px 0;font-size:14px'>Voce ainda nao tem favoritos.<br>Clique no &#10084; de qualquer produto!</p>";
+    body.innerHTML='<p style="text-align:center;color:var(--gray);padding:40px 0;font-size:14px">Voce ainda nao tem favoritos.<br>Clique no coracao de qualquer produto!</p>';
   } else {
-    var h="<div style='display:flex;flex-direction:column;gap:12px'>";
+    var h='<div style="display:flex;flex-direction:column;gap:12px">';
     for(var i=0;i<list.length;i++){
       var p=list[i];
-      h+="<div style='display:flex;gap:12px;align-items:center;background:var(--cream);border-radius:12px;padding:10px'>";
-      h+="<img src='"+p.img+"' style='width:60px;height:60px;object-fit:cover;border-radius:8px;flex-shrink:0'>";
-      h+="<div style='flex:1'><div style='font-size:13px;font-weight:700'>"+p.name+"</div><div style='font-size:15px;font-weight:700;color:var(--rose)'>"+fmt(p.price)+"</div></div>";
-      h+="<a href='produtos/"+p.slug+".html' class='btn' style='padding:8px 16px;font-size:12px'>Ver</a>";
-      h+="</div>";
+      h+='<div style="display:flex;gap:12px;align-items:center;background:var(--cream);border-radius:12px;padding:10px">';
+      h+='<img src="'+p.img+'" style="width:60px;height:60px;object-fit:cover;border-radius:8px;flex-shrink:0" alt="'+p.name+'">';
+      h+='<div style="flex:1"><div style="font-size:13px;font-weight:700">'+p.name+'</div>';
+      h+='<div style="font-size:15px;font-weight:700;color:var(--rose)">'+fmt(p.price)+'</div></div>';
+      h+='<a href="produtos/'+p.slug+'.html" class="btn" style="padding:8px 16px;font-size:12px">Ver</a>';
+      h+='</div>';
     }
-    h+="</div>";
+    h+='</div>';
     body.innerHTML=h;
   }
-  document.getElementById("modal-fav").classList.add("on");
-  document.getElementById("overlay").classList.add("on");
+  showPanel('modal-fav');
 }
-function closeFav(){document.getElementById("modal-fav").classList.remove("on");document.getElementById("overlay").classList.remove("on");}
+function closeFav(){hidePanel('modal-fav');}
 
+// ── CART ─────────────────────────────────────────────
 function addCart(id){
   var p=null;
   for(var i=0;i<PRODS.length;i++){if(PRODS[i].id===id){p=PRODS[i];break;}}
@@ -621,97 +713,197 @@ function addCart(id){
   var found=false;
   for(var i=0;i<cart.length;i++){if(cart[i].id===id){cart[i].qty++;found=true;break;}}
   if(!found) cart.push({id:p.id,name:p.name,price:p.price,img:p.img,qty:1,slug:p.slug});
-  updateCart();
-  toast("Adicionado ao carrinho!");
+  renderCart();
+  showToast('Adicionado ao carrinho!');
   cartOpen();
 }
 
 function remCart(id){
   cart=cart.filter(function(x){return x.id!==id;});
-  updateCart();
+  renderCart();
 }
 
 function changeQty(id,d){
   for(var i=0;i<cart.length;i++){
-    if(cart[i].id===id){cart[i].qty+=d;if(cart[i].qty<=0){remCart(id);return;}break;}
+    if(cart[i].id===id){
+      cart[i].qty+=d;
+      if(cart[i].qty<=0){remCart(id);return;}
+      break;
+    }
   }
-  updateCart();
+  renderCart();
 }
 
-function updateCart(){
-  var count=0;
-  for(var i=0;i<cart.length;i++) count+=cart[i].qty;
-  document.getElementById("cart-count").textContent=count;
-  var body=document.getElementById("cart-body");
-  var ftr=document.getElementById("cart-ftr");
+function renderCart(){
+  var sub=0, count=0;
+  for(var i=0;i<cart.length;i++){count+=cart[i].qty;sub+=cart[i].price*cart[i].qty;}
+  document.getElementById('cart-count').textContent=count;
+  var body=document.getElementById('cart-body');
+  var ftr=document.getElementById('cart-ftr');
   if(cart.length===0){
-    body.innerHTML="<div class=\"cart-empty-msg\"><div class=\"icon\">&#128722;</div><p style=\"font-weight:700;margin-bottom:6px\">Carrinho vazio</p><p style=\"font-size:12px\">Adicione produtos!</p></div>";
-    ftr.style.display="none";
+    body.innerHTML='<div class="cart-empty-msg"><div class="icon">&#128722;</div><p style="font-weight:700;margin-bottom:6px">Carrinho vazio</p><p style="font-size:12px">Adicione produtos!</p></div>';
+    ftr.style.display='none';
     return;
   }
-  ftr.style.display="block";
-  var h="";
+  var h='';
   for(var i=0;i<cart.length;i++){
     var it=cart[i];
-    var nm=it.name.length>38?it.name.substring(0,38)+"...":it.name;
-    h+="<div class=\"citem\">";
-    h+="<a href=\"produtos/"+it.slug+".html\"><img src=\""+it.img+"\" alt=\""+nm+"\" style=\"width:68px;height:68px;object-fit:cover;border-radius:8px;flex-shrink:0\"></a>";
-    h+="<div class=\"citem-info\">";
-    h+="<div class=\"citem-name\">"+nm+"</div>";
-    h+="<div class=\"citem-price\">"+fmt(it.price)+"</div>";
-    h+="<div class=\"citem-qty\">";
-    h+="<button class=\"qbtn\" onclick=\"changeQty("+it.id+",-1)\">-</button>";
-    h+="<span class=\"qnum\">"+it.qty+"</span>";
-    h+="<button class=\"qbtn\" onclick=\"changeQty("+it.id+",1)\">+</button>";
-    h+="<button class=\"qrem\" onclick=\"remCart("+it.id+")\" title=\"Remover\">&#10005;</button>";
-    h+="</div></div></div>";
+    var nm=it.name.length>36?it.name.substring(0,36)+'...':it.name;
+    h+='<div class="citem">';
+    h+='<img src="'+it.img+'" alt="'+nm+'" style="width:68px;height:68px;object-fit:cover;border-radius:8px;flex-shrink:0;display:block">';
+    h+='<div class="citem-info">';
+    h+='<div class="citem-name">'+nm+'</div>';
+    h+='<div class="citem-price">'+fmt(it.price)+'</div>';
+    h+='<div class="citem-qty">';
+    h+='<button class="qbtn" onclick="changeQty('+it.id+',-1)">-</button>';
+    h+='<span class="qnum">'+it.qty+'</span>';
+    h+='<button class="qbtn" onclick="changeQty('+it.id+',1)">+</button>';
+    h+='<button class="qrem" onclick="remCart('+it.id+')">&#10005;</button>';
+    h+='</div></div></div>';
   }
   body.innerHTML=h;
+  var frete=sub>=199?0:19.90;
+  document.getElementById('csubt').textContent=fmt(sub);
+  document.getElementById('cfrete').innerHTML=frete===0?'<span style="color:#27ae60">Gratis &#10003;</span>':fmt(frete);
+  document.getElementById('ctotal').textContent=fmt(sub+frete);
+  ftr.style.display='block';
+}
+
+function cartOpen(){showPanel('cart-side');}
+function cartClose(){hidePanel('cart-side');}
+
+// ── PANELS ───────────────────────────────────────────
+function showPanel(id){
+  document.getElementById('overlay').classList.add('on');
+  document.getElementById(id).classList.add('on');
+}
+function hidePanel(id){
+  document.getElementById(id).classList.remove('on');
+  var anyOpen=false;
+  ['cart-side','modal-checkout','modal-conta','modal-fav','modal-confirm'].forEach(function(pid){
+    if(document.getElementById(pid).classList.contains('on')) anyOpen=true;
+  });
+  if(!anyOpen) document.getElementById('overlay').classList.remove('on');
+}
+function closeAll(){
+  ['cart-side','modal-checkout','modal-conta','modal-fav','modal-confirm'].forEach(function(id){
+    document.getElementById(id).classList.remove('on');
+  });
+  document.getElementById('overlay').classList.remove('on');
+}
+
+// ── CHECKOUT MULTI-STEP ──────────────────────────────
+function checkoutOpen(){
+  if(cart.length===0){showToast('Adicione produtos primeiro!');return;}
+  cartClose();
+  checkStep=1;
+  showCheckStep(1);
+  populateParcelas();
+  showPanel('modal-checkout');
+}
+function checkoutClose(){hidePanel('modal-checkout');}
+
+function showCheckStep(s){
+  checkStep=s;
+  document.querySelectorAll('.ck-step').forEach(function(el){el.classList.remove('on');});
+  document.querySelectorAll('.ck-page').forEach(function(el){el.style.display='none';});
+  var step=document.getElementById('ck-step-'+s);
+  var page=document.getElementById('ck-page-'+s);
+  if(step) step.classList.add('on');
+  if(page) page.style.display='block';
+}
+
+function nextStep(){
+  var page=document.getElementById('ck-page-'+checkStep);
+  var inputs=page?page.querySelectorAll('input[required]'):[];
+  var ok=true;
+  inputs.forEach(function(inp){
+    if(!inp.value.trim()){ok=false;inp.style.borderColor='#e53e3e';}
+    else inp.style.borderColor='';
+  });
+  if(!ok){showToast('Preencha todos os campos obrigatorios!');return;}
+  if(checkStep<3) showCheckStep(checkStep+1);
+}
+function prevStep(){
+  if(checkStep>1) showCheckStep(checkStep-1);
+}
+
+function finalizarPedido(){
+  var btn=document.getElementById('btn-confirmar');
+  if(btn){btn.disabled=true;btn.textContent='Processando...';}
+  setTimeout(function(){
+    cart=[];
+    renderCart();
+    checkoutClose();
+    var num='LB'+Date.now().toString().slice(-6);
+    document.getElementById('pedido-num').textContent='#'+num;
+    document.getElementById('pedido-data').textContent=new Date().toLocaleDateString('pt-BR',{day:'2-digit',month:'long',year:'numeric'});
+    showPanel('modal-confirm');
+    if(btn){btn.disabled=false;btn.textContent='&#128274; Confirmar Pedido';}
+  },2000);
+}
+function closeConfirm(){hidePanel('modal-confirm');}
+
+function setPagamento(btn,tipo){
+  document.querySelectorAll('.pay-btn').forEach(function(b){
+    b.style.borderColor='var(--rose-l)';b.style.background='#fff';
+  });
+  btn.style.borderColor='var(--rose)';btn.style.background='var(--rose-l)';
+  ['cartao','pix','boleto'].forEach(function(t){
+    var el=document.getElementById('pay-'+t);
+    if(el) el.style.display=t===tipo?'block':'none';
+  });
+}
+
+function maskCard(inp){
+  var v=inp.value.replace(/[^0-9]/g,'').substring(0,16);
+  var out='';
+  for(var i=0;i<v.length;i++){if(i>0&&i%4===0) out+=' '; out+=v[i];}
+  inp.value=out;
+}
+function maskDate(inp){
+  var v=inp.value.replace(/[^0-9]/g,'').substring(0,4);
+  if(v.length>=2) inp.value=v.substring(0,2)+'/'+v.substring(2);
+  else inp.value=v;
+}
+
+function populateParcelas(){
+  var sel=document.getElementById('parcelas');
+  if(!sel) return;
   var sub=0;
   for(var i=0;i<cart.length;i++) sub+=cart[i].price*cart[i].qty;
   var frete=sub>=199?0:19.90;
-  document.getElementById("csubt").textContent=fmt(sub);
-  document.getElementById("cfrete").textContent=frete===0?"Gratis &#10003;":fmt(frete);
-  document.getElementById("cfrete").style.color=frete===0?"#27ae60":"var(--rose)";
-  document.getElementById("ctotal").textContent=fmt(sub+frete);
+  var total=sub+frete;
+  sel.innerHTML='';
+  for(var x=1;x<=10;x++){
+    var v=total/x;
+    var opt=document.createElement('option');
+    opt.value=x;
+    opt.text=x+'x de '+fmt(v)+(x===1?' (a vista)':' sem juros');
+    sel.appendChild(opt);
+  }
 }
 
-function cartOpen(){document.getElementById("cart-side").classList.add("on");document.getElementById("overlay").classList.add("on");}
-function cartClose(){document.getElementById("cart-side").classList.remove("on");document.getElementById("overlay").classList.remove("on");}
-
-function checkoutOpen(){
-  if(cart.length===0){toast("Adicione produtos primeiro!");return;}
-  cartClose();
-  document.getElementById("modal-checkout").classList.add("on");
-  document.getElementById("overlay").classList.add("on");
-}
-function checkoutClose(){document.getElementById("modal-checkout").classList.remove("on");document.getElementById("overlay").classList.remove("on");}
-function pedidoOK(){cart=[];updateCart();checkoutClose();toast("Pedido realizado! Obrigada pela compra!");}
-
-function openConta(){document.getElementById("modal-conta").classList.add("on");document.getElementById("overlay").classList.add("on");}
-function closeConta(){document.getElementById("modal-conta").classList.remove("on");document.getElementById("overlay").classList.remove("on");}
+// ── MINHA CONTA ──────────────────────────────────────
+function openConta(){showPanel('modal-conta');}
+function closeConta(){hidePanel('modal-conta');}
 function switchTab(t){
-  document.querySelectorAll(".tab").forEach(function(el){el.classList.remove("active");});
-  document.querySelectorAll(".tab-content").forEach(function(el){el.classList.remove("active");});
-  document.querySelector(".tab[onclick=\"switchTab('"+t+"')\"]").classList.add("active");
-  document.getElementById("tab-"+t).classList.add("active");
+  document.querySelectorAll('.tab-btn').forEach(function(el){el.classList.remove('active');el.style.color='var(--gray)';el.style.borderBottomColor='transparent';});
+  document.querySelectorAll('.tab-pg').forEach(function(el){el.style.display='none';});
+  var btn=document.getElementById('tab-btn-'+t);
+  var pg=document.getElementById('tab-pg-'+t);
+  if(btn){btn.classList.add('active');btn.style.color='var(--rose)';btn.style.borderBottomColor='var(--rose)';}
+  if(pg) pg.style.display='block';
 }
 
-function closeAll(){
-  document.getElementById("cart-side").classList.remove("on");
-  document.getElementById("modal-checkout").classList.remove("on");
-  document.getElementById("modal-conta").classList.remove("on");
-  document.getElementById("modal-fav").classList.remove("on");
-  document.getElementById("overlay").classList.remove("on");
-}
-
+// ── TOAST ─────────────────────────────────────────────
 var toastT=null;
-function toast(msg){
-  var el=document.getElementById("toast");
+function showToast(msg){
+  var el=document.getElementById('toast');
   el.textContent=msg;
-  el.classList.add("on");
+  el.classList.add('on');
   if(toastT) clearTimeout(toastT);
-  toastT=setTimeout(function(){el.classList.remove("on");},3000);
+  toastT=setTimeout(function(){el.classList.remove('on');},3000);
 }
 
 renderCats();
