@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contato – Cafeteiro do Oeste</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Lato:wght@400;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--espresso:#1C0F08;--dark:#2C1810;--caramel:#C8860A;--caramel-d:#A66D08;--cream:#F5F0E8;--parchment:#EDE0C8;--gray:#6B5B4E;--light:#FAF7F3;}
+body{font-family:'Lato',Georgia,sans-serif;background:var(--light);color:var(--dark);line-height:1.7}
+a{text-decoration:none;color:inherit}
+.topbar{background:var(--espresso);color:var(--parchment);text-align:center;padding:9px;font-size:11px;letter-spacing:2px;text-transform:uppercase;font-weight:700}
+header{background:var(--cream);border-bottom:3px solid var(--caramel);padding:0 24px}
+.hdr{max-width:1100px;margin:0 auto;padding:18px 0;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:14px}
+.logo{font-family:'Playfair Display',serif;font-size:26px;font-weight:900;color:var(--espresso);display:flex;align-items:center;gap:8px}
+.logo em{color:var(--caramel);font-style:normal}
+.hdr-nav{display:flex;gap:18px;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.8px}
+.hdr-nav a{color:var(--dark);padding-bottom:2px;border-bottom:2px solid transparent;transition:.2s}
+.hdr-nav a:hover{color:var(--caramel);border-bottom-color:var(--caramel)}
+.hero-small{background:linear-gradient(135deg,#1C0F08,#4a2510);padding:64px 24px;text-align:center}
+.hero-small p{color:var(--parchment);font-size:11px;letter-spacing:4px;text-transform:uppercase;font-weight:700;margin-bottom:10px;opacity:.7}
+.hero-small h1{font-family:'Playfair Display',serif;font-size:clamp(28px,4vw,48px);color:var(--cream);font-weight:900}
+.container{max-width:860px;margin:0 auto;padding:56px 24px}
+h2{font-family:'Playfair Display',serif;font-size:26px;font-weight:700;color:var(--espresso);margin:36px 0 14px;padding-bottom:10px;border-bottom:2px solid var(--parchment)}
+p{font-size:15px;line-height:1.85;color:var(--gray);margin-bottom:16px}
+ul{margin:8px 0 16px 24px}
+ul li{font-size:15px;color:var(--gray);margin-bottom:8px;line-height:1.7}
+strong{color:var(--espresso);font-weight:700}
+footer{background:var(--espresso);color:rgba(245,240,232,.6);text-align:center;padding:28px 20px;font-size:13px;margin-top:60px}
+footer a{color:var(--caramel)}
+
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:44px}
+.info-item{display:flex;gap:14px;margin-bottom:20px;align-items:flex-start}
+.info-item .ic{font-size:22px;margin-top:2px}
+.info-item h4{font-size:13px;font-weight:700;color:var(--espresso);margin-bottom:3px}
+.info-item p{font-size:13px;color:var(--gray);margin:0}
+.form-box{background:#fff;border-radius:16px;padding:32px;border:1px solid var(--parchment);box-shadow:0 2px 16px rgba(28,15,8,.06)}
+.fg{margin-bottom:14px}
+.fg label{display:block;font-size:11px;font-weight:700;color:var(--espresso);text-transform:uppercase;letter-spacing:.5px;margin-bottom:5px}
+.fg input,.fg select,.fg textarea{width:100%;border:2px solid var(--parchment);border-radius:10px;padding:10px 14px;font-family:'Lato',sans-serif;font-size:14px;outline:none;transition:.2s;background:var(--light)}
+.fg input:focus,.fg select:focus,.fg textarea:focus{border-color:var(--caramel)}
+.fg textarea{min-height:120px;resize:vertical}
+.btn-send{width:100%;background:var(--caramel);color:#fff;border:none;padding:13px;border-radius:12px;font-weight:700;font-size:15px;cursor:pointer;font-family:'Lato',sans-serif;transition:.2s}
+.btn-send:hover{background:var(--caramel-d)}
+.ok-msg{display:none;background:#E8F5E9;border:1px solid #A5D6A7;border-radius:10px;padding:14px;text-align:center;color:#2E7D32;font-weight:700;margin-top:14px}
+@media(max-width:700px){.grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="topbar">&#9749; Cafeteiro do Oeste — São José do Cedro e Região</div>
+<header><div class="hdr">
+  <a href="index.html" class="logo">&#9749; Cafeteiro<em> do Oeste</em></a>
+  <nav class="hdr-nav">
+    <a href="index.html">Início</a>
+    <a href="index.html?cat=noticias">Notícias</a>
+    <a href="index.html?cat=gente">Interior</a>
+    <a href="sobre.html">Sobre</a>
+    <a href="contato.html">Contato</a>
+  </nav>
+</div></header>
+<div class="hero-small">
+  <p>Fale conosco</p>
+  <h1>Entre em Contato</h1>
+</div>
+<div class="container">
+  <div class="grid">
+    <div>
+      <h2>Fale com a gente</h2>
+      <p>Tem uma pauta pra sugerir? Quer colaborar com um artigo? Achou um erro? Ou só quer dar um oi? A gente adorar ouvir a comunidade.</p>
+      <div class="info-item"><span class="ic">&#128140;</span><div><h4>E-mail</h4><p>contato@cafeteirodoeste.com.br</p></div></div>
+      <div class="info-item"><span class="ic">&#128242;</span><div><h4>WhatsApp</h4><p>(49) 9 9999-0000</p></div></div>
+      <div class="info-item"><span class="ic">&#128205;</span><div><h4>Localização</h4><p>São José do Cedro – SC<br>Extremo Oeste Catarinense</p></div></div>
+      <div class="info-item"><span class="ic">&#128336;</span><div><h4>Atendimento</h4><p>Segunda a Sexta, das 8h às 18h</p></div></div>
+    </div>
+    <div class="form-box">
+      <h2 style="border:none;margin-top:0;padding:0;margin-bottom:20px">Envie sua mensagem</h2>
+      <div class="fg"><label>Nome</label><input type="text" placeholder="Seu nome"></div>
+      <div class="fg"><label>E-mail</label><input type="email" placeholder="seu@email.com"></div>
+      <div class="fg"><label>Assunto</label>
+        <select>
+          <option>Sugestão de pauta</option>
+          <option>Quero colaborar</option>
+          <option>Encontrei um erro</option>
+          <option>Publicidade</option>
+          <option>Outro</option>
+        </select>
+      </div>
+      <div class="fg"><label>Mensagem</label><textarea placeholder="Escreva aqui..."></textarea></div>
+      <button class="btn-send" onclick="document.getElementById('ok').style.display='block'">Enviar Mensagem</button>
+      <div class="ok-msg" id="ok">&#10003; Mensagem enviada! Retornaremos em breve.</div>
+    </div>
+  </div>
+</div>
+<footer><p>&copy; 2025 Cafeteiro do Oeste | São José do Cedro – SC | <a href="privacidade.html">Privacidade</a> | <a href="contato.html">Contato</a></p></footer>
+</body>
+</html>

@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Painel do Editor – Cafeteiro do Oeste</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Lato:wght@400;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--espresso:#1C0F08;--dark:#2C1810;--caramel:#C8860A;--caramel-d:#A66D08;--cream:#F5F0E8;--parchment:#EDE0C8;--gray:#6B5B4E;--light:#FAF7F3;--green:#27ae60;--red:#e53e3e;}
+body{font-family:'Lato',sans-serif;background:var(--light);color:var(--dark)}
+
+/* LOGIN */
+.login-screen{position:fixed;inset:0;background:var(--espresso);display:flex;align-items:center;justify-content:center;z-index:9999;padding:20px}
+.login-box{background:var(--cream);border-radius:20px;padding:44px;width:100%;max-width:400px;text-align:center}
+.login-box .icon{font-size:52px;margin-bottom:16px}
+.login-box h1{font-family:'Playfair Display',serif;font-size:26px;color:var(--espresso);margin-bottom:6px}
+.login-box p{font-size:13px;color:var(--gray);margin-bottom:28px}
+.login-box input{width:100%;border:2px solid var(--parchment);border-radius:10px;padding:12px 16px;font-family:'Lato',sans-serif;font-size:14px;outline:none;background:var(--light);margin-bottom:14px;transition:.2s}
+.login-box input:focus{border-color:var(--caramel)}
+.login-box button{width:100%;background:var(--caramel);color:#fff;border:none;padding:13px;border-radius:10px;font-weight:700;font-size:15px;cursor:pointer;font-family:'Lato',sans-serif;transition:.2s}
+.login-box button:hover{background:var(--caramel-d)}
+.login-error{color:var(--red);font-size:13px;margin-top:10px;display:none}
+
+/* PANEL HEADER */
+.panel-header{background:var(--espresso);padding:14px 24px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100}
+.panel-logo{font-family:'Playfair Display',serif;font-size:18px;color:var(--cream);display:flex;align-items:center;gap:8px}
+.panel-logo em{color:var(--caramel);font-style:normal}
+.panel-nav{display:flex;gap:12px;align-items:center}
+.panel-nav a{color:rgba(245,240,232,.7);font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:1px;cursor:pointer;transition:.2s;padding:7px 14px;border-radius:8px}
+.panel-nav a:hover{color:var(--caramel);background:rgba(200,134,10,.1)}
+.panel-nav a.active{color:var(--caramel);background:rgba(200,134,10,.15)}
+.logout-btn{color:rgba(245,240,232,.5);font-size:12px;cursor:pointer;background:none;border:none;font-family:'Lato',sans-serif;padding:7px 12px;border-radius:8px;transition:.2s}
+.logout-btn:hover{color:var(--red);background:rgba(229,62,62,.1)}
+
+/* PANELS */
+.panel{display:none;max-width:1100px;margin:0 auto;padding:32px 24px}
+.panel.active{display:block}
+
+/* EDITOR */
+.editor-grid{display:grid;grid-template-columns:1fr 340px;gap:28px;align-items:start}
+.editor-main{}
+.editor-sidebar{}
+
+.card{background:#fff;border-radius:14px;padding:24px;border:1px solid rgba(237,224,200,.7);box-shadow:0 2px 12px rgba(28,15,8,.05);margin-bottom:20px}
+.card h3{font-family:'Playfair Display',serif;font-size:17px;color:var(--espresso);margin-bottom:18px;padding-bottom:10px;border-bottom:2px solid var(--parchment);display:flex;align-items:center;gap:8px}
+
+label{display:block;font-size:11px;font-weight:700;color:var(--dark);text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px}
+input[type=text],input[type=url],select,textarea{width:100%;border:2px solid var(--parchment);border-radius:10px;padding:10px 14px;font-family:'Lato',sans-serif;font-size:14px;outline:none;transition:.2s;background:var(--light);color:var(--dark)}
+input:focus,select:focus,textarea:focus{border-color:var(--caramel)}
+.fg{margin-bottom:16px}
+.fg-row{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:16px}
+.help{font-size:11px;color:var(--gray);margin-top:5px}
+
+/* TOOLBAR */
+.toolbar{display:flex;flex-wrap:wrap;gap:4px;padding:10px;background:var(--cream);border-radius:10px 10px 0 0;border:2px solid var(--parchment);border-bottom:1px solid var(--parchment)}
+.tb-btn{background:#fff;border:1px solid var(--parchment);border-radius:6px;padding:6px 10px;font-size:13px;cursor:pointer;color:var(--dark);font-family:'Lato',sans-serif;transition:.2s;font-weight:700}
+.tb-btn:hover{background:var(--caramel);color:#fff;border-color:var(--caramel)}
+.tb-sep{width:1px;background:var(--parchment);margin:0 4px}
+#editor-area{min-height:340px;border:2px solid var(--parchment);border-top:none;border-radius:0 0 10px 10px;padding:16px;font-family:'Lato',Georgia,sans-serif;font-size:15px;line-height:1.8;outline:none;background:#fff;color:var(--dark)}
+#editor-area:focus{border-color:var(--caramel)}
+#editor-area h2{font-family:'Playfair Display',serif;font-size:22px;margin:18px 0 10px;color:var(--espresso)}
+#editor-area h3{font-family:'Playfair Display',serif;font-size:18px;margin:14px 0 8px}
+#editor-area blockquote{border-left:4px solid var(--caramel);padding:12px 16px;background:var(--cream);margin:14px 0;font-style:italic}
+#editor-area a{color:var(--caramel);text-decoration:underline}
+
+/* IMAGE PREVIEW */
+.img-preview{width:100%;height:160px;border-radius:10px;overflow:hidden;background:var(--parchment);margin-top:10px;display:flex;align-items:center;justify-content:center;font-size:28px;color:var(--gray)}
+.img-preview img{width:100%;height:100%;object-fit:cover}
+
+/* STATUS BADGE */
+.status-badge{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:700;padding:6px 14px;border-radius:50px}
+.status-badge.draft{background:#FFF3E0;color:#E65100}
+.status-badge.pub{background:#E8F5E9;color:var(--green)}
+
+/* PUBLISH BTN */
+.btn-publish{width:100%;background:var(--green);color:#fff;border:none;padding:14px;border-radius:12px;font-weight:700;font-size:15px;cursor:pointer;font-family:'Lato',sans-serif;transition:.3s;display:flex;align-items:center;justify-content:center;gap:8px;margin-top:8px}
+.btn-publish:hover{background:#219150;transform:translateY(-1px)}
+.btn-draft{width:100%;background:var(--cream);color:var(--dark);border:2px solid var(--parchment);padding:12px;border-radius:12px;font-weight:700;font-size:14px;cursor:pointer;font-family:'Lato',sans-serif;transition:.2s;margin-top:8px}
+.btn-draft:hover{border-color:var(--caramel);color:var(--caramel)}
+
+/* OUTPUT MODAL */
+.modal-bg{position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:2000;display:none;align-items:flex-start;justify-content:center;padding:40px 20px;overflow-y:auto}
+.modal-bg.on{display:flex}
+.modal{background:#fff;border-radius:20px;width:100%;max-width:720px;padding:36px;position:relative}
+.modal-x{position:absolute;top:18px;right:18px;background:none;border:none;font-size:22px;cursor:pointer;color:var(--gray)}
+.modal h2{font-family:'Playfair Display',serif;font-size:26px;color:var(--espresso);margin-bottom:8px}
+.modal p{font-size:14px;color:var(--gray);margin-bottom:20px;line-height:1.6}
+.step-box{background:var(--light);border:2px solid var(--parchment);border-radius:12px;margin-bottom:16px;overflow:hidden}
+.step-hdr{background:var(--parchment);padding:12px 16px;display:flex;justify-content:space-between;align-items:center}
+.step-hdr h4{font-size:13px;font-weight:700;color:var(--espresso);text-transform:uppercase;letter-spacing:.5px}
+.step-hdr .copy-btn{background:var(--caramel);color:#fff;border:none;padding:5px 14px;border-radius:8px;font-size:12px;font-weight:700;cursor:pointer;font-family:'Lato',sans-serif;transition:.2s}
+.step-hdr .copy-btn:hover{background:var(--caramel-d)}
+.step-code{padding:14px 16px;font-family:monospace;font-size:12px;line-height:1.6;color:var(--dark);overflow-x:auto;max-height:200px;overflow-y:auto;white-space:pre-wrap;word-break:break-all}
+.dl-btn{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;background:var(--espresso);color:#fff;border:none;padding:13px;border-radius:12px;font-weight:700;font-size:14px;cursor:pointer;font-family:'Lato',sans-serif;transition:.2s;margin-top:8px}
+.dl-btn:hover{background:var(--dark)}
+.success-icon{font-size:48px;text-align:center;margin-bottom:12px}
+
+/* POSTS LIST */
+.posts-table{width:100%;border-collapse:collapse}
+.posts-table th{text-align:left;padding:10px 14px;font-size:11px;text-transform:uppercase;letter-spacing:.5px;color:var(--gray);border-bottom:2px solid var(--parchment);font-weight:700}
+.posts-table td{padding:12px 14px;font-size:13px;border-bottom:1px solid var(--parchment);vertical-align:middle}
+.posts-table tr:hover td{background:var(--light)}
+.tbl-thumb{width:56px;height:40px;border-radius:6px;overflow:hidden;flex-shrink:0}
+.tbl-thumb img{width:100%;height:100%;object-fit:cover}
+.tbl-title{font-weight:700;color:var(--espresso);max-width:280px}
+.tbl-actions{display:flex;gap:8px}
+.tbl-actions button{border:none;padding:5px 12px;border-radius:6px;font-size:11px;font-weight:700;cursor:pointer;font-family:'Lato',sans-serif;transition:.2s}
+.btn-view{background:var(--cream);color:var(--dark);border:1px solid var(--parchment)}
+.btn-view:hover{background:var(--parchment)}
+.btn-del{background:#FFF0F0;color:var(--red);border:1px solid #FFD0D0}
+.btn-del:hover{background:var(--red);color:#fff}
+.empty-table{text-align:center;padding:40px;color:var(--gray);font-size:14px}
+
+/* TOAST */
+.toast{position:fixed;bottom:22px;left:50%;transform:translateX(-50%) translateY(120px);background:var(--espresso);color:var(--cream);padding:12px 26px;border-radius:50px;font-size:13px;font-weight:700;z-index:9999;transition:.4s;pointer-events:none}
+.toast.on{transform:translateX(-50%) translateY(0)}
+
+@media(max-width:900px){.editor-grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+
+<!-- LOGIN -->
+<div class="login-screen" id="login-screen">
+  <div class="login-box">
+    <div class="icon">&#9749;</div>
+    <h1>Cafeteiro do Oeste</h1>
+    <p>Área restrita ao editor. Digite a senha para entrar.</p>
+    <input type="password" id="pw-input" placeholder="Senha do painel" onkeyup="if(event.key==='Enter')doLogin()">
+    <button onclick="doLogin()">Entrar no Painel</button>
+    <div class="login-error" id="login-error">Senha incorreta. Tente novamente.</div>
+  </div>
+</div>
+
+<!-- PANEL -->
+<div id="panel-wrap" style="display:none">
+
+<div class="panel-header">
+  <div class="panel-logo">&#9749; Cafeteiro <em>do Oeste</em> — Painel</div>
+  <div class="panel-nav">
+    <a onclick="showTab('editor')" id="tab-editor" class="active">&#9998; Novo Artigo</a>
+    <a onclick="showTab('posts')" id="tab-posts">&#128196; Artigos</a>
+    <a href="index.html" target="_blank">&#127968; Ver Blog</a>
+  </div>
+  <button class="logout-btn" onclick="logout()">Sair</button>
+</div>
+
+<!-- EDITOR TAB -->
+<div class="panel" id="tab-editor-panel" style="display:block">
+  <div class="editor-grid">
+
+    <!-- MAIN EDITOR -->
+    <div class="editor-main">
+      <div class="card">
+        <h3>&#9998; Conteúdo do Artigo</h3>
+        <div class="fg">
+          <label>Título do Artigo *</label>
+          <input type="text" id="art-title" placeholder="Ex: Festival de Inverno reúne milhares em São José do Cedro" oninput="autoSlug()">
+        </div>
+        <div class="fg">
+          <label>Resumo / Chamada *</label>
+          <textarea id="art-summary" rows="3" placeholder="Um resumo curto e atraente do artigo (aparece nos cards da página inicial)..."></textarea>
+        </div>
+        <div class="fg">
+          <label>Corpo do Artigo *</label>
+          <div class="toolbar">
+            <button class="tb-btn" onclick="fmt('bold')" title="Negrito"><b>B</b></button>
+            <button class="tb-btn" onclick="fmt('italic')" title="Itálico"><i>I</i></button>
+            <button class="tb-btn" onclick="fmt('underline')" title="Sublinhado"><u>U</u></button>
+            <div class="tb-sep"></div>
+            <button class="tb-btn" onclick="fmtBlock('h2')" title="Título H2">H2</button>
+            <button class="tb-btn" onclick="fmtBlock('h3')" title="Título H3">H3</button>
+            <div class="tb-sep"></div>
+            <button class="tb-btn" onclick="fmt('insertUnorderedList')" title="Lista">&#8226; Lista</button>
+            <button class="tb-btn" onclick="fmtBlock('blockquote')" title="Citação">&#8220;&#8221;</button>
+            <div class="tb-sep"></div>
+            <button class="tb-btn" onclick="insertLink()" title="Link">&#128279;</button>
+            <button class="tb-btn" onclick="insertImg()" title="Imagem no texto">&#128247;</button>
+            <div class="tb-sep"></div>
+            <button class="tb-btn" onclick="fmt('removeFormat')" title="Limpar formato">&#10006;</button>
+          </div>
+          <div id="editor-area" contenteditable="true" spellcheck="true">
+            <p>Comece a escrever o artigo aqui...</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SIDEBAR -->
+    <div class="editor-sidebar">
+      <div class="card">
+        <h3>&#9881; Configurações</h3>
+        <div class="fg">
+          <label>Categoria *</label>
+          <select id="art-cat">
+            <option value="">Selecione...</option>
+            <option value="noticias">&#128240; Notícias</option>
+            <option value="gente">&#127807; Interior & Gente</option>
+            <option value="gastronomia">&#9749; Gastronomia</option>
+            <option value="esportes">&#127942; Esportes</option>
+            <option value="turismo">&#128506; Turismo & Região</option>
+          </select>
+        </div>
+        <div class="fg">
+          <label>Autor</label>
+          <input type="text" id="art-author" value="Redação Cafeteiro" placeholder="Nome do autor">
+        </div>
+        <div class="fg">
+          <label>Data de Publicação</label>
+          <input type="date" id="art-date">
+        </div>
+        <div class="fg">
+          <label>Slug (URL do artigo)</label>
+          <input type="text" id="art-slug" placeholder="nome-do-artigo">
+          <div class="help">Gerado automaticamente. Edite se necessário.</div>
+        </div>
+        <div class="fg">
+          <label>Artigo em Destaque?</label>
+          <select id="art-featured">
+            <option value="false">Não</option>
+            <option value="true">Sim — aparecer no hero</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>&#128247; Imagem Destacada</h3>
+        <div class="fg">
+          <label>URL da Imagem *</label>
+          <input type="url" id="art-img" placeholder="https://..." oninput="previewImg()">
+          <div class="help">Cole a URL de uma imagem. Use Unsplash, sua hospedagem, etc.</div>
+        </div>
+        <div class="img-preview" id="img-preview">
+          <span>&#128247;</span>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>&#128640; Publicar</h3>
+        <p style="font-size:13px;color:var(--gray);margin-bottom:14px;line-height:1.6">Ao publicar, você vai baixar dois arquivos e fazer upload no GitHub.</p>
+        <button class="btn-publish" onclick="publicar()">&#128640; Publicar Artigo</button>
+        <button class="btn-draft" onclick="salvarRascunho()">&#128190; Salvar Rascunho</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- POSTS LIST TAB -->
+<div class="panel" id="tab-posts-panel">
+  <div class="card" style="max-width:100%">
+    <h3>&#128196; Artigos Publicados</h3>
+    <div id="posts-list-wrap">
+      <div class="empty-table">Carregando...</div>
+    </div>
+  </div>
+</div>
+
+</div><!-- /panel-wrap -->
+
+<!-- OUTPUT MODAL -->
+<div class="modal-bg" id="output-modal">
+  <div class="modal">
+    <button class="modal-x" onclick="closeModal()">&#10005;</button>
+    <div class="success-icon">&#127881;</div>
+    <h2>Artigo pronto para publicar!</h2>
+    <p>Siga os 2 passos abaixo para colocar o artigo no ar no GitHub Pages.</p>
+
+    <div class="step-box">
+      <div class="step-hdr">
+        <h4>&#9312; Baixe o arquivo do artigo e envie para a pasta <code>posts/</code></h4>
+        <button class="copy-btn" onclick="dlArticle()">&#11015; Baixar HTML</button>
+      </div>
+      <div class="step-code" id="preview-filename"></div>
+    </div>
+
+    <div class="step-box">
+      <div class="step-hdr">
+        <h4>&#9313; Copie esta entrada e adicione ao <code>posts.json</code></h4>
+        <button class="copy-btn" onclick="copyJson()">&#128203; Copiar JSON</button>
+      </div>
+      <div class="step-code" id="json-preview"></div>
+    </div>
+
+    <div style="background:#E8F5E9;border-radius:10px;padding:14px 16px;font-size:13px;color:#2E7D32;margin-top:4px;line-height:1.6">
+      <strong>Como adicionar no posts.json:</strong> Abra o arquivo posts.json no GitHub, cole a entrada acima no início do array (depois do <code>[</code>), adicione uma vírgula após ela e salve.
+    </div>
+
+    <button class="dl-btn" onclick="dlArticle()">&#11015; Baixar arquivo do artigo</button>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+// ── SENHA ────────────────────────────────────────────
+var SENHA = 'cafeteiro2025';
+var logado = false;
+
+function doLogin(){
+  var pw = document.getElementById('pw-input').value;
+  if(pw === SENHA){
+    logado = true;
+    document.getElementById('login-screen').style.display = 'none';
+    document.getElementById('panel-wrap').style.display = 'block';
+    initPanel();
+  } else {
+    document.getElementById('login-error').style.display = 'block';
+  }
+}
+
+function logout(){
+  logado = false;
+  document.getElementById('login-screen').style.display = 'flex';
+  document.getElementById('panel-wrap').style.display = 'none';
+  document.getElementById('pw-input').value = '';
+}
+
+// ── INIT ─────────────────────────────────────────────
+function initPanel(){
+  // Set today's date
+  var today = new Date().toISOString().split('T')[0];
+  document.getElementById('art-date').value = today;
+  loadPostsList();
+}
+
+// ── TABS ─────────────────────────────────────────────
+function showTab(tab){
+  document.querySelectorAll('.panel').forEach(function(p){p.style.display='none';});
+  document.querySelectorAll('.panel-nav a').forEach(function(a){a.classList.remove('active');});
+  document.getElementById('tab-'+tab+'-panel').style.display = 'block';
+  document.getElementById('tab-'+tab).classList.add('active');
+  if(tab === 'posts') loadPostsList();
+}
+
+// ── EDITOR TOOLS ─────────────────────────────────────
+function fmt(cmd){
+  document.getElementById('editor-area').focus();
+  document.execCommand(cmd, false, null);
+}
+function fmtBlock(tag){
+  document.getElementById('editor-area').focus();
+  document.execCommand('formatBlock', false, tag);
+}
+function insertLink(){
+  var url = prompt('URL do link:');
+  if(url){ document.getElementById('editor-area').focus(); document.execCommand('createLink', false, url); }
+}
+function insertImg(){
+  var url = prompt('URL da imagem para inserir no texto:');
+  if(url){ document.getElementById('editor-area').focus(); document.execCommand('insertHTML', false, '<img src="'+url+'" style="max-width:100%;border-radius:8px;margin:12px 0" alt="imagem">'); }
+}
+
+// ── AUTO SLUG ─────────────────────────────────────────
+function autoSlug(){
+  var title = document.getElementById('art-title').value;
+  var slug = title.toLowerCase()
+    .normalize('NFD').replace(/[\u0300-\u036f]/g,'')
+    .replace(/[^a-z0-9\s-]/g,'')
+    .trim().replace(/\s+/g,'-')
+    .replace(/-+/g,'-').substring(0,60);
+  document.getElementById('art-slug').value = slug;
+}
+
+// ── IMAGE PREVIEW ─────────────────────────────────────
+function previewImg(){
+  var url = document.getElementById('art-img').value;
+  var prev = document.getElementById('img-preview');
+  if(url){ prev.innerHTML = '<img src="'+url+'" alt="preview" onerror="this.parentNode.innerHTML=\'<span>&#128247; Imagem nao encontrada</span>\'">'; }
+  else { prev.innerHTML = '<span>&#128247;</span>'; }
+}
+
+// ── SAVE DRAFT ────────────────────────────────────────
+function salvarRascunho(){
+  var draft = getFormData();
+  localStorage.setItem('cafeteiro_draft', JSON.stringify(draft));
+  showToast('Rascunho salvo localmente!');
+}
+
+// Load draft on page load
+window.addEventListener('load', function(){
+  var d = localStorage.getItem('cafeteiro_draft');
+  if(d){
+    try{
+      var draft = JSON.parse(d);
+      if(draft.title) document.getElementById('art-title').value = draft.title;
+      if(draft.summary) document.getElementById('art-summary').value = draft.summary;
+      if(draft.category) document.getElementById('art-cat').value = draft.category;
+      if(draft.author) document.getElementById('art-author').value = draft.author;
+      if(draft.date) document.getElementById('art-date').value = draft.date;
+      if(draft.slug) document.getElementById('art-slug').value = draft.slug;
+      if(draft.image){document.getElementById('art-img').value = draft.image; previewImg();}
+      if(draft.featured) document.getElementById('art-featured').value = draft.featured;
+      if(draft.content) document.getElementById('editor-area').innerHTML = draft.content;
+    }catch(e){}
+  }
+});
+
+// ── GET FORM DATA ─────────────────────────────────────
+var CAT_NAMES = {noticias:'Notícias',gente:'Interior & Gente',gastronomia:'Gastronomia',esportes:'Esportes',turismo:'Turismo & Região'};
+
+function getFormData(){
+  var cat = document.getElementById('art-cat').value;
+  return {
+    title: document.getElementById('art-title').value.trim(),
+    summary: document.getElementById('art-summary').value.trim(),
+    category: cat,
+    categoryName: CAT_NAMES[cat] || '',
+    author: document.getElementById('art-author').value.trim() || 'Redação Cafeteiro',
+    date: document.getElementById('art-date').value,
+    slug: document.getElementById('art-slug').value.trim(),
+    image: document.getElementById('art-img').value.trim(),
+    featured: document.getElementById('art-featured').value === 'true',
+    content: document.getElementById('editor-area').innerHTML
+  };
+}
+
+// ── PUBLISH ───────────────────────────────────────────
+var currentArticleHTML = '';
+var currentSlug = '';
+var currentJsonEntry = '';
+
+function publicar(){
+  var d = getFormData();
+  if(!d.title){showToast('Preencha o título!');return;}
+  if(!d.category){showToast('Selecione uma categoria!');return;}
+  if(!d.slug){showToast('O slug é obrigatório!');return;}
+  if(!d.image){showToast('Adicione a URL da imagem destacada!');return;}
+  if(document.getElementById('editor-area').textContent.trim().length < 50){showToast('O artigo está muito curto!');return;}
+
+  // Format date
+  var ds = d.date.split('-');
+  var months = ['janeiro','fevereiro','março','abril','maio','junho','julho','agosto','setembro','outubro','novembro','dezembro'];
+  var dateFormatted = parseInt(ds[2])+' de '+months[parseInt(ds[1])-1]+' de '+ds[0];
+
+  // Clean content HTML
+  var content = d.content;
+
+  // Build article HTML
+  currentSlug = d.slug;
+  currentArticleHTML = buildArticleHTML(d, dateFormatted, content);
+
+  // Build JSON entry
+  var id = Date.now().toString();
+  var jsonObj = {
+    id: id,
+    slug: d.slug,
+    title: d.title,
+    category: d.category,
+    categoryName: d.categoryName,
+    author: d.author,
+    date: d.date,
+    dateFormatted: dateFormatted,
+    image: d.image,
+    summary: d.summary,
+    featured: d.featured
+  };
+  currentJsonEntry = JSON.stringify(jsonObj, null, 2);
+
+  // Show modal
+  document.getElementById('preview-filename').textContent = 'posts/'+d.slug+'.html';
+  document.getElementById('json-preview').textContent = currentJsonEntry+',';
+  document.getElementById('output-modal').classList.add('on');
+
+  // Save to local storage list
+  var saved = JSON.parse(localStorage.getItem('cafeteiro_posts') || '[]');
+  saved.unshift(jsonObj);
+  localStorage.setItem('cafeteiro_posts', JSON.stringify(saved));
+
+  // Clear draft
+  localStorage.removeItem('cafeteiro_draft');
+}
+
+function buildArticleHTML(d, dateFormatted, content){
+  return '<!DOCTYPE html>\n<html lang="pt-BR">\n<head>\n'+
+'<meta charset="UTF-8">\n'+
+'<meta name="viewport" content="width=device-width, initial-scale=1.0">\n'+
+'<title>'+d.title+' – Cafeteiro do Oeste</title>\n'+
+'<meta name="description" content="'+d.summary.replace(/"/g,"'")+'">\n'+
+'<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">\n'+
+'<style>\n'+
+'*{margin:0;padding:0;box-sizing:border-box}\n'+
+':root{--espresso:#1C0F08;--dark:#2C1810;--caramel:#C8860A;--cream:#F5F0E8;--parchment:#EDE0C8;--gray:#6B5B4E;--light:#FAF7F3;}\n'+
+'body{font-family:"Lato",Georgia,sans-serif;background:var(--light);color:var(--dark);line-height:1.7}\n'+
+'a{color:inherit;text-decoration:none}\n'+
+'.topbar{background:var(--espresso);color:var(--parchment);text-align:center;padding:9px;font-size:11px;letter-spacing:2px;text-transform:uppercase;font-weight:700}\n'+
+'header{background:var(--cream);border-bottom:3px solid var(--caramel);padding:0 20px}\n'+
+'.hdr{max-width:1100px;margin:0 auto;padding:18px 0;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:14px}\n'+
+'.logo{font-family:"Playfair Display",serif;font-size:26px;font-weight:900;color:var(--espresso);display:flex;align-items:center;gap:8px}\n'+
+'.logo em{color:var(--caramel);font-style:normal}\n'+
+'.hdr-nav{display:flex;gap:18px;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.8px}\n'+
+'.hdr-nav a{color:var(--dark);padding-bottom:2px;border-bottom:2px solid transparent;transition:.2s}\n'+
+'.hdr-nav a:hover{color:var(--caramel);border-bottom-color:var(--caramel)}\n'+
+'.breadcrumb{background:var(--parchment);padding:10px 20px;font-size:12px;color:var(--gray)}\n'+
+'.breadcrumb a{color:var(--caramel)}\n'+
+'.hero-img{width:100%;max-height:500px;object-fit:cover;display:block}\n'+
+'.article-wrap{max-width:800px;margin:0 auto;padding:48px 20px 80px}\n'+
+'.cat-badge{display:inline-block;background:var(--caramel);color:#fff;font-size:11px;font-weight:700;padding:4px 12px;border-radius:50px;letter-spacing:1px;text-transform:uppercase;margin-bottom:14px}\n'+
+'.article-title{font-family:"Playfair Display",serif;font-size:clamp(26px,4vw,44px);font-weight:900;line-height:1.2;color:var(--espresso);margin-bottom:16px}\n'+
+'.article-meta{display:flex;align-items:center;gap:16px;font-size:13px;color:var(--gray);margin-bottom:32px;padding-bottom:22px;border-bottom:2px solid var(--parchment)}\n'+
+'.article-meta .author{font-weight:700;color:var(--dark)}\n'+
+'.article-body{font-size:17px;line-height:1.85;color:#3a2a20}\n'+
+'.article-body h2{font-family:"Playfair Display",serif;font-size:26px;font-weight:700;color:var(--espresso);margin:36px 0 14px;padding-bottom:8px;border-bottom:2px solid var(--parchment)}\n'+
+'.article-body h3{font-family:"Playfair Display",serif;font-size:20px;color:var(--dark);margin:26px 0 10px}\n'+
+'.article-body p{margin-bottom:18px}\n'+
+'.article-body ul,.article-body ol{margin:0 0 18px 28px}\n'+
+'.article-body li{margin-bottom:8px}\n'+
+'.article-body strong{color:var(--espresso);font-weight:700}\n'+
+'.article-body blockquote{border-left:4px solid var(--caramel);padding:16px 20px;background:var(--cream);margin:24px 0;font-style:italic;font-family:"Playfair Display",serif;font-size:18px}\n'+
+'.article-body img{max-width:100%;border-radius:10px;margin:18px 0}\n'+
+'.share-box{background:var(--cream);border-radius:14px;padding:22px;margin-top:48px;text-align:center}\n'+
+'.share-box h4{font-family:"Playfair Display",serif;font-size:17px;margin-bottom:14px;color:var(--espresso)}\n'+
+'.share-btns{display:flex;justify-content:center;gap:10px;flex-wrap:wrap}\n'+
+'.share-btn{padding:10px 22px;border-radius:50px;font-size:13px;font-weight:700;cursor:pointer;border:none;font-family:"Lato",sans-serif;transition:.2s}\n'+
+'.share-btn.wa{background:#25D366;color:#fff}\n'+
+'.share-btn.fb{background:#1877F2;color:#fff}\n'+
+'.share-btn.cp{background:var(--espresso);color:#fff}\n'+
+'.back-btn{display:inline-flex;align-items:center;gap:8px;margin-top:28px;color:var(--caramel);font-weight:700;font-size:13px;text-transform:uppercase;letter-spacing:1px}\n'+
+'.back-btn:hover{text-decoration:underline}\n'+
+'footer{background:var(--espresso);color:rgba(245,240,232,.6);text-align:center;padding:28px 20px;font-size:13px;margin-top:0}\n'+
+'footer a{color:var(--caramel)}\n'+
+'</style>\n'+
+'</head>\n<body>\n'+
+'<div class="topbar">Cafeteiro do Oeste — São José do Cedro e Região</div>\n'+
+'<header><div class="hdr">\n'+
+'<a href="../index.html" class="logo">&#9749; Cafeteiro<em> do Oeste</em></a>\n'+
+'<nav class="hdr-nav">\n'+
+'<a href="../index.html">Início</a>\n'+
+'<a href="../index.html?cat=noticias">Notícias</a>\n'+
+'<a href="../index.html?cat=gente">Interior</a>\n'+
+'<a href="../index.html?cat=gastronomia">Gastronomia</a>\n'+
+'<a href="../index.html?cat=esportes">Esportes</a>\n'+
+'<a href="../index.html?cat=turismo">Turismo</a>\n'+
+'</nav></div></header>\n'+
+'<div class="breadcrumb"><a href="../index.html">Início</a> &rsaquo; <a href="../index.html?cat='+d.category+'">'+d.categoryName+'</a> &rsaquo; '+d.title+'</div>\n'+
+'<img src="'+d.image+'" alt="'+d.title.replace(/"/g,"'")+'" class="hero-img">\n'+
+'<div class="article-wrap">\n'+
+'<span class="cat-badge">'+d.categoryName+'</span>\n'+
+'<h1 class="article-title">'+d.title+'</h1>\n'+
+'<div class="article-meta"><span class="author">&#9998; '+d.author+'</span><span>&#128197; '+dateFormatted+'</span></div>\n'+
+'<div class="article-body">'+content+'</div>\n'+
+'<div class="share-box">\n'+
+'<h4>Gostou? Compartilhe com a galera!</h4>\n'+
+'<div class="share-btns">\n'+
+'<button class="share-btn wa" onclick="shareWA()">&#128242; WhatsApp</button>\n'+
+'<button class="share-btn fb" onclick="shareFB()">Facebook</button>\n'+
+'<button class="share-btn cp" onclick="copyLink()">&#128279; Copiar Link</button>\n'+
+'</div></div>\n'+
+'<a href="../index.html" class="back-btn">&#8592; Voltar ao início</a>\n'+
+'</div>\n'+
+'<footer><p>&copy; 2025 Cafeteiro do Oeste | <a href="../sobre.html">Sobre</a> | <a href="../contato.html">Contato</a></p></footer>\n'+
+'<script>\n'+
+'function shareWA(){window.open("https://wa.me/?text="+encodeURIComponent(document.title+" - "+window.location.href));}\n'+
+'function shareFB(){window.open("https://www.facebook.com/sharer/sharer.php?u="+encodeURIComponent(window.location.href));}\n'+
+'function copyLink(){navigator.clipboard.writeText(window.location.href).then(function(){alert("Link copiado!");});}\n'+
+'<\/script>\n'+
+'</body></html>';
+}
+
+function dlArticle(){
+  var blob = new Blob([currentArticleHTML], {type:'text/html;charset=utf-8'});
+  var a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = currentSlug+'.html';
+  a.click();
+  showToast('Arquivo baixado! Envie para a pasta posts/ no GitHub.');
+}
+
+function copyJson(){
+  navigator.clipboard.writeText(currentJsonEntry+',').then(function(){
+    showToast('Entrada JSON copiada! Cole no posts.json.');
+  });
+}
+
+function closeModal(){
+  document.getElementById('output-modal').classList.remove('on');
+}
+
+// ── POSTS LIST ─────────────────────────────────────────
+function loadPostsList(){
+  var saved = JSON.parse(localStorage.getItem('cafeteiro_posts') || '[]');
+  var wrap = document.getElementById('posts-list-wrap');
+  if(saved.length === 0){
+    wrap.innerHTML = '<div class="empty-table">Nenhum artigo publicado ainda nesta sessão.<br><small>Artigos publicados antes de limpar o cache do navegador podem não aparecer aqui.</small></div>';
+    return;
+  }
+  var h = '<table class="posts-table"><thead><tr><th></th><th>Título</th><th>Categoria</th><th>Data</th><th>Ações</th></tr></thead><tbody>';
+  saved.forEach(function(p){
+    h += '<tr>';
+    h += '<td><div class="tbl-thumb"><img src="'+p.image+'" alt="" onerror="this.style.display=\'none\'"></div></td>';
+    h += '<td><div class="tbl-title">'+p.title+'</div></td>';
+    h += '<td>'+p.categoryName+'</td>';
+    h += '<td>'+p.dateFormatted+'</td>';
+    h += '<td><div class="tbl-actions">';
+    h += '<button class="tbl-actions btn-view" onclick="window.open(\'posts/'+p.slug+'.html\')">&#128065; Ver</button>';
+    h += '</div></td>';
+    h += '</tr>';
+  });
+  h += '</tbody></table>';
+  wrap.innerHTML = h;
+}
+
+// ── TOAST ─────────────────────────────────────────────
+var toastT = null;
+function showToast(msg){
+  var el = document.getElementById('toast');
+  el.textContent = msg;
+  el.classList.add('on');
+  if(toastT) clearTimeout(toastT);
+  toastT = setTimeout(function(){el.classList.remove('on');},3500);
+}
+</script>
+</body>
+</html>
