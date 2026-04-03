@@ -44,8 +44,8 @@ header{background:var(--cream);border-bottom:3px solid var(--caramel);position:s
 .search-box button:hover{background:var(--caramel-d)}
 
 /* NAV BAR */
-.catbar{background:var(--espresso);overflow-x:auto}
-.catbar-inner{max-width:1200px;margin:0 auto;display:flex;padding:0 20px}
+.catbar{background:var(--espresso);overflow-x:auto;-webkit-overflow-scrolling:touch;width:100%}
+.catbar-inner{max-width:100%;min-width:100%;margin:0 auto;display:flex;padding:0 20px}
 .catbar a{color:var(--parchment);padding:11px 20px;font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;white-space:nowrap;border-bottom:3px solid transparent;transition:.2s;display:block;cursor:pointer}
 .catbar a:hover,.catbar a.active{color:var(--caramel);border-bottom-color:var(--caramel)}
 
@@ -115,6 +115,18 @@ header{background:var(--cream);border-bottom:3px solid var(--caramel);position:s
 .about-box a{display:inline-block;background:var(--caramel);color:#fff;padding:9px 22px;border-radius:50px;font-size:13px;font-weight:700;transition:.2s}
 .about-box a:hover{background:var(--caramel-d)}
 
+/* AUTHOR BOX */
+.author-box{text-align:center}
+.author-box .author-photo{width:100px;height:100px;border-radius:50%;overflow:hidden;margin:0 auto 14px;border:3px solid var(--caramel);box-shadow:0 4px 16px rgba(28,15,8,.1)}
+.author-box .author-photo img{width:100%;height:100%;object-fit:cover}
+.author-box h4{font-family:'Playfair Display',serif;font-size:16px;font-weight:700;color:var(--espresso);margin-bottom:3px}
+.author-box .author-role{font-size:11px;color:var(--caramel);font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-bottom:10px;display:block}
+.author-box .author-bio{font-size:12px;color:var(--gray);line-height:1.6;margin-bottom:12px}
+.author-box .author-meta{font-size:10px;color:var(--gray);margin-bottom:12px}
+.author-social{display:flex;gap:8px;justify-content:center;margin-top:12px}
+.author-social a{display:inline-flex;align-items:center;justify-content:center;width:32px;height:32px;background:var(--parchment);border-radius:50%;color:var(--espresso);transition:.2s;font-size:14px}
+.author-social a:hover{background:var(--caramel);color:#fff}
+
 /* EMPTY STATE */
 .empty-state{text-align:center;padding:60px 20px;color:var(--gray);grid-column:1/-1}
 .empty-state .icon{font-size:48px;margin-bottom:16px}
@@ -157,8 +169,79 @@ footer{background:var(--dark);color:rgba(245,240,232,.6);padding:44px 24px 0}
 .toast{position:fixed;bottom:22px;left:50%;transform:translateX(-50%) translateY(120px);background:var(--espresso);color:var(--cream);padding:12px 26px;border-radius:50px;font-size:13px;font-weight:700;z-index:9999;transition:.4s cubic-bezier(.4,0,.2,1);pointer-events:none}
 .toast.on{transform:translateX(-50%) translateY(0)}
 
-@media(max-width:1024px){.posts-grid{grid-template-columns:repeat(2,1fr)}.main-layout{grid-template-columns:1fr}.hero{grid-template-columns:1fr}.hero-img-wrap{height:280px}.strip-grid{grid-template-columns:1fr}.ftr{grid-template-columns:1fr 1fr}}
-@media(max-width:640px){.posts-grid{grid-template-columns:1fr}.hero-text{padding:36px 24px}.hdr-nav{display:none}.ftr{grid-template-columns:1fr}}
+@media(max-width:1024px){
+  .posts-grid{grid-template-columns:repeat(2,1fr)}
+  .main-layout{grid-template-columns:1fr}
+  .hero{grid-template-columns:1fr;min-height:350px}
+  .hero-img-wrap{height:280px}
+  .hero-text{padding:36px 24px}
+  .strip-grid{grid-template-columns:1fr}
+  .ftr{grid-template-columns:1fr 1fr}
+  .catbar-inner{padding:0 12px}
+  .container{padding:0 16px}
+}
+@media(max-width:768px){
+  .topbar{font-size:10px;padding:7px 12px}
+  .hdr{padding:12px 16px;gap:12px}
+  .logo{font-size:20px}
+  .logo-cup{font-size:22px}
+  .hdr-nav{display:none}
+  .search-box{display:none}
+  .hdr-right{gap:0}
+  .hero{min-height:280px}
+  .hero-text{padding:28px 20px;justify-content:center}
+  .hero-title{font-size:clamp(18px,2.5vw,28px)}
+  .hero-desc{font-size:13px}
+  .posts-grid{grid-template-columns:1fr;gap:16px}
+  .card-img{height:160px}
+  .card-body{padding:14px}
+  .card-title{font-size:15px}
+  .card-desc{font-size:12px}
+  .section-title{padding:0 16px;margin:32px auto 18px}
+  .section-title h2{font-size:22px}
+  .catbar{width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch}
+  .catbar-inner{padding:0 12px;min-width:100%}
+  .catbar a{padding:9px 12px;font-size:10px}
+  .strip-grid{grid-template-columns:1fr}
+  .featured-strip{padding:24px 0}
+  .newsletter{padding:36px 16px}
+  .nl-form{max-width:100%}
+  .ftr{grid-template-columns:1fr;gap:20px}
+  .ftr-logo{font-size:20px}
+  .container{padding:0 14px}
+}
+@media(max-width:480px){
+  .topbar{font-size:9px;padding:5px 10px;letter-spacing:1px}
+  .logo{font-size:16px;gap:5px}
+  .logo-cup{font-size:18px}
+  .logo-sub{font-size:8px}
+  .hero-text{padding:20px 14px}
+  .hero-title{font-size:clamp(14px,2vw,20px);margin-bottom:10px}
+  .hero-desc{font-size:12px;margin-bottom:12px}
+  .btn-read{padding:8px 16px;font-size:11px}
+  .posts-grid{grid-template-columns:1fr;gap:12px}
+  .card-img{height:140px}
+  .card-body{padding:12px}
+  .card-title{font-size:13px}
+  .card-desc{font-size:11px;-webkit-line-clamp:2}
+  .card-meta{font-size:9px;gap:4px}
+  .section-title{padding:0 12px;margin:24px auto 14px}
+  .section-title h2{font-size:18px;gap:6px}
+  .section-title h2::before{height:18px}
+  .catbar a{padding:7px 10px;font-size:9px;white-space:nowrap}
+  .strip-img{width:80px;height:60px}
+  .strip-title{font-size:13px}
+  .newsletter{padding:28px 12px}
+  .newsletter h2{font-size:clamp(16px,2vw,22px);margin-bottom:6px}
+  .newsletter p{font-size:12px;margin-bottom:12px}
+  .nl-form{max-width:100%;border-radius:40px}
+  .nl-form input{padding:8px 12px;font-size:11px}
+  .nl-form button{padding:8px 14px;font-size:11px}
+  .container{padding:0 10px}
+  .ftr{grid-template-columns:1fr;gap:16px;padding-bottom:24px}
+  .ftr-links{grid-template-columns:1fr;gap:16px}
+  .fbot{flex-direction:column;gap:8px;font-size:10px}
+}
 </style>
 </head>
 <body>
@@ -243,6 +326,20 @@ footer{background:var(--dark);color:rgba(245,240,232,.6);padding:44px 24px 0}
         <p>O Cafeteiro do Oeste é o blog de São José do Cedro e do Extremo Oeste catarinense. Aqui você encontra notícias, história, gastronomia e tudo que move nossa região.</p>
         <a href="sobre.html">Saiba mais</a>
       </div>
+      <div class="sidebar-box author-box">
+        <div class="author-photo">
+          <img src="jorge-autor.jpg" alt="Jorge" onerror="this.style.display='none'">
+        </div>
+        <h4>Jorge</h4>
+        <span class="author-role">✍ Fundador & Escritor</span>
+        <p class="author-bio">18 anos, paraense morando no Sul. Apaixonado por cafeterias, pontos turísticos escondidos e os mínimos detalhes que poucos observam. São José do Cedro e região são minha paixão.</p>
+        <div class="author-meta">
+          <strong>📍 São José do Cedro, SC</strong>
+        </div>
+        <div class="author-social">
+          <a href="https://instagram.com/jorge.fgrd" target="_blank" title="Instagram">📱</a>
+        </div>
+      </div>
       <div class="sidebar-box">
         <h4>Categorias</h4>
         <ul class="cat-list">
@@ -299,13 +396,14 @@ footer{background:var(--dark);color:rgba(245,240,232,.6);padding:44px 24px 0}
         <li><a href="sobre.html">Sobre</a></li>
         <li><a href="contato.html">Contato</a></li>
         <li><a href="privacidade.html">Privacidade</a></li>
+        <li><a href="termos.html">Termos de Uso</a></li>
         <li><a href="painel.html">Área do Editor</a></li>
       </ul>
     </div>
   </div>
   <div class="fbot">
     <span>&#169; 2025 Cafeteiro do Oeste — São José do Cedro / SC</span>
-    <span><a href="privacidade.html">Política de Privacidade</a></span>
+    <span><a href="privacidade.html">Política de Privacidade</a> | <a href="termos.html">Termos de Uso</a></span>
   </div>
 </footer>
 
